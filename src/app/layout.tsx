@@ -1,26 +1,23 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import "./globals.css";
+import './globals.css';
+import { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Escritório Virtual",
-  description: "Seu lugar para acompanhar e gerenciar suas vendas",
+  title: 'Escritório Virtual',
+  description: 'Seu lugar para acompanhar e gerenciar suas vendas',
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="pt-BR">
-      <body
-        className={`${inter.className} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }
