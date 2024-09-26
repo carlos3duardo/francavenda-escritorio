@@ -1,13 +1,19 @@
 import Image from 'next/image';
-
 import imageBackground from '@/assets/images/login-image-background2.jpg';
 import frame from '@/assets/images/login-frame.png';
 
+import logoFrancaVenda from '@/assets/images/logo-francavenda-lightmode.png';
+import { FormLogin } from '@/components';
+
 export default function Home() {
   return (
-    <div className="flex h-screen w-full">
-      <div className="w-[480px] flex items-center justify-center">
-        formulario
+    <main className="flex min-h-screen">
+      <div className="min-h-screen w-full md:pl-[60px] md:w-[420px] lg:w-[480px] bg-white flex flex-col items-center justify-center gap-8 relative">
+        <div className="absolute hidden md:block bg-white top-0 left-[100%] h-full w-[60px] z-30 rounded-r-[60px]" />
+        <figure>
+          <Image src={logoFrancaVenda} alt="logo" width={175} height={70} />
+        </figure>
+        <FormLogin />
       </div>
       <aside className="bg-slate-200 flex-1 relative">
         <figure>
@@ -23,6 +29,6 @@ export default function Home() {
           </figure>
         </figure>
       </aside>
-    </div>
+    </main>
   );
 }
