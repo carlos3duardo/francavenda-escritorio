@@ -8,6 +8,7 @@ import { FormInputText } from './FormInputText';
 import { FormInputPassword } from './FormInputPassword';
 import { FormSelect } from './FormSelect';
 import { FormDateInput } from './FormDateInput';
+import { FormCheckbox } from './FormCheckbox';
 
 import { FormSubmitButton } from './FormSubmitButton';
 
@@ -23,6 +24,7 @@ export const Form = {
   InputPassword: FormInputPassword,
   Select: FormSelect,
   DateInput: FormDateInput,
+  Checkbox: FormCheckbox,
 
   Submit: FormSubmitButton,
 };

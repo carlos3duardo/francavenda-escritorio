@@ -17,6 +17,7 @@ export default function FormLogin() {
       .min(1, { message: 'Campo obrigatório.' })
       .email({ message: 'Endereço de e-mail inválido.' }),
     password: z.string().min(1, { message: 'Campo obrigatório.' }),
+    remember: z.boolean(),
   });
 
   type FormData = z.infer<typeof formSchema>;
@@ -36,6 +37,7 @@ export default function FormLogin() {
       .post('/auth/token', {
         username: data.username,
         password: data.password,
+        remember: data.remember,
       })
       .then(() => {
         router.push('/dashboard');
@@ -57,7 +59,7 @@ export default function FormLogin() {
   }
 
   return (
-    <div className="w-full lg:max-w-[380px] px-4 lg:px-0 flex flex-col items-center gap-6">
+    <div className="w-full lg:max-w-[380px] px-4 lg:px-0 flex flex-col items-center gap-4">
       <Form.Root {...methods}>
         <Form.Body onSubmit={handleSubmit(formSubmit)}>
           <Form.Fieldset className="px-0">
@@ -85,6 +87,14 @@ export default function FormLogin() {
                 error={errors.password?.message}
               />
             </Form.Control>
+            <div className="col-span-12 flex items-center justify-between text-sm text-slate-600 font-medium">
+              <Form.Checkbox
+                name="remember"
+                label="Lembrar-me"
+                error={errors.remember?.message}
+              />
+              <div>Esqueci minha senha</div>
+            </div>
           </Form.Fieldset>
 
           <Form.Error />
