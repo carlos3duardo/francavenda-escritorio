@@ -32,45 +32,46 @@ const Checkbox: React.ForwardRefRenderFunction<
   ref,
 ) => {
   return (
-    <label className="cursor-pointer flex items-center gap-2">
+    <label
+      data-size={size}
+      className="checkbox-container inline-flex items-center gap-2 relative cursor-pointer text-[1.5rem]"
+    >
       <input
         ref={ref}
         id={id}
         name={name || id}
         type="checkbox"
-        className="hidden peer"
+        className="peer absolute opacity-0 cursor-pointer h-0 w-0"
         {...rest}
       />
-      <svg
-        viewBox="0 0 64 64"
-        height="1em"
-        width="1em"
-        className="overflow-visible"
-      >
-        <path
-          d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-          pathLength="575.0541381835938"
-          className="path transition-[stroke-dasharray,stroke-dashoffset] duration-500 ease stroke-slate-400 peer-checked:stroke-primary-600"
-        />
-      </svg>
-      {label && <span>{label}</span>}
+      <div className="checkmark relative top-0 left-0 bg-white border border-slate-300 rounded transition peer-checked:bg-primary-500 peer-checked:border-primary-500"></div>
+      {label && (
+        <span data-size={size} className="text-sm data-[size=sm]:text-xs">
+          {label}
+        </span>
+      )}
       {error && (
         <span className="text-red-400 text-xs font-medium">{error}</span>
       )}
 
       <style jsx>{`
-        .path {
-          fill: none;
-          stroke-width: 6;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          stroke-dasharray: 241 9999999;
-          stroke-dashoffset: 0;
-        }
-
-        .peer:checked ~ svg .path {
-          stroke-dasharray: 70.5096664428711 9999999;
-          stroke-dashoffset: -262.2723388671875;
+        .checkbox-container {
+          user-select: none;
+          .checkmark {
+            width: 20px;
+            height: 20px;
+          }
+          .checkmark:after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid #ffffff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+          }
         }
       `}</style>
     </label>
