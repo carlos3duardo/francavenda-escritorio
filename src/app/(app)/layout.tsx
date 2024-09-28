@@ -4,7 +4,10 @@ import { AppLayout, NavigationMenu } from '@/components';
 import { primaryMenu, secondaryMenu } from '@/data/menu';
 
 export const metadata: Metadata = {
-  title: 'Bússola da Gestão',
+  title: {
+    template: '%s | Escritório Virtual',
+    default: 'Franca Venda | Escritório Virtual',
+  },
 };
 
 export default function RootLayout({

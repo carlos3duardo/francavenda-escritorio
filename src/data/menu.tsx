@@ -1,5 +1,12 @@
 'use client';
-import { Files, Folder, House, LogOut, Settings2 } from 'lucide-react';
+import {
+  Files,
+  Folder,
+  House,
+  LogOut,
+  Settings2,
+  ShoppingBag,
+} from 'lucide-react';
 import { ElementType } from 'react';
 
 export type SubmenuItemProps = {
@@ -30,6 +37,25 @@ export const primaryMenu: MenuItemProps[] = [
     icon: House,
   },
   {
+    id: 2202,
+    label: 'Loja Virtual',
+    href: '/ecommerce',
+    free: true,
+    icon: ShoppingBag,
+    submenu: [
+      {
+        id: 1,
+        label: 'Destaques',
+        href: '/ecommerce/destaques',
+      },
+      {
+        id: 2,
+        label: 'Ofertas',
+        href: '/ecommerce/ofertas',
+      },
+    ],
+  },
+  {
     id: 2203,
     label: 'Cadastro',
     href: '/cadastro',
@@ -50,11 +76,6 @@ export const primaryMenu: MenuItemProps[] = [
         id: 3,
         label: 'Produtos',
         href: '/cadastro/produto',
-      },
-      {
-        id: 4,
-        label: 'Ofertas',
-        href: '/cadastro/oferta',
       },
       {
         id: 5,
@@ -82,7 +103,7 @@ export const secondaryMenu: MenuItemProps[] = [
   {
     id: 4203,
     label: 'Sair',
-    href: '/logout',
+    href: '/signout',
     free: true,
     icon: LogOut,
   },

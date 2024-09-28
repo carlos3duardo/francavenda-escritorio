@@ -6,6 +6,7 @@ import { AppLayoutPageHeader } from './AppLayoutPageHeader';
 import { AppLayoutPageTitle } from './AppLayoutPageTitle';
 import { AppLayoutPageBreadcrumbs } from './AppLayoutBreadcrumbs';
 import { AppLayoutPageActions } from './AppLayoutPageActions';
+import { AppLayoutPageContent } from './AppLayoutPageContent';
 import { AppLayoutFooter } from './AppLayoutFooter';
 
 export const AppLayout = {
@@ -17,5 +18,6 @@ export const AppLayout = {
   PageTitle: AppLayoutPageTitle,
   PageBreadcrumbs: AppLayoutPageBreadcrumbs,
   PageActions: AppLayoutPageActions,
+  PageContent: AppLayoutPageContent,
   Footer: AppLayoutFooter,
 };

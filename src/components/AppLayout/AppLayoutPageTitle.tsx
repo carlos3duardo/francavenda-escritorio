@@ -1,17 +1,17 @@
 interface PageTitleProps {
-  title: string | undefined;
+  title: string;
   subtitle?: string;
 }
 
 export function AppLayoutPageTitle({ title, subtitle }: PageTitleProps) {
   return (
-    <>
-      <h1 className="text-xl text-slate-600 dark:text-slate-200 font-semibold">
-        {title || 'Carregando...'}
-      </h1>
+    <div>
+      <h1 className="text-xl font-semibold leading-tight">{title}</h1>
       {subtitle && (
-        <p className="text-sm text-slate-400 font-medium">{subtitle}</p>
+        <p className="text-sm text-slate-400 font-medium leading-tight">
+          {subtitle}
+        </p>
       )}
-    </>
+    </div>
   );
 }

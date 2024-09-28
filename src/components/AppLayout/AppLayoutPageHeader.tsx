@@ -1,25 +1,13 @@
-'use client';
-import { ReactNode, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { ReactNode } from 'react';
 
 interface PageHeaderProps {
-  isLoading?: boolean;
   children: ReactNode;
 }
 
-export function AppLayoutPageHeader({
-  isLoading = false,
-  children,
-}: PageHeaderProps) {
-  const [pageHeaderEl, setPageHeaderEl] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setPageHeaderEl(document.getElementById('app-page-header'));
-  }, [pageHeaderEl]);
-
-  if (pageHeaderEl && isLoading) {
-    createPortal(<>Carregando</>, pageHeaderEl);
-  }
-
-  return pageHeaderEl && createPortal(children, pageHeaderEl);
+export function AppLayoutPageHeader({ children }: PageHeaderProps) {
+  return (
+    <div className="flex items-center justify-between px-8 py-3">
+      {children}
+    </div>
+  );
 }

@@ -1,17 +1,9 @@
-'use client';
-import { ReactNode, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { ReactNode } from 'react';
 
-interface PageActionsProps {
+interface PageActionProps {
   children: ReactNode;
 }
 
-export function AppLayoutPageActions({ children }: PageActionsProps) {
-  const [pageActionsEl, setPageActionsEl] = useState<HTMLElement | null>(null);
-
-  useEffect(() => {
-    setPageActionsEl(document.getElementById('app-page-actions'));
-  }, [pageActionsEl]);
-
-  return pageActionsEl && createPortal(children, pageActionsEl);
+export function AppLayoutPageActions({ children }: PageActionProps) {
+  return <div>{children}</div>;
 }

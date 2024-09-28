@@ -6,7 +6,13 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  /* transition: background-color 2 ease-in-out 0s; */
-  /* background-color: transparent; */
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+body {
+  @apply bg-slate-100 dark:bg-slate-600 text-slate-600 dark:text-slate-50;
+}
+
+button {
+  @apply transition duration-200
 }

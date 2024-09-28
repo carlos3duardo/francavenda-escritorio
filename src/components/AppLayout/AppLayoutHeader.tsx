@@ -1,26 +1,34 @@
-import { Bell, LayoutGrid } from 'lucide-react';
 import { UserMenu } from './ext/UserMenu';
 import { ColorModeSwitch, ScreenSizeView } from '@/components';
 import UserAvatar from './ext/UserAvatar';
+import { Menu, Search } from 'lucide-react';
 
 export function AppLayoutHeader() {
   return (
-    <header className="h-20 px-8 flex justify-between gap-4 items-center">
-      <div className="flex flex-1 items-center justify-between">
-        <div id="app-page-header" />
-        <div id="app-page-actions" />
+    <header className="h-16 px-8 flex justify-between gap-4 items-center bg-slate-100">
+      <div className="flex gap-4 items-center">
+        <div>
+          <button className="h-9 w-9 flex items-center justify-center rounded-md text-slate-500 hover:text-slate-600 hover:bg-slate-200">
+            <Menu size={24} />
+          </button>
+        </div>
+        <div>
+          <div className="w-[300px] flex items-center gap-2 bg-white h-9 pl-3 pr-1 rounded-md">
+            <input
+              type="text"
+              className="flex-1 h-9 text-sm font-medium text-slate-600 outline-none"
+            />
+            <button className="h-9 w-9 flex items-center justify-center">
+              <Search size={16} />
+            </button>
+          </div>
+        </div>
       </div>
       <div className="flex items-center gap-4">
         <ScreenSizeView />
 
         <div role="menu" className="flex items-center">
           <ColorModeSwitch />
-          <button className="h-8 w-8 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-300 rounded-full transition">
-            <Bell size={18} />
-          </button>
-          <button className="h-8 w-8 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-300 rounded-full transition">
-            <LayoutGrid size={18} />
-          </button>
         </div>
 
         <UserMenu>

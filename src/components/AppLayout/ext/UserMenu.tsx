@@ -1,12 +1,5 @@
 'use client';
-import {
-  Building,
-  HelpCircle,
-  History,
-  Lock,
-  LogOut,
-  User,
-} from 'lucide-react';
+import { HelpCircle, History, Lock, LogOut, User } from 'lucide-react';
 import { DropdownMenu } from '@/components/DropdownMenu';
 import { ReactNode } from 'react';
 
@@ -25,11 +18,6 @@ export function UserMenu({ children }: UserMenuProps) {
           label="Meus dados"
           icon={User}
           href="/config?tab-config=usuario"
-        />
-        <DropdownMenu.Item
-          label="Alterar empresa"
-          icon={Building}
-          href="/config?tab-config=alterar-empresa"
         />
         <DropdownMenu.Item
           label="Segurança"
