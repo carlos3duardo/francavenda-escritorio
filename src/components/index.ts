@@ -7,6 +7,8 @@ import ScreenSizeView from './ScreenSizeView';
 import Button from './Button';
 import { Form } from './Form';
 
+import { DataTable } from './DataTable';
+
 export {
   AppLayout,
   ColorModeSwitch,
@@ -16,4 +18,5 @@ export {
   FormLogin,
   Button,
   Form,
+  DataTable,
 };

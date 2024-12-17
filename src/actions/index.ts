@@ -1,3 +1,4 @@
+import { getCookie } from './getCookie';
 import { signOut } from './signout';
 
-export { signOut };
+export { getCookie, signOut };

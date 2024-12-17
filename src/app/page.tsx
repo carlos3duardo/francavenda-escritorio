@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import imageBackground from '@/assets/images/login-image-background3.jpg';
+import imageBackground from '@/assets/images/login-image-background2.jpg';
 import frame from '@/assets/images/login-frame.png';
 
 import logoFrancaVenda from '@/assets/images/logo-francavenda-lightmode.png';
@@ -24,7 +24,7 @@ export default function Home() {
               src={frame}
               alt=""
               fill
-              className="object-cover opacity-90"
+              className="object-cover opacity-80"
             />
           </figure>
         </figure>
