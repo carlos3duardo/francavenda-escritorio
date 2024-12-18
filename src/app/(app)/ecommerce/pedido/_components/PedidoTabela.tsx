@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ColumnProps, DataTable } from '@/components/DataTable';
 import { ApiPedidoProps } from '@/@types';
 import { currency, dateTimeBr } from '@/helpers';
+import { Badge } from '@/components';
 
 const columns = [
   {
@@ -48,18 +49,7 @@ const columns = [
     label: 'Situação',
     thClassName: 'text-left',
     content: ({ situacao }: ApiPedidoProps) => {
-      return (
-        <span
-          className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium"
-          style={{
-            backgroundColor: `${situacao.cor}22`,
-            color: `${situacao.cor}`,
-            boxShadow: `0 0 0 1px inset ${situacao.cor}44`,
-          }}
-        >
-          {situacao.nome}
-        </span>
-      );
+      return <Badge label={situacao.nome} color={situacao.cor} withBorder />;
     },
   },
   {
