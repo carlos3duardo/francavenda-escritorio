@@ -5,5 +5,15 @@ interface PageContentProps {
 }
 
 export function AppLayoutPageContent({ children }: PageContentProps) {
-  return <main className="flex-1 px-8 py-3">{children}</main>;
+  return (
+    <>
+      <header className="mb-4">
+        <div className="w-full flex items-center justify-between">
+          <div id="app-page-header" />
+          <div id="app-page-actions" />
+        </div>
+      </header>
+      {children}
+    </>
+  );
 }

@@ -79,7 +79,7 @@ export function NavigationMenuItem({
       <Link
         href={href}
         data-active={isActive}
-        className="w-full flex items-center gap-3 px-4 xl:px-6 h-10 rounded text-sm font-medium text-white transition relative hover:bg-primary-700/60 data-[active=true]:bg-primary-700/60 data-[active=true]:ring-1 data-[active=true]:ring-primary-100/10 data-[active=true]:hover:bg-primary-700/60"
+        className="w-full flex items-center gap-3 px-4 xl:px-6 h-10 rounded text-sm font-medium text-white transition relative hover:bg-primary-700/60 hover:text-secondary-300 data-[active=true]:bg-primary-700/60 data-[active=true]:ring-1 data-[active=true]:ring-primary-100/10 data-[active=true]:hover:bg-primary-700/60"
         prefetch={false}
         onClick={(evt) => handleClick(evt, !submenu)}
       >
@@ -110,7 +110,7 @@ export function NavigationMenuItem({
                 <Link
                   href={link.href}
                   prefetch={false}
-                  className="flex items-center gap-3 font-medium text-white hover:text-primary-400"
+                  className="flex items-center gap-3 font-medium text-white hover:text-primary-300"
                 >
                   <Dot size={18} />
                   {link.label}

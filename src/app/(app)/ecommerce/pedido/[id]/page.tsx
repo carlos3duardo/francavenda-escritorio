@@ -1,5 +1,6 @@
 import { AppLayout } from '@/components';
 import { Metadata } from 'next';
+import { PedidoInfo } from '../_components/PedidoInfo';
 
 interface PageProps {
   params: {
@@ -13,11 +14,8 @@ export const metadata: Metadata = {
 
 export default function Page({ params }: PageProps) {
   return (
-    <>
-      <AppLayout.PageHeader>
-        <AppLayout.PageTitle title={`Pedido ${params.id}`} />
-      </AppLayout.PageHeader>
-      <AppLayout.PageContent>Visualizar pedido</AppLayout.PageContent>
-    </>
+    <AppLayout.PageContent>
+      <PedidoInfo id={params.id} />
+    </AppLayout.PageContent>
   );
 }

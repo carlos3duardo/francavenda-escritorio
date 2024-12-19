@@ -7,12 +7,14 @@ import ScreenSizeView from './ScreenSizeView';
 import Button from './Button';
 import { Badge } from './Badge';
 import { Form } from './Form';
+import { Card } from './Card';
 
 import { DataTable } from './DataTable';
 
 export {
   AppLayout,
   Badge,
+  Card,
   ColorModeSwitch,
   NavigationMenu,
   NavigationMenuItem,

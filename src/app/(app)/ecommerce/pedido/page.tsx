@@ -8,16 +8,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
-      <AppLayout.PageHeader>
-        <AppLayout.PageTitle
-          title="Pedidos"
-          subtitle="Pedidos realizados na loja virtual"
-        />
-      </AppLayout.PageHeader>
-      <AppLayout.PageContent>
-        <PedidoTabela />
-      </AppLayout.PageContent>
-    </>
+    <AppLayout.PageContent>
+      <PedidoTabela />
+    </AppLayout.PageContent>
   );
 }

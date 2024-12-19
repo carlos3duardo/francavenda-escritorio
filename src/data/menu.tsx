@@ -87,6 +87,11 @@ export const primaryMenu: MenuItemProps[] = [
         label: 'Afiliados',
         href: '/cadastro/afiliado',
       },
+      {
+        id: 6,
+        label: 'Clientes',
+        href: '/cadastro/cliente',
+      },
     ],
   },
   {
