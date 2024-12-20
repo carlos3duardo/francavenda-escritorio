@@ -33,7 +33,6 @@ export function DataTablePagination() {
 
   const handleChangeCurrentPage = useCallback(
     (page: number) => {
-      console.log({ page });
       setCurrentPage(page);
     },
     [setCurrentPage],

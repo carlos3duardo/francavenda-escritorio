@@ -8,7 +8,10 @@ type CardRootProps = ComponentProps<'div'> & {
 export function CardRoot({ children, className, ...rest }: CardRootProps) {
   return (
     <div
-      className={twMerge('bg-white rounded-lg relative shadow', className)}
+      className={twMerge(
+        'bg-white dark:bg-slate-700 rounded-lg relative shadow dark:shadow-none',
+        className,
+      )}
       {...rest}
     >
       {children}

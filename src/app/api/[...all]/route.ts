@@ -11,10 +11,6 @@ export async function GET(request: NextRequest) {
   const cookieStore = cookies();
   const accessToken = cookieStore.get('frv:token');
 
-  console.log('--------------------------------------------------------------');
-  console.log({ cookieStore, accessToken });
-  console.log('--------------------------------------------------------------');
-
   return await axios({
     url: endpoint,
     method: 'GET',

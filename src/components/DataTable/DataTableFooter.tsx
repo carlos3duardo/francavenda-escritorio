@@ -12,7 +12,7 @@ export function DataTableFooter({ children }: DataTableFooterProps) {
   if (!rowsCount) return null;
 
   return (
-    <div className="flex items-center justify-between p-4 gap-2 bg-slate-100 last:rounded-b-md">
+    <div className="flex items-center justify-between p-4 gap-2 bg-slate-100 dark:bg-slate-800/40 last:rounded-b-md">
       {children}
     </div>
   );

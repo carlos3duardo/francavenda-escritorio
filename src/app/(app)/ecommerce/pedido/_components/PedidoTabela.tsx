@@ -66,7 +66,7 @@ const columns = [
     label: 'Data',
     thClassName: 'text-center',
     tdClassName: 'text-center',
-    content: ({ data_compra: dataCompra }: ApiPedidoProps) => {
+    content: ({ created_at: dataCompra }: ApiPedidoProps) => {
       return dateTimeBr(dataCompra);
     },
   },

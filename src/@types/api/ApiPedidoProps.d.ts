@@ -98,7 +98,6 @@ type ComposicaoProps = {
 type ComentarioProps = {
   id: string;
   comentario: string;
-  created_at: string;
   categoria: {
     id: string;
     nome: string;

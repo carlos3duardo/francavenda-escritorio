@@ -104,7 +104,7 @@ export function DataTableContent({
           <th
             key={`${dataSrc}-head-${column.field}`}
             className={twMerge(
-              'text-xs font-semibold uppercase p-2 first:pl-4 last:pr-4 bg-slate-100 text-slate-400 dark:bg-inherit dark:text-slate-300/70',
+              'text-xs font-semibold uppercase p-2 first:pl-4 last:pr-4 bg-slate-100 text-slate-400 dark:bg-slate-800/40 dark:text-slate-300/70',
               column.thClassName,
             )}
             style={column.thStyles}
@@ -213,7 +213,7 @@ export function DataTableContent({
                         <td
                           key={`${row.id}-${column.field}`}
                           className={twMerge(
-                            'text-gray-600 text-sm font-medium py-3 px-2 border-t first:pl-4 last:pr-4 border-slate-200 dark:border-slate-800',
+                            'text-sm font-medium py-3 px-2 border-t first:pl-4 last:pr-4 dark:text-slate-200 border-slate-200 dark:border-slate-800',
                             column.tdClassName,
                           )}
                           style={column.tdStyles}

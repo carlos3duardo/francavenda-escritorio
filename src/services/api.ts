@@ -3,8 +3,6 @@ import { getCookie } from 'cookies-next';
 
 const accessToken = getCookie('frv:token');
 
-console.log({ accessToken });
-
 export const api = axios.create({
   baseURL: process.env.APP_HOST,
   headers: {

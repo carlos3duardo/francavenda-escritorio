@@ -8,7 +8,7 @@ interface DataTableRootProps {
 
 export function DataTableRoot({ children }: DataTableRootProps) {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-lg relative shadow">
+    <div className="bg-white dark:bg-slate-700 rounded-lg relative shadow">
       <DataTableProvider>{children}</DataTableProvider>
     </div>
   );
