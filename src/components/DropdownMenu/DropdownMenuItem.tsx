@@ -14,7 +14,7 @@ function MenuItemContent({ icon: Icon, label, href, onClick }: MenuItemProps) {
   if (onClick) {
     return (
       <button
-        className="w-full flex items-center h-9 px-4 text-slate-600 hover:text-primary-600"
+        className="w-full flex items-center h-9 px-4 text-slate-600 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400"
         onClick={onClick}
       >
         <span className="flex gap-2">
@@ -28,7 +28,7 @@ function MenuItemContent({ icon: Icon, label, href, onClick }: MenuItemProps) {
     return (
       <Link
         href={href}
-        className="w-full flex items-center h-9 px-4 text-slate-600 hover:text-primary-600"
+        className="w-full flex items-center h-9 px-4 text-slate-600 dark:text-slate-200 hover:text-primary-600 dark:hover:text-primary-400"
       >
         <span className="flex gap-2">
           {Icon && <Icon size={18} />} {label}
@@ -38,7 +38,7 @@ function MenuItemContent({ icon: Icon, label, href, onClick }: MenuItemProps) {
   }
 
   return (
-    <span className="flex gap-2 px-4 py-3 text-slate-400">
+    <span className="flex gap-2 px-4 py-3">
       {Icon && <Icon size={18} />} {label}
     </span>
   );
@@ -51,7 +51,7 @@ export function DropdownMenuItem({
   onClick,
 }: MenuItemProps) {
   return (
-    <DropdownMenu.Item className="group flex items-center gap-2 select-none outline-none transition-colors duration-300 transform text-sm text-slate-600 hover:bg-slate-100">
+    <DropdownMenu.Item className="group flex items-center gap-2 select-none outline-none transition-colors duration-300 transform text-sm hover:bg-slate-100 dark:hover:bg-slate-900">
       <MenuItemContent
         label={label}
         icon={icon}

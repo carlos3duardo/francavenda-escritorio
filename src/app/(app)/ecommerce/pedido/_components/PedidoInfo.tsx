@@ -1,8 +1,11 @@
 'use client';
 import { ApiPedidoProps } from '@/@types';
 import { Card } from '@/components';
+import { DropdownMenu } from '@/components/DropdownMenu';
 import { currency, dateTimeBr, maskCep, maskCpf } from '@/helpers';
-import { Circle } from '@phosphor-icons/react/dist/ssr';
+import { Circle, DotsThreeVertical } from '@phosphor-icons/react/dist/ssr';
+import { Check, RotateCw, X } from 'lucide-react';
+import { useCallback } from 'react';
 
 interface PedidoInfoProps {
   isLoading: boolean;
@@ -11,6 +14,14 @@ interface PedidoInfoProps {
 }
 
 export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
+  const handleAprovarPedido = useCallback((pedidoId: string) => {
+    alert(`Aprovar pedido ${pedidoId}`);
+  }, []);
+
+  const handleCancelarPedido = useCallback((pedidoId: string) => {
+    alert(`Cancelar pedido ${pedidoId}`);
+  }, []);
+
   if (isLoading) {
     return (
       <Card.Root>
@@ -24,6 +35,34 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
       <Card.Root>
         <Card.Header>
           <Card.Label title={`Pedido ${pedido?.numero}`} />
+          <Card.Toolbar>
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger>
+                <button
+                  type="button"
+                  className="w-8 h-8 flex items-center justify-center bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-900 rounded"
+                >
+                  <DotsThreeVertical size={18} />
+                </button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content hasArrow>
+                <DropdownMenu.Item
+                  label="Aprovar pedido"
+                  icon={Check}
+                  onClick={() => handleAprovarPedido(pedido.id)}
+                />
+                <DropdownMenu.Item
+                  label="Cancelar pedido"
+                  icon={X}
+                  onClick={() => handleCancelarPedido(pedido.id)}
+                />
+                <DropdownMenu.Item
+                  label="Reprocessar pagamento"
+                  icon={RotateCw}
+                />
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
+          </Card.Toolbar>
         </Card.Header>
         <Card.Separator />
         <Card.Grid>

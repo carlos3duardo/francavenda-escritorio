@@ -104,7 +104,7 @@ export function DataTableContent({
           <th
             key={`${dataSrc}-head-${column.field}`}
             className={twMerge(
-              'text-xs font-semibold uppercase p-2 first:pl-4 last:pr-4 bg-slate-100 text-slate-400 dark:bg-slate-800/40 dark:text-slate-300/70',
+              'text-xs font-semibold uppercase p-2 first:pl-4 last:pr-4 bg-slate-100 dark:bg-black/10 text-slate-400 dark:text-slate-300/70',
               column.thClassName,
             )}
             style={column.thStyles}
@@ -124,12 +124,10 @@ export function DataTableContent({
           <tr>
             <td
               colSpan={columns.length}
-              className="bg-slate-50 border-t border-slate-200"
+              className="border-t border-border dark:border-border-dark"
             >
-              <div className="p-6 flex flex-row items-center justify-center gap-4 bg-slate-50">
-                <span className="text-slate-400 font-sm font-medium">
-                  Carregando dados...
-                </span>
+              <div className="p-6 flex flex-row items-center justify-center gap-4">
+                <span className="font-sm font-medium">Carregando dados...</span>
               </div>
             </td>
           </tr>
@@ -147,7 +145,7 @@ export function DataTableContent({
             <tr>
               <td
                 colSpan={columns.length}
-                className="bg-red-50 border-t border-slate-200"
+                className="bg-red-50 dark:bg-red-900 border-t border-border dark:border-border-dark"
               >
                 <div className="p-6 flex flex-row items-center justify-center gap-4">
                   <Image src={errorIcon} width={32} height={32} alt="Erro" />
@@ -173,7 +171,7 @@ export function DataTableContent({
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="bg-slate-50 border-t border-t-slate-200 dark:bg-slate-600 dark:border-slate-700"
+                  className="border-t border-border dark:border-border-dark"
                 >
                   <div className="p-6 flex flex-col items-center justify-center text-slate-400 font-sm font-medium">
                     <CircleSlash2 />
@@ -196,7 +194,7 @@ export function DataTableContent({
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="p-8 text-center bg-slate-50 text-slate-600 font-medium border-t border-slate-200"
+                  className="p-8 text-center font-medium border-t border-border dark:border-border-dark"
                 >
                   <div className="flex flex-col gap-2 items-center">
                     <CircleSlash2 />
@@ -213,7 +211,7 @@ export function DataTableContent({
                         <td
                           key={`${row.id}-${column.field}`}
                           className={twMerge(
-                            'text-sm font-medium py-3 px-2 border-t first:pl-4 last:pr-4 dark:text-slate-200 border-slate-200 dark:border-slate-800',
+                            'text-sm font-medium py-3 px-2 border-t first:pl-4 last:pr-4 border-border dark:border-border-dark',
                             column.tdClassName,
                           )}
                           style={column.tdStyles}

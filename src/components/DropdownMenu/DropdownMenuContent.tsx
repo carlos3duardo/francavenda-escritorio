@@ -15,10 +15,14 @@ export function DropdownMenuContent({
     <DropdownMenu.Content
       align="end"
       style={{ zIndex: 99 }}
-      className="min-w-[12rem] py-2 rounded-md shadow origin-top-right bg-white"
+      className="min-w-[12rem] py-2 rounded-md shadow origin-top-right bg-white dark:bg-slate-800"
     >
       {hasArrow && (
-        <DropdownMenu.Arrow width={14} height={8} className="fill-white" />
+        <DropdownMenu.Arrow
+          width={14}
+          height={8}
+          className="fill-white dark:fill-slate-800"
+        />
       )}
       {children}
     </DropdownMenu.Content>

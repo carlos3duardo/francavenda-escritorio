@@ -48,7 +48,7 @@ export function PedidoComentarios({
               return (
                 <li
                   key={comentario.id}
-                  className="flex gap-4 border-b pb-2 last:border-b-0 border-slate-200 dark:border-slate-800"
+                  className="flex gap-4 border-b pb-2 last:border-b-0 border-border dark:border-border-dark"
                 >
                   <div className="pt-[2px]">
                     <ChatDots size={16} />
@@ -62,7 +62,7 @@ export function PedidoComentarios({
                         </span>
                       ))}
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs font-medium text-slate-400">
                       {comentario.usuario
                         ? `${comentario.usuario.nome} em `
                         : ''}

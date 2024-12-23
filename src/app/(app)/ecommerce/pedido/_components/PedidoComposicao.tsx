@@ -61,13 +61,13 @@ export function PedidoComposicao({
                 {composicao.map((item) => {
                   return (
                     <tr key={item.id}>
-                      <td className="text-sm font-medium py-2 px-2 border-t border-t-slate-200 dark:border-slate-800">
+                      <td className="text-sm font-medium py-2 px-2 border-t border-border dark:border-border-dark">
                         {item.descricao}
                       </td>
-                      <td className="text-sm font-medium py-2 px-2 border-t border-t-slate-200 dark:border-slate-800">
+                      <td className="text-sm font-medium py-2 px-2 border-t border-border dark:border-border-dark">
                         {maskCpf(item.cpf)}
                       </td>
-                      <td className="text-sm font-medium py-2 px-2 border-t border-t-slate-200 dark:border-slate-800">
+                      <td className="text-sm font-medium py-2 px-2 border-t border-border dark:border-border-dark">
                         {item.tipo.nome}
                       </td>
                     </tr>

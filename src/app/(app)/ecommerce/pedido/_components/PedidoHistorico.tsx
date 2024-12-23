@@ -47,7 +47,7 @@ export function PedidoHistorico({
               return (
                 <li
                   key={his.id}
-                  className="flex gap-4 border-b pb-2 last:border-b-0 border-slate-200 dark:border-slate-800"
+                  className="flex gap-4 border-b pb-2 last:border-b-0 border-border dark:border-border-dark"
                 >
                   <div className="pt-[7px]">
                     <Circle
@@ -58,10 +58,10 @@ export function PedidoHistorico({
                   </div>
                   <div className="flex-1">
                     <div className="font-medium">{his.situacao.nome}</div>
-                    <div className="text-sm text-slate-500 font-medium">
+                    <div className="text-sm font-medium text-slate-500 dark:text-slate-400">
                       {his.comentario}
                     </div>
-                    <div className="text-xs text-slate-500 font-medium">
+                    <div className="text-xs font-medium text-slate-500 dark:text-slate-400">
                       {dateTimeBr(his.created_at)}
                     </div>
                   </div>

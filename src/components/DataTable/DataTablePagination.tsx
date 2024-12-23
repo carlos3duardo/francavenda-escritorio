@@ -19,7 +19,7 @@ function Button({ children, disabled = false, onClick }: ButtonProps) {
     <button
       type="button"
       disabled={disabled}
-      className="h-8 w-8 flex items-center justify-center text-slate-600 border-l border-l-slate-300 first:border-l-0 hover:bg-slate-100 active:bg-slate-200 disabled:pointer-events-none disabled:text-slate-300"
+      className="h-8 w-8 flex items-center justify-center border-l border-l-slate-300 dark:border-l-slate-500 first:border-l-0 disabled:pointer-events-none hover:bg-slate-100 dark:hover:bg-slate-500 active:bg-slate-200 disabled:text-slate-300 dark:disabled:text-slate-500"
       onClick={() => onClick()}
     >
       {children}
@@ -39,7 +39,7 @@ export function DataTablePagination() {
   );
 
   return (
-    <div className="flex border rounded-md bg-white border-slate-300 overflow-hidden">
+    <div className="flex border rounded-md bg-white dark:bg-slate-700 border-slate-300 dark:border-slate-500 overflow-hidden">
       <Button
         onClick={() => handleChangeCurrentPage(1)}
         disabled={currentPage === 1}

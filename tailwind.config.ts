@@ -10,6 +10,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        'body-background': '#f8f7fa',
+        'body-background-dark': '#25293c',
+        'component-background': '#ffffff',
+        'component-background-dark': '#2f3349',
+        border: '#e6e6e8',
+        'border-dark': '#44485e',
         primary: {
           50: '#f2f8fd',
           100: '#e3effb',

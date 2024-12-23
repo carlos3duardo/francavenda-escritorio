@@ -5,7 +5,7 @@ import { Menu, Search } from 'lucide-react';
 
 export function AppLayoutHeader() {
   return (
-    <header className="h-16 px-8 flex justify-between gap-4 items-center bg-slate-100 dark:bg-slate-600">
+    <header className="h-16 px-8 flex justify-between gap-4 items-center bg-body-background dark:bg-body-background-dark">
       <div className="flex gap-4 items-center">
         <div>
           <button className="h-9 w-9 flex items-center justify-center rounded-md text-slate-500 hover:text-slate-600 hover:bg-slate-200">
