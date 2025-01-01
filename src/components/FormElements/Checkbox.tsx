@@ -44,7 +44,7 @@ const Checkbox: React.ForwardRefRenderFunction<
         className="peer absolute opacity-0 cursor-pointer h-0 w-0"
         {...rest}
       />
-      <div className="checkmark relative top-0 left-0 bg-white border border-slate-300 rounded transition peer-checked:bg-primary-500 peer-checked:border-primary-500"></div>
+      <div className="checkmark h-5 w-5 relative top-0 left-0 bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded transition peer-checked:bg-primary-500 peer-checked:border-primary-500 after:border-white dark:after:border-transparent peer-checked:dark:after:border-white"></div>
       {label && (
         <span data-size={size} className="text-sm data-[size=sm]:text-xs">
           {label}
@@ -58,8 +58,8 @@ const Checkbox: React.ForwardRefRenderFunction<
         .checkbox-container {
           user-select: none;
           .checkmark {
-            width: 20px;
-            height: 20px;
+            /* width: 20px; */
+            /* height: 20px; */
           }
           .checkmark:after {
             content: '';
@@ -68,7 +68,7 @@ const Checkbox: React.ForwardRefRenderFunction<
             top: 2px;
             width: 6px;
             height: 12px;
-            border: solid #ffffff;
+            /* border: solid #ffffff; */
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
           }

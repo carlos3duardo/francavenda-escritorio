@@ -1,5 +1,5 @@
 import React, { ElementType, InputHTMLAttributes, forwardRef } from 'react';
-import styles from './Input.module.css';
+import { InputContainer } from './InputContainer';
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -11,6 +11,9 @@ export interface InputProps
   icon?: ElementType;
   error?: string;
   size?: 'xs' | 'sm' | 'md' | 'lg';
+  isLoading?: boolean;
+  isSuccess?: boolean;
+  defaultValue?: string;
 }
 
 const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
@@ -32,14 +35,11 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   ref,
 ) => {
   return (
-    <div
-      data-error={!!error}
-      data-required={required}
-      aria-required={required}
-      data-disabled={disabled}
-      aria-disabled={disabled}
-      data-size={size}
-      className={styles.inputContainer}
+    <InputContainer
+      required={required}
+      error={error}
+      disabled={disabled}
+      size={size}
     >
       {Icon && (
         <Icon
@@ -56,7 +56,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         data-disabled={disabled}
         data-readonly={readOnly}
         data-size={size}
-        className={styles.inputElement}
+        className="w-full outline-none bg-transparent text-slate-600 dark:text-slate-200 text-sm data-[size=xs]:text-xs data-[size=sm]:text-xs data-[size=lg]:text-lg font-medium placeholder-slate-400 dark:placeholder-slate-500 disabled:opacity-50 disabled:cursor-not-allowed data-[uppercase=true]:uppercase data-[lowercase=true]:lowercase caret-blue-400"
         type={type}
         id={id}
         name={name || id}
@@ -65,7 +65,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         required={required}
         {...rest}
       />
-    </div>
+    </InputContainer>
   );
 };
 

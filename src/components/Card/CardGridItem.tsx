@@ -18,7 +18,7 @@ export function CardGridItem({
         process.env.NEXT_PUBLIC_APP_ENV === 'development' ? 'dev' : 'prod'
       }
       className={twMerge(
-        'col-span-12 text-md font-medium data-[env=dev]:bg-slate-100 dark:data-[env=dev]:bg-slate-600',
+        'col-span-12 text-md font-medium data-[env=dev]:bg-slate-100 dark:data-[env=dev]:bg-slate-800',
         className,
       )}
       {...rest}

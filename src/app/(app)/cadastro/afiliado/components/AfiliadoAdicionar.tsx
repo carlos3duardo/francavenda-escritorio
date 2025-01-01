@@ -1,34 +1,35 @@
+'use client';
 import { AppLayout, Button } from '@/components';
-import { Metadata } from 'next';
-import { AfiliadoTabela } from './components/AfiliadoTabela';
 import Link from 'next/link';
+import { AfiliadoFormulario } from './AfiliadoFormulario';
 
-export const metadata: Metadata = {
-  title: 'Afiliados',
-};
-
-export default function Page() {
+export function AfiliadoAdicionar() {
   return (
-    <AppLayout.PageContent>
+    <>
       <AppLayout.PageHeader>
         <AppLayout.PageHeaderSection>
-          <AppLayout.PageTitle title="Cadastro de afiliados da loja" />
+          <AppLayout.PageTitle title="Adicionar afiliado" />
           <AppLayout.PageBreadcrumbs
             breadcrumbs={[
               { label: 'Início', href: '/dashboard' },
               { label: 'Afiliados', href: '/cadastro/afiliado' },
+              { label: 'Adicionar' },
             ]}
           />
         </AppLayout.PageHeaderSection>
         <AppLayout.PageHeaderSection>
           <AppLayout.PageActions>
-            <Link href="/cadastro/afiliado/adicionar">
-              <Button color="primary">Novo afiliado</Button>
+            <Link href={`/cadastro/afiliado`}>
+              <Button color="primary" variant="outline">
+                Voltar
+              </Button>
             </Link>
           </AppLayout.PageActions>
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
-      <AfiliadoTabela />
-    </AppLayout.PageContent>
+      <div className="w-full flex flex-col gap-4 2xl:gap-6">
+        <AfiliadoFormulario />
+      </div>
+    </>
   );
 }

@@ -27,7 +27,7 @@ export function FormControl({
       {label && (
         <div className="group-[.layout-horizontal]:h-10 group-[.layout-horizontal]:flex group-[.layout-horizontal]:items-center group-[.layout-horizontal]:justify-end group-[.layout-horizontal] group-[.layout-horizontal]:col-span-3">
           <label
-            className="text-sm text-slate-600 font-medium group-[.layout-horizontal]:after:content-[':']"
+            className="text-sm text-slate-600 dark:text-slate-400 font-medium group-[.layout-horizontal]:after:content-[':']"
             htmlFor={htmlFor}
           >
             {label}

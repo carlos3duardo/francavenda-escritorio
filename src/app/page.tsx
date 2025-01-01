@@ -8,8 +8,8 @@ import { FormLogin } from '@/components';
 export default function Home() {
   return (
     <main className="flex w-full min-h-screen items-stretch">
-      <div className="min-h-screen w-full md:pl-[60px] md:w-[420px] lg:w-[480px] bg-white flex flex-col items-center justify-center gap-8 relative">
-        <div className="absolute hidden md:block bg-white top-0 left-[100%] h-full w-[60px] z-30 rounded-r-[60px]" />
+      <div className="min-h-screen w-full md:pl-[60px] md:w-[420px] lg:w-[480px] bg-body-background dark:bg-body-background-dark flex flex-col items-center justify-center gap-8 relative">
+        <div className="absolute hidden md:block bg-body-background dark:bg-body-background-dark top-0 left-[100%] h-full w-[60px] z-30 rounded-r-[60px]" />
         <figure>
           <Image src={logoFrancaVenda} alt="logo" width={175} height={70} />
         </figure>

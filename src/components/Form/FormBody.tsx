@@ -42,7 +42,7 @@ export function FormBody({
   return (
     <form
       method={method}
-      className="w-full flex flex-col gap-6"
+      className="w-full flex flex-col"
       onSubmit={handleSubmitForm}
       {...rest}
     >

@@ -3,12 +3,22 @@ import { twMerge } from 'tailwind-merge';
 
 type CardBodyProps = ComponentProps<'div'> & {
   children: ReactNode;
+  zeroPadding?: boolean;
 };
 
-export function CardBody({ children, className, ...rest }: CardBodyProps) {
+export function CardBody({
+  children,
+  className,
+  zeroPadding = false,
+  ...rest
+}: CardBodyProps) {
   return (
     <div
-      className={twMerge('p-4 first:rounded-t-md last:rounded-b-md', className)}
+      data-zero-padding={zeroPadding}
+      className={twMerge(
+        'p-4 data-[zero-padding=true]:p-0 first:rounded-t-md last:rounded-b-md',
+        className,
+      )}
       {...rest}
     >
       {children}

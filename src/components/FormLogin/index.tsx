@@ -87,7 +87,7 @@ export default function FormLogin() {
                 error={errors.password?.message}
               />
             </Form.Control>
-            <div className="col-span-12 flex items-center justify-between text-sm text-slate-600 font-medium">
+            <div className="col-span-12 flex items-center justify-between text-sm font-medium">
               <Form.Checkbox
                 name="remember"
                 label="Lembrar-me"
@@ -100,26 +100,28 @@ export default function FormLogin() {
           <Form.Error />
 
           <Form.Footer className="p-0 xl:px-0">
-            <div className="flex flex-col gap-2">
-              <Form.Submit
-                color="primary"
-                icon={ArrowRight}
-                iconSide="right"
-                fullWidth
-              >
-                Entrar
-              </Form.Submit>
+            <Form.FooterSection>
+              <div className="w-full flex flex-col gap-2">
+                <Form.Submit
+                  color="primary"
+                  icon={ArrowRight}
+                  iconSide="right"
+                  fullWidth
+                >
+                  Entrar
+                </Form.Submit>
 
-              <Button
-                color="primary"
-                variant="outline"
-                icon={CircleHelp}
-                iconSide="left"
-                fullWidth
-              >
-                Esqueci minha senha
-              </Button>
-            </div>
+                <Button
+                  color="primary"
+                  variant="outline"
+                  icon={CircleHelp}
+                  iconSide="left"
+                  fullWidth
+                >
+                  Esqueci minha senha
+                </Button>
+              </div>
+            </Form.FooterSection>
           </Form.Footer>
         </Form.Body>
       </Form.Root>

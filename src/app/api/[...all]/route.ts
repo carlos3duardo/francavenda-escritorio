@@ -30,9 +30,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const host = process.env.APP_HOST;
-  const protocol = request.url.slice(0, request.url.indexOf(':'));
-  const local = protocol + '://' + host + '/api/';
+  const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+
   const contentType = request.headers.get('Content-Type');
 
   const data = await (contentType === 'application/json'
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(response.data, { status: response.status });
     })
     .catch(function (error) {
-      console.error(error);
+      console.error(error.response.data);
       return NextResponse.json({ message: 'Eita...' }, { status: 500 });
     });
 }

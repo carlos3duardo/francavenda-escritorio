@@ -1,5 +1,5 @@
 import React, { ElementType, SelectHTMLAttributes, forwardRef } from 'react';
-import styles from './Input.module.css';
+import { InputContainer } from './InputContainer';
 
 export type SelectOption = {
   value: string;
@@ -41,14 +41,12 @@ const Select: React.ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
   ref,
 ) => {
   return (
-    <div
-      data-error={!!error}
-      data-required={required}
-      aria-required={required}
-      data-disabled={disabled}
-      aria-disabled={disabled}
-      data-size={size}
-      className={styles.inputContainer}
+    <InputContainer
+      required={required}
+      error={error}
+      disabled={disabled}
+      size={size}
+      className="px-1"
     >
       {Icon && (
         <Icon
@@ -65,7 +63,7 @@ const Select: React.ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
         data-disabled={disabled}
         data-readonly={readOnly}
         data-size={size}
-        className={styles.inputElement}
+        className="w-full outline-none bg-transparent text-slate-600 dark:text-slate-200 text-sm data-[size=xs]:text-xs data-[size=sm]:text-xs data-[size=lg]:text-lg font-medium placeholder-slate-400 dark:placeholder-slate-500 disabled:opacity-50 disabled:cursor-not-allowed data-[uppercase=true]:uppercase data-[lowercase=true]:lowercase caret-blue-400"
         id={id}
         name={name || id}
         disabled={disabled}
@@ -73,10 +71,18 @@ const Select: React.ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
         defaultValue={defaultValue}
         {...rest}
       >
-        {placeholder && <option value="">{placeholder}</option>}
+        {placeholder && (
+          <option value="" className="dark:bg-slate-800">
+            {placeholder}
+          </option>
+        )}
         {options ? (
           options.map((option: SelectOption) => (
-            <option key={option.value} value={option.value}>
+            <option
+              key={option.value}
+              value={option.value}
+              className="dark:bg-slate-800 px-0 mx-0"
+            >
               {option.label}
             </option>
           ))
@@ -84,7 +90,7 @@ const Select: React.ForwardRefRenderFunction<HTMLSelectElement, SelectProps> = (
           <option value="">Selecione...</option>
         )}
       </select>
-    </div>
+    </InputContainer>
   );
 };
 

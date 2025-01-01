@@ -24,7 +24,7 @@ export function FormFieldset({
     <fieldset
       data-layout={layout}
       className={twMerge(
-        `group layout-${layout} px-6 grid grid-cols-12 gap-x-6 gap-y-4 data-[layout=horizontal]:flex data-[layout=horizontal]:flex-col`,
+        `group layout-${layout} px-4 xl:px-6 py-4 grid grid-cols-12 gap-x-6 gap-y-4 data-[layout=horizontal]:flex data-[layout=horizontal]:flex-col`,
         className,
       )}
     >

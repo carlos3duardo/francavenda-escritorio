@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import styles from './Input.module.css';
 import { Eye, EyeOff, KeyRound } from 'lucide-react';
+import { InputContainer } from './InputContainer';
 
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -42,14 +43,13 @@ const InputPassword: React.ForwardRefRenderFunction<
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div
+    <InputContainer
       data-error={!!error}
       data-required={required}
       aria-required={required}
       data-disabled={disabled}
       aria-disabled={disabled}
       data-size={size}
-      className={styles.inputContainer}
     >
       {Icon && (
         <Icon
@@ -81,7 +81,7 @@ const InputPassword: React.ForwardRefRenderFunction<
       >
         {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
       </button>
-    </div>
+    </InputContainer>
   );
 };
 
