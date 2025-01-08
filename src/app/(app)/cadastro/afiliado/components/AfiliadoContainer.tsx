@@ -1,7 +1,7 @@
 'use client';
 import { AppLayout, Button } from '@/components';
 import { useAfiliado } from '@/hooks';
-import { AfiliadoInfo } from './AfiliadoInfo';
+import { AfiliadoVisualizar } from './AfiliadoVisualizar';
 import { capitalize } from '@/helpers';
 import Link from 'next/link';
 
@@ -39,7 +39,7 @@ export function AfiliadoContainer({ id }: AfiliadoContainerProps) {
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
       <div className="w-full flex flex-col gap-4 2xl:gap-6">
-        <AfiliadoInfo
+        <AfiliadoVisualizar
           isLoading={isLoading}
           isSuccess={isSuccess}
           afiliado={afiliado || undefined}

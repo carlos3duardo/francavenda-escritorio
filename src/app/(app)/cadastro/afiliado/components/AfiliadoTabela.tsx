@@ -1,5 +1,5 @@
 'use client';
-import { ApiAfiliadoProps } from '@/@types';
+import { ApiAfiliadoProps } from '@/types';
 import { Badge } from '@/components';
 import { ColumnProps, DataTable } from '@/components/DataTable';
 import { maskCpf } from '@/helpers';

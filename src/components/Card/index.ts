@@ -1,5 +1,6 @@
 import { CardRoot } from './CardRoot';
 import { CardHeader } from './CardHeader';
+import { CardHeaderSection } from './CardHeaderSection';
 import { CardLabel } from './CardLabel';
 import { CardToolbar } from './CardToolbar';
 import { CardBody } from './CardBody';
@@ -13,6 +14,7 @@ import { CardSeparator } from './CardSeparator';
 export const Card = {
   Root: CardRoot,
   Header: CardHeader,
+  HeaderSection: CardHeaderSection,
   Toolbar: CardToolbar,
   Label: CardLabel,
   Body: CardBody,
