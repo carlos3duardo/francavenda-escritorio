@@ -62,8 +62,7 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   const host = process.env.APP_HOST;
-  const protocol = request.url.slice(0, request.url.indexOf(':'));
-  const local = protocol + '://' + host + '/api/';
+  const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
   const contentType = request.headers.get('Content-Type');
 

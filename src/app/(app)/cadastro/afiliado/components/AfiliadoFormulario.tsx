@@ -1,55 +1,67 @@
 'use client';
 import { z } from 'zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ApiAfiliadoProps } from '@/types';
 import { Button, Card, Form } from '@/components';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useAfiliadoList, useBancoList, useSexoList } from '@/hooks';
 import Link from 'next/link';
 import { useServicoAssinaturaList } from '@/hooks/useServicoAssinaturaList';
-import { maskCpf, maskTelefone } from '@/helpers';
+import { dateBr, maskCpf, maskTelefone } from '@/helpers';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 interface AfiliadoFormularioProps {
   afiliado?: ApiAfiliadoProps | undefined;
 }
 
 export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
+  const router = useRouter();
+
   const formSchema = z.object({
-    nome: z
-      .string()
-      .min(1, { message: 'Campo obrigatório.' })
-      .max(128, { message: 'Campo não pode ultrapassar 128 caracteres.' }),
-    apelido: z
-      .string()
-      .min(1, { message: 'Campo obrigatório.' })
-      .max(64, { message: 'Campo não pode ultrapassar 64 caracteres.' }),
-    cpf: z.string().min(1, { message: 'Campo obrigatório.' }),
-    email: z
-      .string()
-      .min(1, { message: 'Campo obrigatório.' })
-      .email({ message: 'Endereço de e-mail inválido.' }),
-    celular: z.string().min(1, { message: 'Campo obrigatório.' }),
-    rg: z.string().min(1, { message: 'Campo obrigatório.' }).or(z.literal('')),
-    rg_emissor: z
-      .string()
-      .min(1, { message: 'Campo obrigatório.' })
-      .or(z.literal('')),
-    mae: z.string().min(1, { message: 'Campo obrigatório.' }).or(z.literal('')),
-    sexo_id: z
-      .string()
-      .min(1, { message: 'Campo obrigatório.' })
-      .or(z.literal('')),
-    nascimento: z
-      .string()
-      .min(1, { message: 'Campo obrigatório.' })
-      .or(z.literal(''))
-      .transform((value) => {
-        if (value !== '') {
-          const [day, month, year] = value.split('/');
-          return `${year}-${month}-${day}`;
-        }
-      }),
+    usuario: z.object({
+      nome: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .max(128, { message: 'Campo não pode ultrapassar 128 caracteres.' }),
+      apelido: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .max(64, { message: 'Campo não pode ultrapassar 64 caracteres.' }),
+      celular: z.string().min(1, { message: 'Campo obrigatório.' }),
+      email: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .email({ message: 'Endereço de e-mail inválido.' }),
+      cpf: z.string().min(1, { message: 'Campo obrigatório.' }),
+      rg: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .or(z.literal('')),
+      rg_emissor: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .or(z.literal('')),
+      mae: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .or(z.literal('')),
+      sexo_id: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .or(z.literal('')),
+      nascimento: z
+        .string()
+        .min(1, { message: 'Campo obrigatório.' })
+        .or(z.literal(''))
+        .transform((value) => {
+          if (value !== '') {
+            const [day, month, year] = value.split('/');
+            return `${year}-${month}-${day}`;
+          }
+        }),
+    }),
     patrocinador_id: z
       .string()
       .min(1, { message: 'Campo obrigatório.' })
@@ -91,21 +103,28 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
     resolver: zodResolver(formSchema),
     defaultValues: async () => {
       if (afiliado) {
+        console.log({ afiliado });
         return {
-          nome: afiliado.usuario.nome,
-          apelido: afiliado.usuario.apelido,
-          nascimento: afiliado.usuario.nascimento || '',
-          cpf: afiliado.usuario.cpf ? maskCpf(afiliado.usuario.cpf) : '',
-          email: afiliado.usuario.email,
-          celular: afiliado.usuario.celular
-            ? maskTelefone(afiliado.usuario.celular)
-            : '',
-          rg: afiliado.usuario.rg,
-          rg_emissor: afiliado.usuario.rg_emissor,
-          mae: afiliado.usuario.mae,
-          sexo_id: afiliado.usuario.sexo?.id.toString() || '',
-          patrocinador_id: afiliado.patrocinador?.id.toString() || '',
-          banco_id: afiliado.banco?.id.toString() || '',
+          usuario: {
+            nome: afiliado.usuario.nome,
+            apelido: afiliado.usuario.apelido,
+            nascimento: afiliado.usuario.nascimento
+              ? dateBr(afiliado.usuario.nascimento)
+              : '',
+            cpf: afiliado.usuario.cpf ? maskCpf(afiliado.usuario.cpf) : '',
+            email: afiliado.usuario.email,
+            celular: afiliado.usuario.celular
+              ? maskTelefone(afiliado.usuario.celular)
+              : '',
+            rg: afiliado.usuario.rg || '',
+            rg_emissor: afiliado.usuario.rg_emissor || '',
+            mae: afiliado.usuario.mae || '',
+            sexo_id: afiliado.usuario.sexo
+              ? afiliado.usuario.sexo.id.toString()
+              : '',
+          },
+          patrocinador_id: afiliado.patrocinador?.id || '',
+          banco_id: afiliado.banco?.id || '',
           agencia: afiliado.agencia || '',
           conta: afiliado.conta || '',
           operacao: afiliado.operacao || '',
@@ -116,17 +135,20 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
           servico_assinatura_codigo: afiliado.servico_assinatura_codigo || '',
         };
       }
+
       return {
-        nome: '',
-        apelido: '',
-        nascimento: '',
-        cpf: '',
-        email: '',
-        celular: '',
-        rg: '',
-        rg_emissor: '',
-        mae: '',
-        sexo_id: '',
+        usuario: {
+          nome: '',
+          apelido: '',
+          nascimento: '',
+          cpf: '',
+          email: '',
+          celular: '',
+          rg: '',
+          rg_emissor: '',
+          mae: '',
+          sexo_id: '',
+        },
         patrocinador_id: '',
         banco_id: '',
         agencia: '',
@@ -157,13 +179,22 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
 
     const httpMethod = afiliado ? 'PUT' : 'POST';
 
+    const message = afiliado
+      ? 'Afiliado atualizado com sucesso!'
+      : 'Afiliado criado com sucesso!';
+
     try {
       await axios({
         method: httpMethod,
         url: endpoint,
         data,
       }).then((response) => {
-        console.log(response.data);
+        toast.success(message);
+        if (afiliado) {
+          router.push('/cadastro/afiliado');
+        } else {
+          router.push(`/cadastro/afiliado/${response.data.data.id}`);
+        }
       });
     } catch (error) {
       console.error(error);
@@ -183,12 +214,12 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
               <Form.Control
                 label="Nome completo"
                 className="col-span-12 lg:col-span-5"
-                error={errors.nome?.message}
+                error={errors.usuario?.nome?.message}
               >
                 <Form.InputText
                   id="nome"
-                  name="nome"
-                  error={errors.nome?.message}
+                  name="usuario[nome]"
+                  error={errors.usuario?.nome?.message}
                   uppercase
                 />
               </Form.Control>
@@ -196,12 +227,12 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
               <Form.Control
                 label="Nome curto"
                 className="col-span-12 lg:col-span-3"
-                error={errors.apelido?.message}
+                error={errors.usuario?.apelido?.message}
               >
                 <Form.InputText
                   id="apelido"
-                  name="apelido"
-                  error={errors.apelido?.message}
+                  name="usuario[apelido]"
+                  error={errors.usuario?.apelido?.message}
                   uppercase
                 />
               </Form.Control>
@@ -209,12 +240,12 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
               <Form.Control
                 label="Sexo"
                 className="col-span-6 lg:col-span-2"
-                error={errors.sexo_id?.message}
+                error={errors.usuario?.sexo_id?.message}
               >
                 {sexos && (
                   <Form.Select
                     id="sexo_id"
-                    name="sexo_id"
+                    name="usuario[sexo_id]"
                     options={sexos.map((sexo) => ({
                       value: sexo.id.toString(),
                       label: sexo.nome,
@@ -225,60 +256,60 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
               <Form.Control
                 label="Nascimento"
                 className="col-span-6 lg:col-span-2"
-                error={errors.nascimento?.message}
+                error={errors.usuario?.nascimento?.message}
               >
                 <Form.InputText
                   id="nascimento"
-                  name="nascimento"
-                  error={errors.nascimento?.message}
+                  name="usuario[nascimento]"
+                  error={errors.usuario?.nascimento?.message}
                 />
               </Form.Control>
 
               <Form.Control
                 label="Nome da mãe"
                 className="col-span-12 lg:col-span-5"
-                error={errors.mae?.message}
+                error={errors.usuario?.mae?.message}
               >
                 <Form.InputText
                   id="mae"
-                  name="mae"
-                  error={errors.mae?.message}
+                  name="usuario[mae]"
+                  error={errors.usuario?.mae?.message}
                   uppercase
                 />
               </Form.Control>
               <Form.Control
                 label="CPF"
                 className="col-span-12 lg:col-span-3"
-                error={errors.cpf?.message}
+                error={errors.usuario?.cpf?.message}
               >
                 <Form.MaskInput
                   mask="999.999.999-99"
                   id="cpf"
-                  name="cpf"
-                  error={errors.cpf?.message}
+                  name="usuario[cpf]"
+                  error={errors.usuario?.cpf?.message}
                 />
               </Form.Control>
               <Form.Control
                 label="Identidade (RG)"
                 className="col-span-12 lg:col-span-2"
-                error={errors.rg?.message}
+                error={errors.usuario?.rg?.message}
               >
                 <Form.InputText
                   id="rg"
-                  name="rg"
-                  error={errors.rg?.message}
+                  name="usuario[rg]"
+                  error={errors.usuario?.rg?.message}
                   uppercase
                 />
               </Form.Control>
               <Form.Control
                 label="Órgão emissor"
                 className="col-span-12 lg:col-span-2"
-                error={errors.rg_emissor?.message}
+                error={errors.usuario?.rg_emissor?.message}
               >
                 <Form.InputText
                   id="rg_emissor"
-                  name="rg_emissor"
-                  error={errors.rg_emissor?.message}
+                  name="usuario[rg_emissor]"
+                  error={errors.usuario?.rg_emissor?.message}
                   uppercase
                 />
               </Form.Control>
@@ -286,24 +317,24 @@ export function AfiliadoFormulario({ afiliado }: AfiliadoFormularioProps) {
               <Form.Control
                 label="E-mail"
                 className="col-span-12 lg:col-span-5"
-                error={errors.email?.message}
+                error={errors.usuario?.email?.message}
               >
                 <Form.InputText
                   id="email"
-                  name="email"
-                  error={errors.email?.message}
+                  name="usuario[email]"
+                  error={errors.usuario?.email?.message}
                   lowercase
                 />
               </Form.Control>
               <Form.Control
                 label="Celular"
                 className="col-span-12 lg:col-span-3"
-                error={errors.celular?.message}
+                error={errors.usuario?.celular?.message}
               >
                 <Form.TelefoneInput
                   id="celular"
-                  name="celular"
-                  error={errors.celular?.message}
+                  name="usuario[celular]"
+                  error={errors.usuario?.celular?.message}
                 />
               </Form.Control>
               <Form.Control
