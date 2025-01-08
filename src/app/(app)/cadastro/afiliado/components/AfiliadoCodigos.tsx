@@ -1,10 +1,11 @@
 'use client';
+import { useCallback, useEffect, useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+import { Plus, X } from '@phosphor-icons/react/dist/ssr';
 import { Alert, Button, Card, Input } from '@/components';
 import { useAfiliadoCodigos } from '@/hooks';
-import { Plus, X } from '@phosphor-icons/react/dist/ssr';
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 interface AfiliadoCodigosProps {
   afiliadoId: string;
@@ -16,7 +17,7 @@ export function AfiliadoCodigos({ afiliadoId }: AfiliadoCodigosProps) {
   const [codigos, setCodigos] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-  const { data, isError } = useAfiliadoCodigos(afiliadoId);
+  const { data, isLoading, isError } = useAfiliadoCodigos(afiliadoId);
 
   useEffect(() => {
     if (data) {
@@ -48,12 +49,28 @@ export function AfiliadoCodigos({ afiliadoId }: AfiliadoCodigosProps) {
 
   const handleRemoverCodigo = useCallback(
     (codigo: string) => {
-      axios
-        .delete(`/api/afiliado/${afiliadoId}/codigo/${codigo}`)
-        .then((response) => {
-          setCodigos((codigos) => codigos.filter((c) => c !== codigo));
-        })
-        .finally(() => setIsSubmitting(false));
+      Swal.fire({
+        title: 'Confirma remover o código?',
+        text: 'Se outro afiliado usar esse código, você não poderá recuperá-lo.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Remover',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          return axios
+            .delete(`/api/afiliado/${afiliadoId}/codigo/${codigo}`)
+            .then((response) => {
+              setCodigos((codigos) => codigos.filter((c) => c !== codigo));
+            })
+            .catch((error) => {
+              Swal.showValidationMessage(`Erro: ${error.message}`);
+            })
+            .finally(() => setIsSubmitting(false));
+        },
+      });
     },
     [afiliadoId],
   );
@@ -70,7 +87,14 @@ export function AfiliadoCodigos({ afiliadoId }: AfiliadoCodigosProps) {
       </Card.Header>
       <Card.Separator />
       <Card.Body>
-        {isError ? (
+        {isLoading ? (
+          <div className="flex flex-col 2xl:flex-row gap-4 items-center justify-center py-4">
+            <div className="w-6 h-6 rounded-full animate animate-spin border-2 border-gray-300 dark:border-gray-600 border-t-primary-500 dark:border-t-primary-400" />
+            <p className="text-base font-medium text-center">
+              Carregando os códigos do afiliado...
+            </p>
+          </div>
+        ) : isError ? (
           <Alert.Root type="error">
             <Alert.Message message="Erro ao carregar os códigos." />
             <Alert.Description>
