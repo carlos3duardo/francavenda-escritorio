@@ -1,4 +1,4 @@
-import { ApiAfiliadoProps } from '@/@types';
+import { ApiAfiliadoProps } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 
 export function useAfiliado(id: string, relationships: string[] = []) {

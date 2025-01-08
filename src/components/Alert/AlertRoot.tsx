@@ -13,10 +13,13 @@ const alertStyle = tv({
   variants: {
     type: {
       default: 'default bg-slate-100/60',
-      success: 'success bg-green-100/60',
-      warning: 'warning bg-yellow-100/60',
-      info: 'info bg-blue-100/60',
-      error: 'error bg-red-100/60',
+      success:
+        'success bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200/70',
+      warning:
+        'warning bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200/70',
+      info: 'info bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200/70',
+      error:
+        'error bg-red-100/60 dark:bg-red-800/60 text-red-800 dark:text-red-100',
     },
   },
 });
@@ -35,7 +38,7 @@ export function AlertRoot({
     <div data-type={type} className={alertStyle({ type })}>
       <div className="flex gap-3">
         {hasIcon && (
-          <div className="shrink-0 text-slate-800 group-[.error]:text-red-800">
+          <div className="shrink-0">
             {type === 'success' ? (
               <CircleCheck size={20} />
             ) : type === 'warning' ? (
@@ -49,7 +52,7 @@ export function AlertRoot({
             )}
           </div>
         )}
-        <div>{children}</div>
+        <div className="flex flex-col gap-2">{children}</div>
       </div>
     </div>
   );

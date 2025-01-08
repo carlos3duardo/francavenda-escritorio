@@ -3,9 +3,5 @@ interface AlertMessageProps {
 }
 
 export function AlertMessage({ message }: AlertMessageProps) {
-  return (
-    <h3 className="font-medium text-sm text-slate-800 group-[.error]:text-red-800">
-      {message}
-    </h3>
-  );
+  return <h3 className="font-semibold text-sm">{message}</h3>;
 }

@@ -55,8 +55,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(response.data, { status: response.status });
     })
     .catch(function (error) {
-      console.error(error.response.data);
-      return NextResponse.json({ message: 'Eita...' }, { status: 500 });
+      return NextResponse.json(
+        { message: error.response.data.message },
+        { status: error.response.status },
+      );
     });
 }
 
@@ -119,8 +121,7 @@ export async function PATCH(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const host = process.env.APP_HOST;
-  const protocol = request.url.slice(0, request.url.indexOf(':'));
-  const local = protocol + '://' + host + '/api/';
+  const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
 
   const cookieStore = cookies();

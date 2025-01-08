@@ -16,7 +16,7 @@ export function CardBody({
     <div
       data-zero-padding={zeroPadding}
       className={twMerge(
-        'p-4 data-[zero-padding=true]:p-0 first:rounded-t-md last:rounded-b-md',
+        'py-4 px-4 xl:px-6 data-[zero-padding=true]:p-0 first:rounded-t-md last:rounded-b-md',
         className,
       )}
       {...rest}
