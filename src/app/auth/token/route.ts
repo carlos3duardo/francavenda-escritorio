@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
         client_secret: process.env.API_CLIENT_SECRET,
         username,
         password,
+        scope: 'backoffice',
       }),
     });
 
