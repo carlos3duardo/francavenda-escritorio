@@ -118,7 +118,11 @@ export function AfiliadoCodigos({ afiliadoId }: AfiliadoCodigosProps) {
               {codigos.map((codigo) => {
                 return (
                   <div key={codigo} className="flex gap-2">
-                    <Input id={`codigo.${codigo}`} value={codigo} readOnly />
+                    <Input
+                      id={`codigo.${codigo}`}
+                      defaultValue={codigo}
+                      readOnly
+                    />
                     <Button
                       color="danger"
                       onClick={() => handleRemoverCodigo(codigo)}
