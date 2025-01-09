@@ -60,8 +60,9 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
         type={type}
         id={id}
         name={name || id}
-        placeholder={placeholder}
         disabled={disabled}
+        readOnly={readOnly}
+        placeholder={placeholder}
         required={required}
         {...rest}
       />
