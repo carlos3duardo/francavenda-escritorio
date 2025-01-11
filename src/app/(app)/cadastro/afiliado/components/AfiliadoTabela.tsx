@@ -2,7 +2,6 @@
 import { ApiAfiliadoProps } from '@/types';
 import { Badge } from '@/components';
 import { ColumnProps, DataTable } from '@/components/DataTable';
-import { maskCpf } from '@/helpers';
 import Link from 'next/link';
 
 const columns = [
@@ -13,14 +12,6 @@ const columns = [
     tdClassName: 'text-left',
     content: ({ id, usuario }: ApiAfiliadoProps) => {
       return <Link href={`/cadastro/afiliado/${id}`}>{usuario.nome}</Link>;
-    },
-  },
-  {
-    field: 'usuario.cpf',
-    label: 'CPF',
-    thClassName: 'text-left',
-    content: ({ usuario }: ApiAfiliadoProps) => {
-      return maskCpf(usuario.cpf);
     },
   },
   {

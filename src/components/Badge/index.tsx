@@ -6,6 +6,7 @@ interface BadgeProps {
   size?: 'xs' | 'sm' | 'md' | 'lg';
   withBorder?: boolean;
   withDot?: boolean;
+  tooltip?: string;
 }
 
 export function Badge({
@@ -14,6 +15,7 @@ export function Badge({
   size = 'md',
   withBorder = false,
   withDot = false,
+  tooltip,
 }: BadgeProps) {
   const backgroundColor = new TinyColor(color).setAlpha(0.36).toString();
   const borderColor = new TinyColor(color).setAlpha(0.36).toString();
@@ -25,6 +27,7 @@ export function Badge({
         backgroundColor,
         boxShadow: withBorder ? `0 0 0 1px inset ${borderColor}` : 'none',
       }}
+      title={tooltip}
     >
       {label}
     </span>

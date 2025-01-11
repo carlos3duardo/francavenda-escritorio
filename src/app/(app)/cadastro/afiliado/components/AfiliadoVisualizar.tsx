@@ -35,6 +35,7 @@ export function AfiliadoVisualizar({
             <Badge
               label={afiliado.situacao.nome}
               color={afiliado.situacao.cor}
+              tooltip={afiliado.situacao.descricao}
             />
           </Card.HeaderSection>
         </Card.Header>

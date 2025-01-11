@@ -3,6 +3,7 @@ import {
   Files,
   Folder,
   House,
+  Landmark,
   LogOut,
   Settings2,
   ShoppingBag,
@@ -91,6 +92,35 @@ export const primaryMenu: MenuItemProps[] = [
         id: 6,
         label: 'Clientes',
         href: '/cadastro/cliente',
+      },
+    ],
+  },
+  {
+    id: 4200,
+    label: 'Financeiro',
+    href: '/financeiro',
+    icon: Landmark,
+    free: true,
+    submenu: [
+      {
+        id: 4201,
+        label: 'Adesão',
+        href: '/financeiro/adesao',
+      },
+      {
+        id: 4202,
+        label: 'Mensalidades',
+        href: '/financeiro/mensalidade',
+      },
+      {
+        id: 4203,
+        label: 'Comissões',
+        href: '/financeiro/comissao',
+      },
+      {
+        id: 4204,
+        label: 'Saques',
+        href: '/financeiro/saque',
       },
     ],
   },

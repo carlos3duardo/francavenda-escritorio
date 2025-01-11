@@ -1,10 +1,10 @@
 'use client';
-import { AppLayout, Button } from '@/components';
+import { AppLayout } from '@/components';
 import { useAfiliado } from '@/hooks';
 import { AfiliadoVisualizar } from './AfiliadoVisualizar';
 import { capitalize } from '@/helpers';
-import Link from 'next/link';
 import { AfiliadoCodigos } from './AfiliadoCodigos';
+import { AfiliadoMenu } from './AfiliadoMenu';
 
 interface AfiliadoContainerProps {
   id: string;
@@ -33,9 +33,7 @@ export function AfiliadoContainer({ id }: AfiliadoContainerProps) {
         </AppLayout.PageHeaderSection>
         <AppLayout.PageHeaderSection>
           <AppLayout.PageActions>
-            <Link href={`/cadastro/afiliado/${id}/editar`}>
-              <Button>Editar</Button>
-            </Link>
+            <AfiliadoMenu afiliadoId={id} />
           </AppLayout.PageActions>
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
