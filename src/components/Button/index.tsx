@@ -1,4 +1,4 @@
-import { ComponentProps, ElementType } from 'react';
+import React, { ComponentProps, ElementType, forwardRef } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { tv, VariantProps } from 'tailwind-variants';
 
@@ -126,25 +126,29 @@ export type ButtonProps = ComponentProps<'button'> &
     loadingText?: string;
   };
 
-export default function Button({
-  type = 'button',
-  color,
-  variant,
-  size,
-  fullWidth = false,
-  icon: Icon,
-  iconSize,
-  iconSide = 'left',
-  isLoading,
-  loadingText,
-  disabled,
-  children,
-  className,
-  ...rest
-}: ButtonProps) {
+const Button: React.ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
+  {
+    type = 'button',
+    color,
+    variant,
+    size,
+    fullWidth = false,
+    icon: Icon,
+    iconSize,
+    iconSide = 'left',
+    isLoading,
+    loadingText,
+    disabled,
+    children,
+    className,
+    ...rest
+  },
+  ref,
+) => {
   const classIconSide = iconSide === 'right' ? 'flex-row-reverse' : '';
   return (
     <button
+      ref={ref}
       type={type}
       data-processing={isLoading}
       disabled={isLoading || disabled}
@@ -170,4 +174,6 @@ export default function Button({
       {children}
     </button>
   );
-}
+};
+
+export default forwardRef(Button);

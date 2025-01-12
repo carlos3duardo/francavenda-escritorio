@@ -7,10 +7,27 @@ interface MenuItemProps {
   icon?: ElementType;
   label: string;
   href?: string;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
-function MenuItemContent({ icon: Icon, label, href, onClick }: MenuItemProps) {
+function MenuItemContent({
+  icon: Icon,
+  label,
+  href,
+  disabled = false,
+  onClick,
+}: MenuItemProps) {
+  if (disabled) {
+    return (
+      <div className="w-full flex items-center h-9 px-4 text-slate-300 dark:text-slate-500">
+        <span className="flex gap-2">
+          {Icon && <Icon size={18} />} {label}
+        </span>
+      </div>
+    );
+  }
+
   if (onClick) {
     return (
       <button
@@ -48,6 +65,7 @@ export function DropdownMenuItem({
   label,
   icon,
   href,
+  disabled = false,
   onClick,
 }: MenuItemProps) {
   return (
@@ -56,6 +74,7 @@ export function DropdownMenuItem({
         label={label}
         icon={icon}
         href={href}
+        disabled={disabled}
         onClick={onClick}
       />
     </DropdownMenu.Item>

@@ -33,7 +33,7 @@ export function AfiliadoContainer({ id }: AfiliadoContainerProps) {
         </AppLayout.PageHeaderSection>
         <AppLayout.PageHeaderSection>
           <AppLayout.PageActions>
-            <AfiliadoMenu afiliadoId={id} />
+            {afiliado && <AfiliadoMenu afiliado={afiliado} />}
           </AppLayout.PageActions>
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>

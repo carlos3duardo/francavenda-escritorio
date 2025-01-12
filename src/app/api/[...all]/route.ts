@@ -95,9 +95,14 @@ export async function PUT(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   const host = process.env.APP_HOST;
-  const protocol = request.url.slice(0, request.url.indexOf(':'));
-  const local = protocol + '://' + host + '/api/';
+  const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+
+  const contentType = request.headers.get('Content-Type');
+
+  const data = await (contentType === 'application/json'
+    ? request.json()
+    : request.formData());
 
   const cookieStore = cookies();
   const accessToken = cookieStore.get('frv:token');
@@ -105,6 +110,7 @@ export async function PATCH(request: NextRequest) {
   return axios({
     url: endpoint,
     method: 'PATCH',
+    data,
     headers: {
       Authorization: `Bearer ${accessToken?.value}`,
       Accept: 'application/json',

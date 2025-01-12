@@ -13,6 +13,7 @@ import { Badge } from './Badge';
 import { Form } from './Form';
 import { Card } from './Card';
 import { DropdownMenu } from './DropdownMenu';
+import { Dialog } from './Dialog';
 
 // Form Elements
 import Input from './FormElements/Input';
@@ -33,6 +34,7 @@ export {
   Button,
   Form,
   DataTable,
+  Dialog,
   UnderConstruction,
 
   // Form Elements
