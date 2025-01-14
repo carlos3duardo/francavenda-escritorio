@@ -14,6 +14,7 @@ import { Form } from './Form';
 import { Card } from './Card';
 import { DropdownMenu } from './DropdownMenu';
 import { Dialog } from './Dialog';
+import { Loader } from './Loader';
 
 // Form Elements
 import Input from './FormElements/Input';
@@ -36,6 +37,7 @@ export {
   DataTable,
   Dialog,
   UnderConstruction,
+  Loader,
 
   // Form Elements
   Input,

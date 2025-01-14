@@ -1,4 +1,4 @@
-import { ApiPedidoProps } from '@/@types';
+import { ApiPedidoProps } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 
 export function usePedido(id: string, relationships: string[] = []) {
