@@ -3,6 +3,14 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'iili.io',
+      },
+      {
         protocol: 'http',
         hostname: 'francavenda.localhost',
       },

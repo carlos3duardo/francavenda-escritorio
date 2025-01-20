@@ -1,8 +1,9 @@
 'use client';
+import { CheckCircle, XCircle } from '@phosphor-icons/react/dist/ssr';
 import { ApiFornecedorProps } from '@/types';
 import { Card } from '@/components';
 import { capitalize, maskCep, maskCnpj, maskTelefone } from '@/helpers';
-import { CheckCircle, XCircle } from '@phosphor-icons/react/dist/ssr';
+import { FornecedorLogotipo } from './FornecedorLogotipo';
 
 interface FornecedorVisualizarProps {
   isLoading: boolean;
@@ -127,17 +128,31 @@ export function FornecedorVisualizar({
 
         <Card.Separator />
 
-        <Card.Grid>
-          <Card.GridItem className="xl:col-span-6" label="Observação">
-            {fornecedor.observacao || <>&nbsp;</>}
-          </Card.GridItem>
-          <Card.GridItem className="xl:col-span-6" label="Sobre">
-            {fornecedor.sobre || <>&nbsp;</>}
-          </Card.GridItem>
-          <Card.GridItem className="xl:col-span-12" label="Disclaimer">
-            {fornecedor.disclaimer || <>&nbsp;</>}
-          </Card.GridItem>
-        </Card.Grid>
+        <div className="grid grid-cols-12 gap-0">
+          <div className="col-span-12 lg:col-span-7">
+            <Card.Grid>
+              <Card.GridItem className="" label="Observação">
+                {fornecedor.observacao || <>&nbsp;</>}
+              </Card.GridItem>
+              <Card.GridItem className="" label="Sobre">
+                {fornecedor.sobre || <>&nbsp;</>}
+              </Card.GridItem>
+              <Card.GridItem className="" label="Disclaimer">
+                {fornecedor.disclaimer || <>&nbsp;</>}
+              </Card.GridItem>
+            </Card.Grid>
+          </div>
+          <div className="col-span-12 lg:col-span-5">
+            <Card.Grid>
+              <Card.GridItem className="" label="Logotipo">
+                <FornecedorLogotipo
+                  fornecedorId={fornecedor.id}
+                  logotipoUrl={fornecedor.logotipo_url}
+                />
+              </Card.GridItem>
+            </Card.Grid>
+          </div>
+        </div>
       </Card.Root>
     );
   }

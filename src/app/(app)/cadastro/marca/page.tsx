@@ -1,5 +1,7 @@
-import { AppLayout } from '@/components';
+import { AppLayout, Button } from '@/components';
 import { Metadata } from 'next';
+import Link from 'next/link';
+import { MarcaTabela } from './_components/MarcaTabela';
 
 export const metadata: Metadata = {
   title: 'Marcas',
@@ -7,11 +9,26 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
+    <AppLayout.PageContent>
       <AppLayout.PageHeader>
-        <AppLayout.PageTitle title="Cadastro de Marcas" />
+        <AppLayout.PageHeaderSection>
+          <AppLayout.PageTitle title="Cadastro de marcas" />
+          <AppLayout.PageBreadcrumbs
+            breadcrumbs={[
+              { label: 'Início', href: '/dashboard' },
+              { label: 'Marcas', href: '/cadastro/marca' },
+            ]}
+          />
+        </AppLayout.PageHeaderSection>
+        <AppLayout.PageHeaderSection>
+          <AppLayout.PageActions>
+            <Link href="/cadastro/marca/adicionar">
+              <Button color="primary">Nova marca</Button>
+            </Link>
+          </AppLayout.PageActions>
+        </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
-      <AppLayout.PageContent>Lista de Marcas</AppLayout.PageContent>
-    </>
+      <MarcaTabela />
+    </AppLayout.PageContent>
   );
 }

@@ -2,6 +2,7 @@ import { useAfiliado } from './useAfiliado';
 import { useAfiliadoCodigos } from './useAfiliadoCodigos';
 import { useAfiliadoList } from './useAfiliadoList';
 import { useFornecedor } from './useFornecedor';
+import { useMarca } from './useMarca';
 import { useBancoList } from './useBancoList';
 import { usePedido } from './usePedido';
 import { useSexoList } from './useSexoList';
@@ -12,6 +13,7 @@ export {
   useAfiliadoList,
   useBancoList,
   useFornecedor,
+  useMarca,
   usePedido,
   useSexoList,
 };
