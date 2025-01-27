@@ -1,5 +1,5 @@
 'use client';
-import { ApiPedidoProps } from '@/@types';
+import { ApiPedidoProps } from '@/types';
 import { Card } from '@/components';
 import { DropdownMenu } from '@/components/DropdownMenu';
 import { currency, dateTimeBr, maskCep, maskCpf } from '@/helpers';

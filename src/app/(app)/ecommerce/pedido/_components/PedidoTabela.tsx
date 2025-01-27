@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { ColumnProps, DataTable } from '@/components/DataTable';
-import { ApiPedidoProps } from '@/@types';
+import { ApiPedidoProps } from '@/types';
 import { currency, dateTimeBr } from '@/helpers';
 import { Badge } from '@/components';
 
