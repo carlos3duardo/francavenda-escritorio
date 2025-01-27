@@ -4,9 +4,16 @@ import axios from 'axios';
 
 export async function GET(request: NextRequest) {
   const host = process.env.APP_HOST;
-  // const protocol = request.url.slice(0, request.url.indexOf(':'));
+  const protocol = request.url.slice(0, request.url.indexOf(':'));
   const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+
+  console.log({
+    host,
+    protocol,
+    local,
+    endpoint,
+  });
 
   const cookieStore = cookies();
   const accessToken = cookieStore.get('frv:token');
