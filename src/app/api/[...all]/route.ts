@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
     protocol,
     local,
     endpoint,
+    request: request.url,
   });
 
   const cookieStore = cookies();
