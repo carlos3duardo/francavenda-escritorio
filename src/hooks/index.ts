@@ -5,6 +5,7 @@ import { useFornecedor } from './useFornecedor';
 import { useMarca } from './useMarca';
 import { useBancoList } from './useBancoList';
 import { usePedido } from './usePedido';
+import { useProduto } from './useProduto';
 import { useSexoList } from './useSexoList';
 
 export {
@@ -15,5 +16,6 @@ export {
   useFornecedor,
   useMarca,
   usePedido,
+  useProduto,
   useSexoList,
 };

@@ -4,10 +4,12 @@ import { twMerge } from 'tailwind-merge';
 type CardGridItemProps = ComponentProps<'div'> & {
   children: ReactNode;
   label?: string;
+  tooltip?: string;
 };
 
 export function CardGridItem({
   label,
+  tooltip,
   className,
   children,
   ...rest
@@ -24,7 +26,10 @@ export function CardGridItem({
       {...rest}
     >
       {label && (
-        <span className="block text-slate-400 text-sm font-normal">
+        <span
+          className="block text-slate-400 text-sm font-normal"
+          title={tooltip}
+        >
           {label}
         </span>
       )}
