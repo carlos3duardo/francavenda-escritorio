@@ -1,4 +1,5 @@
 'use client';
+import Markdown from 'react-markdown';
 import { ApiProdutoProps } from '@/types';
 import { Badge, Card } from '@/components';
 import { capitalize } from '@/helpers';
@@ -72,10 +73,33 @@ export function ProdutoVisualizar({
           <Card.GridItem className="xl:col-span-12" label="Resumo">
             {produto.resumo}
           </Card.GridItem>
-          <Card.GridItem className="xl:col-span-12" label="Descrição">
-            {produto.descricao || <>&nbsp;</>}
+          <Card.GridItem className="2xl:col-span-8" label="Descrição">
+            <div className="produto-descricao my-2">
+              <Markdown>{produto.descricao}</Markdown>
+            </div>
           </Card.GridItem>
-          <Card.GridItem className="xl:col-span-12" label="Contrato">
+          <Card.GridItem className="2xl:col-span-4" label="Benefícios">
+            {produto.beneficios && produto.beneficios.length > 0 ? (
+              <ul>
+                {produto.beneficios.map((beneficio) => (
+                  <li key={beneficio.id}>
+                    <span>{beneficio.nome}</span>
+                    {beneficio.descricao && (
+                      <>
+                        <br />
+                        <span className="text-sm opacity-70">
+                          {beneficio.descricao}
+                        </span>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <>Produto sem benefício cadastrado</>
+            )}
+          </Card.GridItem>
+          <Card.GridItem label="Contrato">
             {produto.contrato?.url || <>&nbsp;</>}
           </Card.GridItem>
         </Card.Grid>

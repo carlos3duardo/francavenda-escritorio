@@ -25,6 +25,12 @@ type MarcaProps = {
   };
 };
 
+type BeneficioProps = {
+  id: string;
+  nome: string;
+  descricao: string | null;
+};
+
 export interface ApiProdutoProps {
   id: string;
   nome: string;
@@ -38,4 +44,5 @@ export interface ApiProdutoProps {
   contrato?: ContratoProps | null;
   marca: MarcaProps;
   created_at: string;
+  beneficios: BeneficioProps[];
 }

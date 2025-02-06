@@ -9,7 +9,11 @@ interface ProdutoContainerProps {
 }
 
 export function ProdutoContainer({ id }: ProdutoContainerProps) {
-  const { data: produto, isLoading, isSuccess } = useProduto(id);
+  const {
+    data: produto,
+    isLoading,
+    isSuccess,
+  } = useProduto(id, ['beneficios']);
 
   return (
     <>

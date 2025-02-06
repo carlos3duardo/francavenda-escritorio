@@ -21,3 +21,17 @@ button {
   @apply transition duration-200
 }
 
+.produto-descricao {
+  h2 {
+    @apply text-xl font-semibold mb-4;
+  }
+  ul {
+    @apply list-disc pl-8 mb-4;
+    li {
+      @apply text-base;
+    }
+  }
+  p {
+    @apply mb-4;
+  }
+}
