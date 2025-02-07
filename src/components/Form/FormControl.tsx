@@ -20,7 +20,7 @@ export function FormControl({
   return (
     <div
       className={twMerge(
-        'control w-full group-[.layout-horizontal]:grid group-[.layout-horizontal]:grid-cols-12 group-[.layout-horizontal]:gap-4',
+        'control w-full col-span-12 group-[.layout-horizontal]:grid group-[.layout-horizontal]:grid-cols-12 group-[.layout-horizontal]:gap-4',
         className,
       )}
     >

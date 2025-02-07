@@ -12,6 +12,7 @@ import Button from './Button';
 import { Badge } from './Badge';
 import { Form } from './Form';
 import { Card } from './Card';
+import { Tabs } from './Tabs';
 import { DropdownMenu } from './DropdownMenu';
 import { Dialog } from './Dialog';
 import { Loader } from './Loader';
@@ -26,6 +27,7 @@ export {
   Alert,
   Badge,
   Card,
+  Tabs,
   DropdownMenu,
   ColorModeSwitch,
   NavigationMenu,

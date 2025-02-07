@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronUp, Dot } from 'lucide-react';
 import { MenuItemProps, SubmenuItemProps } from '@/data/menu';
-// import { usePermissoes } from '@/hooks/usePermissoes';
 
 export function NavigationMenuItem({
   id,
@@ -27,10 +26,13 @@ export function NavigationMenuItem({
   const pathname = usePathname();
   const menuContainer = useRef<HTMLDivElement>(null);
 
-  // const { data: permissoes } = usePermissoes();
-
   useEffect(() => {
-    setIsActive(pathname.startsWith(href));
+    const active =
+      pathname === '/' && href === pathname
+        ? true
+        : pathname !== '/' && href !== '/' && pathname.startsWith(href);
+
+    setIsActive(active);
     setSubmenuIsOpen(pathname.startsWith(href));
   }, [pathname, href]);
 
@@ -40,12 +42,6 @@ export function NavigationMenuItem({
           if (item.free) return true;
 
           return true;
-
-          // return (
-          //   permissoes &&
-          //   item.permissions &&
-          //   permissoes.includes(item.permissions)
-          // );
         })
       : undefined;
 

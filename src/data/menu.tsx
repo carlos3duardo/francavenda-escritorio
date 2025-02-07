@@ -7,6 +7,7 @@ import {
   LogOut,
   Settings2,
   ShoppingBag,
+  User,
 } from 'lucide-react';
 import { ElementType } from 'react';
 
@@ -133,6 +134,13 @@ export const primaryMenu: MenuItemProps[] = [
 ];
 
 export const secondaryMenu: MenuItemProps[] = [
+  {
+    id: 4201,
+    label: 'Meus dados',
+    href: '/profile',
+    free: true,
+    icon: User,
+  },
   {
     id: 4202,
     label: 'Configurações',

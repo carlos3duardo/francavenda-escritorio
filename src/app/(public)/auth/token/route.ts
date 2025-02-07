@@ -29,6 +29,7 @@ type HttpResponseToken = {
     nome: string;
     apelido: string | null;
     email: string;
+    avatar_url: string;
     afiliado: AfiliadoProps | null;
   };
 };
@@ -123,10 +124,11 @@ export async function POST(request: NextRequest) {
         nome: data.usuario.nome,
         apelido: data.usuario.apelido,
         email: data.usuario.email,
+        avatarUrl: data.usuario.avatar_url,
         afiliado: data.usuario.afiliado,
       }),
-      secure: process.env.NODE_ENV !== 'development',
-      httpOnly: true,
+      secure: true,
+      httpOnly: false,
       maxAge: remember
         ? getUnixTime(addMinutes(fromUnixTime(data.expires_in), 1440))
         : undefined,
