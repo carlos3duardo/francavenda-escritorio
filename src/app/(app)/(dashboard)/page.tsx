@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Dashboard',
 };
 
-export default function Page() {
+export default function Dashboard() {
   return (
     <>
       <AppLayout.PageHeader>

@@ -6,11 +6,31 @@ type HttpResponseError = {
   message: string;
 };
 
+type AfiliadoProps = {
+  id: string;
+  situacao: {
+    id: number;
+    nome: string;
+  };
+  patrocinador: {
+    id: string;
+    nome: string;
+  } | null;
+};
+
 type HttpResponseToken = {
   token_type: string;
   expires_in: number;
   access_token: string;
   refresh_token: string;
+  usuario: {
+    id: string;
+    admin: boolean;
+    nome: string;
+    apelido: string | null;
+    email: string;
+    afiliado: AfiliadoProps | null;
+  };
 };
 
 export async function POST(request: NextRequest) {
@@ -86,6 +106,25 @@ export async function POST(request: NextRequest) {
     nextResponse.cookies.set({
       name: 'frv:refreshToken',
       value: data.refresh_token,
+      secure: process.env.NODE_ENV !== 'development',
+      httpOnly: true,
+      maxAge: remember
+        ? getUnixTime(addMinutes(fromUnixTime(data.expires_in), 1440))
+        : undefined,
+      sameSite: 'strict',
+      path: '/',
+    });
+
+    nextResponse.cookies.set({
+      name: 'frv:user',
+      value: JSON.stringify({
+        id: data.usuario.id,
+        admin: data.usuario.admin,
+        nome: data.usuario.nome,
+        apelido: data.usuario.apelido,
+        email: data.usuario.email,
+        afiliado: data.usuario.afiliado,
+      }),
       secure: process.env.NODE_ENV !== 'development',
       httpOnly: true,
       maxAge: remember

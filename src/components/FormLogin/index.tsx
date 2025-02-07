@@ -40,7 +40,7 @@ export default function FormLogin() {
         remember: data.remember,
       })
       .then(() => {
-        router.push('/dashboard');
+        router.push('/');
       })
       .catch((err) => {
         if (err.response.status === 401) {
