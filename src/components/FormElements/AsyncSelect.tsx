@@ -15,9 +15,9 @@ export interface SelectProps {
   label?: string;
   sourceUrl: string;
   defaultOptions?: SelectOption[];
+  defaultValue?: string;
   onInputChange?: (input: string) => void;
   onChange?: (value: any) => void;
-  value?: any;
   placeholder?: string;
   noOptionsMessage?: string;
   uppercase?: boolean;
@@ -37,9 +37,9 @@ export function AsyncSelect({
   options,
   sourceUrl,
   defaultOptions,
+  defaultValue,
   onInputChange,
   onChange,
-  value,
   placeholder = 'Faça uma busca',
   noOptionsMessage = 'Nenhum resultado encontrado',
 }: SelectProps) {
@@ -79,12 +79,16 @@ export function AsyncSelect({
         loadOptions={promiseOptions}
         onInputChange={onInputChange}
         onChange={onChange}
-        value={value}
+        value={defaultOptions?.find((option) => option.value === defaultValue)}
         placeholder={placeholder}
         noOptionsMessage={() => noOptionsMessage}
         isLoading={isLoading}
         defaultOptions={defaultOptions}
         isClearable
+        classNames={{
+          input: () => 'text-slate-600',
+          singleValue: () => 'text-slate-600',
+        }}
         styles={{
           container: () => ({
             width: '100%',
@@ -102,6 +106,7 @@ export function AsyncSelect({
           input: (baseStyles) => ({
             ...baseStyles,
             fontFamily: 'inherit',
+            color: 'nome',
           }),
           valueContainer: (baseStyles) => ({
             ...baseStyles,
@@ -110,6 +115,10 @@ export function AsyncSelect({
           dropdownIndicator: (baseStyles) => ({
             ...baseStyles,
             padding: '8px 0 8px 8px',
+          }),
+          singleValue: (baseStyles) => ({
+            ...baseStyles,
+            color: 'none',
           }),
         }}
       />

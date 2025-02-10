@@ -1,12 +1,15 @@
 'use client';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
+import { isDate } from 'brazilian-values';
 import { Form } from '@/components';
 import { dateBr, maskCpf, maskTelefone } from '@/helpers';
 import { useSexoList } from '@/hooks';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { UserAvatar } from '../UserAvatar';
-import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 type SelectOptionProps = {
   value: string;
@@ -60,7 +63,15 @@ export function DadosPessoais() {
       .max(64, { message: 'O apelido deve ter no máximo 64 caracteres.' })
       .or(z.literal('')),
     sexo_id: z.number().or(z.literal('')),
-    nascimento: z.string().trim().or(z.literal('')),
+    nascimento: z
+      .string()
+      .trim()
+      .or(z.literal(''))
+      .refine((value) => isDate(value))
+      .transform((value) => {
+        const [day, month, year] = value.split('/');
+        return `${year}-${month}-${day}`;
+      }),
   });
 
   type FormData = z.infer<typeof schema>;
@@ -102,7 +113,11 @@ export function DadosPessoais() {
   } = formMethods;
 
   async function submitForm(formData: FormData) {
-    console.log({ formData });
+    console.log(formData);
+
+    await axios.put('/api/me', formData).then((res) => {
+      toast.success('Dados atualizados com sucesso!');
+    });
   }
 
   return (
