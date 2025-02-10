@@ -72,7 +72,6 @@ export function DadosPessoais() {
         .then((res) => res.json())
         .then((data) => {
           if (data.naturalidade) {
-            console.log({ data });
             setOptMunicipio([
               {
                 value: data.naturalidade.id.toString(),
@@ -105,8 +104,6 @@ export function DadosPessoais() {
   async function submitForm(formData: FormData) {
     console.log({ formData });
   }
-
-  console.log({ optMunicipio });
 
   return (
     <div className="flex flex-col xl:flex-row gap-6">

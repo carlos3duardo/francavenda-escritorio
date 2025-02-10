@@ -28,6 +28,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const urlRequest = new URL(request.url);
+
   const host = process.env.APP_HOST;
   const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
@@ -51,6 +53,29 @@ export async function POST(request: NextRequest) {
     },
   })
     .then((response) => {
+      if (urlRequest.pathname === '/api/me/avatar') {
+        const nextResponse = NextResponse.json(response.data);
+
+        nextResponse.cookies.set({
+          name: 'frv:user',
+          value: JSON.stringify({
+            id: response.data.usuario.id,
+            admin: response.data.usuario.admin,
+            nome: response.data.usuario.nome,
+            apelido: response.data.usuario.apelido,
+            email: response.data.usuario.email,
+            avatarUrl: response.data.usuario.avatar_url,
+            afiliado: response.data.usuario.afiliado,
+          }),
+          secure: true,
+          httpOnly: false,
+          sameSite: 'strict',
+          path: '/',
+        });
+
+        return nextResponse;
+      }
+
       return NextResponse.json(response.data, { status: response.status });
     })
     .catch(function (error) {

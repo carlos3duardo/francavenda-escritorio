@@ -1,7 +1,7 @@
 'use client';
 import { ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import axios from 'axios';
 // import { notification } from '@/lib';
 import { Camera } from 'lucide-react';
@@ -71,13 +71,7 @@ export function UserAvatar() {
           avatarUrl: response.data.usuario.avatar_url,
           afiliado: response.data.usuario.afiliado,
         };
-        setCookie('usuario', JSON.stringify(user), {
-          path: '/',
-          maxAge: 60 * 60 * 24 * 30,
-          secure: true,
-          httpOnly: false,
-        });
-        // setEmpresas(response.data.usuario.empresas);
+
         setUsuario(user);
       })
       .catch((err) => {
