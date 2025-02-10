@@ -137,7 +137,7 @@ export const secondaryMenu: MenuItemProps[] = [
   {
     id: 4201,
     label: 'Meus dados',
-    href: '/profile',
+    href: '/meus-dados',
     free: true,
     icon: User,
   },

@@ -40,6 +40,14 @@ export function middleware(request: NextRequest) {
   if (!accessToken && !publicRoute) {
     const redirectUrl = request.nextUrl.clone();
 
+    console.log({ redirectUrl });
+
+    const redirectAfterLogin = redirectUrl.pathname + redirectUrl.search;
+
+    redirectUrl.search = new URLSearchParams({
+      redirectTo: redirectAfterLogin,
+    }).toString();
+
     redirectUrl.pathname = SIGNIN_ROUTE;
 
     return NextResponse.redirect(redirectUrl);

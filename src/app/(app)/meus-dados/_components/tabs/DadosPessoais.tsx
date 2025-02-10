@@ -51,7 +51,7 @@ export function DadosPessoais() {
       .min(3, { message: 'O apelido deve ter pelo menos 3 caracteres.' })
       .max(64, { message: 'O apelido deve ter no máximo 64 caracteres.' })
       .or(z.literal('')),
-    sexo_id: z.string().trim().or(z.literal('')),
+    sexo_id: z.number().or(z.literal('')),
     nascimento: z.string().trim().or(z.literal('')),
   });
 
@@ -187,11 +187,7 @@ export function DadosPessoais() {
                 error={errors.naturalidade_id?.message}
                 className="xl:col-span-4"
               >
-                <Form.InputText
-                  id="naturalidade_id"
-                  name="naturalidade_id"
-                  error={errors.naturalidade_id?.message}
-                />
+                .
               </Form.Control>
               <Form.Control
                 label="Sexo"
@@ -206,6 +202,7 @@ export function DadosPessoais() {
                       value: sexo.id.toString(),
                       label: sexo.nome,
                     }))}
+                    valueAsNumber={true}
                   />
                 )}
               </Form.Control>
@@ -223,6 +220,10 @@ export function DadosPessoais() {
                 />
               </Form.Control>
             </Form.Fieldset>
+            <Form.Separator />
+            <Form.Footer>
+              <Form.Submit>Atualizar dados</Form.Submit>
+            </Form.Footer>
           </Form.Body>
         </Form.Root>
       </div>

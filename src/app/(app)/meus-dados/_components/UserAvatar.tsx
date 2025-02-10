@@ -28,8 +28,6 @@ export function UserAvatar() {
 
   const router = useRouter();
 
-  console.log({ usuario });
-
   const handleUploadClick = () => {
     // 👇 We redirect the click event onto the hidden input element
     inputRef.current?.click();
