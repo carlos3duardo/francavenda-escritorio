@@ -1,3 +1,4 @@
+'use client';
 import { Form } from '@/components';
 import { dateBr, maskCpf, maskTelefone } from '@/helpers';
 import { useSexoList } from '@/hooks';
@@ -5,9 +6,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { UserAvatar } from '../UserAvatar';
+import { useState } from 'react';
+
+type SelectOptionProps = {
+  value: string;
+  label: string;
+};
 
 export function DadosPessoais() {
   const { data: sexos } = useSexoList();
+  const [optMunicipio, setOptMunicipio] = useState<SelectOptionProps[]>([]);
 
   const schema = z.object({
     nome: z
@@ -63,6 +71,15 @@ export function DadosPessoais() {
       return fetch('/api/me')
         .then((res) => res.json())
         .then((data) => {
+          if (data.naturalidade) {
+            console.log({ data });
+            setOptMunicipio([
+              {
+                value: data.naturalidade.id.toString(),
+                label: `${data.naturalidade.municipio} - ${data.naturalidade.uf}`,
+              },
+            ]);
+          }
           return {
             nome: data.nome,
             apelido: data.apelido,
@@ -71,7 +88,7 @@ export function DadosPessoais() {
             cpf: data.cpf ? maskCpf(data.cpf) : '',
             rg: data.rg,
             rg_emissor: data.rg_emissor,
-            naturalidade_id: '',
+            naturalidade_id: data.naturalidade.id.toString(),
             mae: data.mae,
             sexo_id: data.sexo?.id,
             nascimento: data.nascimento ? dateBr(data.nascimento) : '',
@@ -88,6 +105,8 @@ export function DadosPessoais() {
   async function submitForm(formData: FormData) {
     console.log({ formData });
   }
+
+  console.log({ optMunicipio });
 
   return (
     <div className="flex flex-col xl:flex-row gap-6">
@@ -187,7 +206,12 @@ export function DadosPessoais() {
                 error={errors.naturalidade_id?.message}
                 className="xl:col-span-4"
               >
-                .
+                <Form.AsyncSelect
+                  id="naturalidade_id"
+                  name="naturalidade_id"
+                  sourceUrl="/api/select-options/municipio"
+                  defaultOptions={optMunicipio}
+                />
               </Form.Control>
               <Form.Control
                 label="Sexo"

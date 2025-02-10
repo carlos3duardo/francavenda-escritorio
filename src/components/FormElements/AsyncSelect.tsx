@@ -14,6 +14,7 @@ export interface SelectProps {
   name?: string;
   label?: string;
   sourceUrl: string;
+  defaultOptions?: SelectOption[];
   onInputChange?: (input: string) => void;
   onChange?: (value: any) => void;
   value?: any;
@@ -35,6 +36,7 @@ export function AsyncSelect({
   name,
   options,
   sourceUrl,
+  defaultOptions,
   onInputChange,
   onChange,
   value,
@@ -67,27 +69,6 @@ export function AsyncSelect({
       resolve(searchValues(inputValue));
     });
 
-  // const loadOptions = async (searchValue: string, callback: any) => {
-  //   if (!searchValue || searchValue.length < 3) return [];
-
-  //   try {
-  //     const { data } = await axios.get(
-  //       `/api/select-options/municipio?q=${searchValue}`,
-  //     );
-
-  //     const selectOptions = data.map((option: SelectOption) => ({
-  //       label: option.label,
-  //       value: option.value.toString(),
-  //     }));
-
-  //     return selectOptions;
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   return (
     <InputContainer>
       <ReactAsyncSelect
@@ -102,7 +83,7 @@ export function AsyncSelect({
         placeholder={placeholder}
         noOptionsMessage={() => noOptionsMessage}
         isLoading={isLoading}
-        defaultOptions
+        defaultOptions={defaultOptions}
         isClearable
         styles={{
           container: () => ({
