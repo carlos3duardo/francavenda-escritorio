@@ -3,6 +3,8 @@ import { ElementType, HTMLAttributes, useCallback, useContext } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { TabsContext } from './TabsContext';
 
+import styles from './Styles.module.css';
+
 interface TabsNavigationItemProps extends HTMLAttributes<HTMLDivElement> {
   icon?: ElementType;
   label: string;
@@ -43,7 +45,7 @@ export function TabsNavigationItem({
       role="tab"
       type="button"
       data-active={activeTab === target}
-      className="w-full flex gap-2 items-center px-2 py-2 text-sm rounded hover:bg-slate-100 dark:hover:bg-slate-700 transition duration-200 data-[active=true]:bg-slate-200 dark:data-[active=true]:bg-slate-600 data-[active=true]:text-slate-800 dark:data-[active=true]:text-slate-200 whitespace-nowrap"
+      className={styles.tabsNavigationItem}
       onClick={() => handleNavigationClick(target)}
     >
       {Icon && <Icon size={20} />} {label}

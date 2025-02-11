@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { TabsContext } from './TabsContext';
 
+import styles from './Styles.module.css';
+
 interface TabsNavigationProps extends HTMLAttributes<HTMLDivElement> {
   tabKey: string;
   activeTab: string;
@@ -31,13 +33,7 @@ export function TabsNavigation({
   }, [searchParams]);
 
   return (
-    <div
-      className={twMerge(
-        'group-[.nav-position-left]:min-w-[220px] group-[.nav-position-right]:min-w-[220px] group-[.nav-position-top]:border-b group-[.nav-position-top]:border-b-slate-200 group-[.nav-position-bottom]:border-t group-[.nav-position-bottom]:border-t-slate-200 flex',
-        className,
-      )}
-      {...rest}
-    >
+    <div className={twMerge(styles.tabsNavigationMenu, className)} {...rest}>
       {children}
     </div>
   );

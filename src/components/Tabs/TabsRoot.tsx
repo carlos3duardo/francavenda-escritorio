@@ -3,6 +3,8 @@ import { HTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { TabsProvider } from './TabsContext';
 
+import styles from './Styles.module.css';
+
 interface TabsRootProps extends HTMLAttributes<HTMLDivElement> {
   navigatonPosition?: 'top' | 'left' | 'right' | 'bottom';
 }
@@ -16,10 +18,7 @@ export function TabsRoot({
   return (
     <div
       data-nav-position={navigatonPosition}
-      className={twMerge(
-        `group nav-position-${navigatonPosition} rounded-lg shadow flex flex-col data-[nav-position=top]:flex-col data-[nav-position=bottom]:flex-col-reverse data-[nav-position=left]:flex-row data-[nav-position=right]:flex-row-reverse gap-6 bg-white dark:bg-slate-900`,
-        className,
-      )}
+      className={twMerge(styles.tabsRoot, className)}
       {...rest}
     >
       <TabsProvider>{children}</TabsProvider>
