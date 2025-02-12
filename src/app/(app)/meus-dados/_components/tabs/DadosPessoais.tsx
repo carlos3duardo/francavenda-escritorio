@@ -67,7 +67,7 @@ export function DadosPessoais() {
       .string()
       .trim()
       .or(z.literal(''))
-      .refine((value) => isDate(value))
+      .refine((value) => value === '' || isDate(value))
       .transform((value) => {
         const [day, month, year] = value.split('/');
         return `${year}-${month}-${day}`;
@@ -92,14 +92,16 @@ export function DadosPessoais() {
           }
           return {
             nome: data.nome,
-            apelido: data.apelido,
+            apelido: data.apelido || '',
             email: data.email,
             celular: data.celular ? maskTelefone(data.celular) : '',
             cpf: data.cpf ? maskCpf(data.cpf) : '',
-            rg: data.rg,
-            rg_emissor: data.rg_emissor,
-            naturalidade_id: data.naturalidade.id.toString(),
-            mae: data.mae,
+            rg: data.rg || '',
+            rg_emissor: data.rg_emissor || '',
+            naturalidade_id: data.naturalidade
+              ? data.naturalidade.id.toString()
+              : '',
+            mae: data.mae || '',
             sexo_id: data.sexo?.id,
             nascimento: data.nascimento ? dateBr(data.nascimento) : '',
           };

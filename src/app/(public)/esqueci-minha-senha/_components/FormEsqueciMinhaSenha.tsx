@@ -2,14 +2,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { ArrowRight, CircleHelp, KeyRound, UserCircle } from 'lucide-react';
-import { Form } from '../Form';
-import Button from '../Button';
+import { ArrowRight, UserCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { Button, Dialog, Form } from '@/components';
 import Link from 'next/link';
 
-export default function FormLogin() {
+export default function FormEsqueciMinhaSenha() {
   const router = useRouter();
 
   const formSchema = z.object({
@@ -17,8 +16,6 @@ export default function FormLogin() {
       .string()
       .min(1, { message: 'Campo obrigatório.' })
       .email({ message: 'Endereço de e-mail inválido.' }),
-    password: z.string().min(1, { message: 'Campo obrigatório.' }),
-    remember: z.boolean(),
   });
 
   type FormData = z.infer<typeof formSchema>;
@@ -35,13 +32,17 @@ export default function FormLogin() {
 
   async function formSubmit(data: FormData) {
     await axios
-      .post('/auth/token', {
+      .post('/api/esqueci-minha-senha', {
         username: data.username,
-        password: data.password,
-        remember: data.remember,
       })
-      .then(() => {
-        router.push('/');
+      .then((response) => {
+        Dialog.Success.fire({
+          title: 'Solicitação enviada com sucesso.',
+          text: 'Verifique seu e-mail e siga as instruções para redefinir sua senha.',
+          confirmButtonText: 'Voltar ao início',
+        }).then(() => {
+          router.push('/');
+        });
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -76,26 +77,6 @@ export default function FormLogin() {
                 error={errors.username?.message}
               />
             </Form.Control>
-            <Form.Control
-              label="Sua senha"
-              className="col-span-12"
-              error={errors.password?.message}
-            >
-              <Form.InputPassword
-                id="password"
-                name="password"
-                icon={KeyRound}
-                error={errors.password?.message}
-              />
-            </Form.Control>
-            <div className="col-span-12 flex items-center justify-between text-sm font-medium">
-              <Form.Checkbox
-                name="remember"
-                label="Lembrar-me"
-                error={errors.remember?.message}
-              />
-              <div>Esqueci minha senha</div>
-            </div>
           </Form.Fieldset>
 
           <Form.Error />
@@ -109,18 +90,17 @@ export default function FormLogin() {
                   iconSide="right"
                   fullWidth
                 >
-                  Entrar
+                  Solicitar código
                 </Form.Submit>
 
-                <Link href="/esqueci-minha-senha">
+                <Link href="/sign-in">
                   <Button
                     color="primary"
                     variant="outline"
-                    icon={CircleHelp}
                     iconSide="left"
                     fullWidth
                   >
-                    Esqueci minha senha
+                    Voltar
                   </Button>
                 </Link>
               </div>

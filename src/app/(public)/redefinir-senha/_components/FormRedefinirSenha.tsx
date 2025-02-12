@@ -1,15 +1,19 @@
 'use client';
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { ArrowRight, CircleHelp, KeyRound, UserCircle } from 'lucide-react';
-import { Form } from '../Form';
-import Button from '../Button';
-import { useRouter } from 'next/navigation';
+import { KeyRound, UserCircle } from 'lucide-react';
 import axios from 'axios';
-import Link from 'next/link';
+import { Button, Dialog, Form } from '@/components';
+import { PasswordValidator } from './PasswordValidator';
 
-export default function FormLogin() {
+export default function FormRedefinirSenha() {
+  const searchParams = useSearchParams();
+  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [password, setPassword] = useState('');
   const router = useRouter();
 
   const formSchema = z.object({
@@ -18,7 +22,7 @@ export default function FormLogin() {
       .min(1, { message: 'Campo obrigatório.' })
       .email({ message: 'Endereço de e-mail inválido.' }),
     password: z.string().min(1, { message: 'Campo obrigatório.' }),
-    remember: z.boolean(),
+    password_confirm: z.string().min(1, { message: 'Campo obrigatório.' }),
   });
 
   type FormData = z.infer<typeof formSchema>;
@@ -34,17 +38,25 @@ export default function FormLogin() {
   } = methods;
 
   async function formSubmit(data: FormData) {
+    const token = searchParams.get('token');
     await axios
-      .post('/auth/token', {
+      .post('/api/redefinir-senha', {
+        token,
         username: data.username,
         password: data.password,
-        remember: data.remember,
+        password_confirm: data.password_confirm,
       })
-      .then(() => {
-        router.push('/');
+      .then((response) => {
+        Dialog.Success.fire({
+          title: 'Senha redefinida com sucesso.',
+          text: 'Você já pode acessar o sistema através de sua nova senha.',
+          confirmButtonText: 'Voltar ao início',
+        }).then(() => {
+          router.push('/sign-in');
+        });
       })
       .catch((err) => {
-        if (err.response.status === 401) {
+        if (err.response.status === 400) {
           const error = err.response.data;
 
           setError('root.serverError', {
@@ -76,8 +88,9 @@ export default function FormLogin() {
                 error={errors.username?.message}
               />
             </Form.Control>
+
             <Form.Control
-              label="Sua senha"
+              label="Sua nova senha"
               className="col-span-12"
               error={errors.password?.message}
             >
@@ -86,16 +99,31 @@ export default function FormLogin() {
                 name="password"
                 icon={KeyRound}
                 error={errors.password?.message}
+                onChange={(evt) => {
+                  setPassword(evt.target.value);
+                }}
               />
             </Form.Control>
-            <div className="col-span-12 flex items-center justify-between text-sm font-medium">
-              <Form.Checkbox
-                name="remember"
-                label="Lembrar-me"
-                error={errors.remember?.message}
+
+            <Form.Control
+              label="Confirme a sua nova senha"
+              className="col-span-12"
+              error={errors.password_confirm?.message}
+            >
+              <Form.InputPassword
+                id="password_confirm"
+                name="password_confirm"
+                icon={KeyRound}
+                error={errors.password_confirm?.message}
               />
-              <div>Esqueci minha senha</div>
-            </div>
+            </Form.Control>
+
+            <Form.Control>
+              <PasswordValidator
+                password={password}
+                onValidChange={setIsValidPassword}
+              />
+            </Form.Control>
           </Form.Fieldset>
 
           <Form.Error />
@@ -104,23 +132,22 @@ export default function FormLogin() {
             <Form.FooterSection>
               <div className="w-full flex flex-col gap-2">
                 <Form.Submit
+                  disabled={!isValidPassword}
                   color="primary"
-                  icon={ArrowRight}
                   iconSide="right"
                   fullWidth
                 >
-                  Entrar
+                  Redefinir senha
                 </Form.Submit>
 
-                <Link href="/esqueci-minha-senha">
+                <Link href="/sign-in">
                   <Button
                     color="primary"
                     variant="outline"
-                    icon={CircleHelp}
                     iconSide="left"
                     fullWidth
                   >
-                    Esqueci minha senha
+                    Voltar
                   </Button>
                 </Link>
               </div>

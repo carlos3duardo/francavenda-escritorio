@@ -21,6 +21,14 @@ const publicRoutes = [
     whenAuthenticated: 'next',
   },
   {
+    path: '/esqueci-minha-senha',
+    whenAuthenticated: 'next',
+  },
+  {
+    path: '/redefinir-senha',
+    whenAuthenticated: 'next',
+  },
+  {
     path: '/sign-in',
     whenAuthenticated: 'redirect',
   },
@@ -39,8 +47,6 @@ export function middleware(request: NextRequest) {
 
   if (!accessToken && !publicRoute) {
     const redirectUrl = request.nextUrl.clone();
-
-    console.log({ redirectUrl });
 
     const redirectAfterLogin = redirectUrl.pathname + redirectUrl.search;
 
