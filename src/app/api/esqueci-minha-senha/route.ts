@@ -6,11 +6,6 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { username } = body;
 
-  console.log({
-    accessToken,
-    body,
-  });
-
   const response = await fetch(
     `${process.env.API_URL}/password/recovery-token`,
     {

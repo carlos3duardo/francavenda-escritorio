@@ -29,12 +29,12 @@ const publicRoutes = [
     whenAuthenticated: 'next',
   },
   {
-    path: '/sign-in',
+    path: '/entrar',
     whenAuthenticated: 'redirect',
   },
 ] as const;
 
-const SIGNIN_ROUTE = '/sign-in';
+const SIGNIN_ROUTE = '/entrar';
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;

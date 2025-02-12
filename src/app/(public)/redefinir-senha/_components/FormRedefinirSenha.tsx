@@ -52,7 +52,7 @@ export default function FormRedefinirSenha() {
           text: 'Você já pode acessar o sistema através de sua nova senha.',
           confirmButtonText: 'Voltar ao início',
         }).then(() => {
-          router.push('/sign-in');
+          router.push('/entrar');
         });
       })
       .catch((err) => {
@@ -140,7 +140,7 @@ export default function FormRedefinirSenha() {
                   Redefinir senha
                 </Form.Submit>
 
-                <Link href="/sign-in">
+                <Link href="/entrar">
                   <Button
                     color="primary"
                     variant="outline"

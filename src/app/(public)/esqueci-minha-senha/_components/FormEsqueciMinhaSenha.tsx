@@ -93,7 +93,7 @@ export default function FormEsqueciMinhaSenha() {
                   Solicitar código
                 </Form.Submit>
 
-                <Link href="/sign-in">
+                <Link href="/entrar">
                   <Button
                     color="primary"
                     variant="outline"
