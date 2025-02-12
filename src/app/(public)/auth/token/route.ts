@@ -76,6 +76,20 @@ export async function POST(request: NextRequest) {
         );
       }
 
+      if (data.error === 'expired_password') {
+        return NextResponse.json(
+          {
+            error: data.error,
+            message: 'A senha do usuário expirou.',
+          },
+          { status: 401 },
+        );
+      }
+
+      console.error('Erro inesperado.');
+      console.error('* * * * * * * * * * * * * * * * * * * * * * * * * * * *');
+      console.error(data);
+
       return NextResponse.json(
         {
           error: 'server_error',

@@ -5,7 +5,18 @@ export async function POST(request: NextRequest) {
   const accessToken = await getClientAccessToken();
   const body = await request.json();
 
-  if (body.password !== body.password_confirm) {
+  if (body.password === body.new_password) {
+    return NextResponse.json(
+      {
+        message: 'A nova senha deve ser diferente da senha atual.',
+      },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  if (body.new_password !== body.new_password_confirm) {
     return NextResponse.json(
       {
         message: 'As senhas devem ser iguais.',

@@ -29,6 +29,10 @@ const publicRoutes = [
     whenAuthenticated: 'next',
   },
   {
+    path: '/renovar-senha',
+    whenAuthenticated: 'next',
+  },
+  {
     path: '/entrar',
     whenAuthenticated: 'redirect',
   },

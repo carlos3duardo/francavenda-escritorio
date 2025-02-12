@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -10,8 +10,11 @@ import axios from 'axios';
 import { Button, Dialog, Form } from '@/components';
 import { PasswordValidator } from './PasswordValidator';
 
-export default function FormRedefinirSenha() {
-  const searchParams = useSearchParams();
+interface FormProps {
+  username?: string;
+}
+
+export default function FormRenovarSenha({ username = '' }: FormProps) {
   const [isValidPassword, setIsValidPassword] = useState(false);
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -21,6 +24,7 @@ export default function FormRedefinirSenha() {
       .string()
       .min(1, { message: 'Campo obrigatório.' })
       .email({ message: 'Endereço de e-mail inválido.' }),
+    password: z.string().min(1, { message: 'Campo obrigatório.' }),
     new_password: z.string().min(1, { message: 'Campo obrigatório.' }),
     new_password_confirm: z.string().min(1, { message: 'Campo obrigatório.' }),
   });
@@ -29,6 +33,12 @@ export default function FormRedefinirSenha() {
 
   const methods = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      username,
+      password: '',
+      new_password: '',
+      new_password_confirm: '',
+    },
   });
 
   const {
@@ -38,15 +48,14 @@ export default function FormRedefinirSenha() {
   } = methods;
 
   async function formSubmit(data: FormData) {
-    const token = searchParams.get('token');
     await axios
       .post('/api/redefinir-senha', {
-        token,
         username: data.username,
+        password: data.password,
         new_password: data.new_password,
         new_password_confirm: data.new_password_confirm,
       })
-      .then(() => {
+      .then((response) => {
         Dialog.Success.fire({
           title: 'Senha redefinida com sucesso.',
           text: 'Você já pode acessar o sistema através de sua nova senha.',
@@ -75,7 +84,7 @@ export default function FormRedefinirSenha() {
     <div className="w-full lg:max-w-[380px] px-4 lg:px-0 flex flex-col items-center gap-4">
       <Form.Root {...methods}>
         <Form.Body onSubmit={handleSubmit(formSubmit)}>
-          <Form.Fieldset className="px-0 xl:px-0">
+          <Form.Fieldset className="px-0 py-0 xl:px-0 gap-y-2">
             <Form.Control
               label="Seu e-mail"
               className="col-span-12"
@@ -90,12 +99,28 @@ export default function FormRedefinirSenha() {
             </Form.Control>
 
             <Form.Control
+              label="Sua senha atual"
+              className="col-span-12"
+              error={errors.password?.message}
+            >
+              <Form.InputPassword
+                id="password"
+                name="password"
+                icon={KeyRound}
+                error={errors.password?.message}
+                onChange={(evt) => {
+                  setPassword(evt.target.value);
+                }}
+              />
+            </Form.Control>
+
+            <Form.Control
               label="Sua nova senha"
               className="col-span-12"
               error={errors.new_password?.message}
             >
               <Form.InputPassword
-                id="new_password"
+                id="password"
                 name="new_password"
                 icon={KeyRound}
                 error={errors.new_password?.message}
@@ -128,7 +153,7 @@ export default function FormRedefinirSenha() {
 
           <Form.Error />
 
-          <Form.Footer className="p-0 xl:px-0">
+          <Form.Footer className="px-0 py-0 xl:px-0 gap-y-2">
             <Form.FooterSection>
               <div className="w-full flex flex-col gap-2">
                 <Form.Submit

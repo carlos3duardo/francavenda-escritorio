@@ -47,6 +47,12 @@ export default function FormLogin() {
         if (err.response.status === 401) {
           const error = err.response.data;
 
+          if (error.error === 'expired_password') {
+            router.push(
+              `/renovar-senha?username=${data.username}&error=${error.error}`,
+            );
+          }
+
           setError('root.serverError', {
             message: error.message,
           });
