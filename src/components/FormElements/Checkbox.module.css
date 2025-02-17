@@ -1,0 +1,15 @@
+/* components/CustomCheckbox.module.css */
+.path {
+  fill: none;
+  stroke: #090909;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 241 9999999;
+  stroke-dashoffset: 0;
+}
+
+.checkedPath {
+  stroke-dasharray: 70.5096664428711 9999999;
+  stroke-dashoffset: -262.2723388671875;
+}

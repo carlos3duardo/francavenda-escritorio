@@ -2,26 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-body-background dark:bg-body-background-dark text-slate-600 dark:text-slate-100;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+a {
+  @apply text-primary-500 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-200
+}
+
+button {
+  @apply transition duration-200
+}
+
+.produto-descricao {
+  h2 {
+    @apply text-xl font-semibold mb-4;
+  }
+  ul {
+    @apply list-disc pl-8 mb-4;
+    li {
+      @apply text-base;
+    }
+  }
+  p {
+    @apply mb-4;
   }
 }

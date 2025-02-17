@@ -1,0 +1,32 @@
+.tabsRoot {
+  @apply rounded-lg shadow flex flex-col gap-6 bg-white dark:bg-slate-900;
+  @apply data-[nav-position=top]:flex-col data-[nav-position=top]:gap-0;
+  @apply data-[nav-position=bottom]:flex-col-reverse data-[nav-position=top]:gap-0;
+  @apply data-[nav-position=left]:flex-row data-[nav-position=right]:flex-row-reverse;
+}
+
+.tabsNavigationMenu {
+  @apply bg-white;
+  /* @apply group-[.nav-position-top]:border-b group-[.nav-position-top]:px-6 group-[.nav-position-top]:bg-red-200;
+  @apply group-[.nav-position-top]:border-b-slate-200;
+  @apply group-[.nav-position-left]:min-w-[220px];
+  @apply group-[.nav-position-right]:min-w-[220px];
+  @apply group-[.nav-position-bottom]:border-t;
+  @apply group-[.nav-position-bottom]:border-t-slate-200 flex; */
+}
+
+.tabsRoot[data-nav-position=top] .tabsNavigationMenu {
+  @apply rounded-t-lg px-6 flex bg-slate-200 pt-1;
+}
+
+.tabsRoot[data-nav-position=top] .tabsNavigationMenu .tabsNavigationGroup {
+  @apply bg-transparent;
+}
+
+.tabsRoot[data-nav-position=top] .tabsNavigationMenu .tabsNavigationGroup .tabNavigationList {
+  @apply text-slate-600 dark:text-slate-300 flex gap-4;
+}
+
+.tabsRoot[data-nav-position=top] .tabsNavigationMenu .tabsNavigationGroup .tabsNavigationItem {
+  @apply w-full pt-3 pb-3 px-3 flex gap-2 opacity-40 items-center text-sm rounded-t-md hover:opacity-100 dark:hover:bg-slate-700 transition duration-200 data-[active=true]:opacity-100 data-[active=true]:bg-white dark:data-[active=true]:bg-slate-600 data-[active=true]:text-slate-800 dark:data-[active=true]:text-slate-200 whitespace-nowrap;
+}
