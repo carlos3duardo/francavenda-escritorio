@@ -1,10 +1,12 @@
 import { Card } from '@/components';
 import { maskCpf } from '@/helpers';
+import { ModalRecorrencia } from './ModalRecorrencia';
 
 type ItemProps = {
   id: string;
   descricao: string;
   cpf: string | null;
+  ativo: boolean;
   tipo: {
     id: number;
     nome: string;
@@ -16,12 +18,14 @@ type ItemProps = {
 };
 
 interface PedidoHistoricoProps {
+  pedidoId: string;
   isLoading: boolean;
   isSuccess: boolean;
   composicao: ItemProps[] | undefined;
 }
 
 export function PedidoComposicao({
+  pedidoId,
   isLoading,
   isSuccess,
   composicao,
@@ -38,7 +42,12 @@ export function PedidoComposicao({
     return (
       <Card.Root>
         <Card.Header>
-          <Card.Label title="Composição" />
+          <Card.HeaderSection>
+            <Card.Label title="Composição" />
+          </Card.HeaderSection>
+          <Card.HeaderSection>
+            <ModalRecorrencia pedidoId={pedidoId} composicao={composicao} />
+          </Card.HeaderSection>
         </Card.Header>
         <Card.Separator />
         <Card.Body>

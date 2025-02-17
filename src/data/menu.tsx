@@ -60,6 +60,16 @@ export const primaryMenu: MenuItemProps[] = [
         label: 'Pedidos',
         href: '/ecommerce/pedido',
       },
+      {
+        id: 4,
+        label: 'Meus pedidos',
+        href: '/ecommerce/meus-pedidos',
+      },
+      {
+        id: 5,
+        label: 'Meus links',
+        href: '/ecommerce/meus-links',
+      },
     ],
   },
   {

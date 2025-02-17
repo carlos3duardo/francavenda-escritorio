@@ -52,6 +52,7 @@ export function PedidoContainer({ id }: PedidoContainerProps) {
         <div className="grid grid-cols-12 gap-4 2xl:gap-6">
           <div className="col-span-6 flex flex-col gap-4 2xl:gap-6">
             <PedidoComposicao
+              pedidoId={id}
               isLoading={isLoading}
               isSuccess={isSuccess}
               composicao={pedido ? pedido.composicao : []}
