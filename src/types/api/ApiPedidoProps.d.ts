@@ -85,6 +85,7 @@ type ComposicaoProps = {
   id: string;
   descricao: string;
   cpf: string | null;
+  ativo: boolean;
   tipo: {
     id: number;
     nome: string;

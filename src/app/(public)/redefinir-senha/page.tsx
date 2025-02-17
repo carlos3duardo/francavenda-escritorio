@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
 import imageBackground from '@/assets/images/senha-redefinir-background.jpg';
 import frame from '@/assets/images/login-frame.png';
@@ -19,7 +20,9 @@ export default function Home() {
           <Image src={logoFrancaVenda} alt="logo" width={175} height={70} />
         </figure>
         <h1 className="text-xl font-semibold">Redefinir senha</h1>
-        <FormRedefinirSenha />
+        <Suspense>
+          <FormRedefinirSenha />
+        </Suspense>
       </div>
       <aside className="flex-1">
         <figure className="relative w-full h-full">
