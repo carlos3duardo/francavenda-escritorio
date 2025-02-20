@@ -52,11 +52,13 @@ export function middleware(request: NextRequest) {
   if (!accessToken && !publicRoute) {
     const redirectUrl = request.nextUrl.clone();
 
-    const redirectAfterLogin = redirectUrl.pathname + redirectUrl.search;
+    if (redirectUrl.pathname !== '/') {
+      const redirectAfterLogin = redirectUrl.pathname + redirectUrl.search;
 
-    redirectUrl.search = new URLSearchParams({
-      redirectTo: redirectAfterLogin,
-    }).toString();
+      redirectUrl.search = new URLSearchParams({
+        redirectTo: redirectAfterLogin,
+      }).toString();
+    }
 
     redirectUrl.pathname = SIGNIN_ROUTE;
 
