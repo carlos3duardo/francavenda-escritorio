@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 export async function GET(request: NextRequest) {
   const host = process.env.APP_HOST;
@@ -22,7 +22,13 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(response.data, { status: response.status });
     })
     .catch(function (err) {
-      console.error(err.response.data);
+      if (isAxiosError(err)) {
+        return NextResponse.json(err.response?.data, {
+          status: err.response?.status,
+        });
+      }
+
+      // console.error({ erro: err });
       return NextResponse.json(err.response.data, { status: 500 });
     });
 }
