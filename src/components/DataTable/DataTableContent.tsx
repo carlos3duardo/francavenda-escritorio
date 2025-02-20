@@ -74,9 +74,17 @@ export function DataTableContent({
   const { isSuccess, data, isLoading, isError } = useQuery({
     queryKey: [queryId, dataSrc, currentPage, pageSize],
     queryFn: async () => {
-      const response = await fetch(finalUrl).then((res) => res.json());
+      const response = await fetch(finalUrl);
 
-      return response;
+      if (response.ok) {
+        return await response.json();
+      }
+
+      if (response.status === 401) {
+        throw new Error(`Response: ${response.statusText}`);
+      }
+
+      throw new Error(`Response: ${response.statusText}`);
     },
   });
 
