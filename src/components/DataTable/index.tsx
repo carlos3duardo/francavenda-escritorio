@@ -2,6 +2,7 @@ import { DataTableRoot } from './DataTableRoot';
 import { DataTableHeader } from './DataTableHeader';
 import { DataTableLabel } from './DataTableLabel';
 import { DataTableActions } from './DataTableActions';
+import { DataTableSearch } from './DataTableSearch';
 import { DataTableContent, ColumnProps } from './DataTableContent';
 import { DataTableFooter } from './DataTableFooter';
 import { DataTableRowsCount } from './DataTableRowsCount';
@@ -15,6 +16,7 @@ export const DataTable = {
   Header: DataTableHeader,
   Label: DataTableLabel,
   Actions: DataTableActions,
+  Search: DataTableSearch,
   Content: DataTableContent,
   Footer: DataTableFooter,
   FooterSection: DataTableFooterSection,

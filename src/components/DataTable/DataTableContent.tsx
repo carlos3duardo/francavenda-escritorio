@@ -57,7 +57,7 @@ export function DataTableContent({
   emptyTableMessage,
   userCanChangePageSize = true,
 }: DataTableProps) {
-  const { setRowsCount, setPagesCount, currentPage } =
+  const { setRowsCount, setPagesCount, currentPage, search } =
     useContext(DataTableContext);
 
   const offset = pageSize * (currentPage - 1);
@@ -67,12 +67,13 @@ export function DataTableContent({
 
     url.searchParams.set('offset', offset.toString());
     url.searchParams.set('limit', pageSize.toString());
+    url.searchParams.set('search', search || '');
 
     return url.origin + url.pathname + url.search;
-  }, [dataSrc, offset, pageSize]);
+  }, [dataSrc, offset, pageSize, search]);
 
   const { isSuccess, data, isLoading, isError } = useQuery({
-    queryKey: [queryId, dataSrc, currentPage, pageSize],
+    queryKey: [queryId, dataSrc, currentPage, pageSize, search],
     queryFn: async () => {
       const response = await fetch(finalUrl);
 

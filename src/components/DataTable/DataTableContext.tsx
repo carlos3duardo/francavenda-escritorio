@@ -40,7 +40,7 @@ export function DataTableProvider({ children }: DataTableProviderProps) {
   const [rowsCount, setRowsCount] = useState<number | null>(null);
   const [pageSize, setPageSize] = useState(10);
   const [pagesCount, setPagesCount] = useState<number | null>(null);
-  const [search, setSearch] = useState(searchParams.get('q') || '');
+  const [search, setSearch] = useState(searchParams.get('search') || '');
 
   const updateUrl = useCallback(
     (newPage: number, newPageSize: number, newSearch: string) => {

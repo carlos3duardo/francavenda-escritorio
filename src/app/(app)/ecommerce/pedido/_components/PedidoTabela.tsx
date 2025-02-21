@@ -77,6 +77,7 @@ export function PedidoTabela() {
     <DataTable.Root>
       <DataTable.Header>
         <DataTable.Label title="Pedidos" />
+        <DataTable.Search />
       </DataTable.Header>
       <DataTable.Content
         queryId={`pedidos`}
