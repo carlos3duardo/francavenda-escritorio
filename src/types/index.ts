@@ -5,8 +5,11 @@ import { ApiFornecedorProps } from './api/ApiFornecedorProps';
 import { ApiMarcaProps } from './api/ApiMarcaProps';
 import { ApiPedidoProps } from './api/ApiPedidoProps';
 import { ApiProdutoProps } from './api/ApiProdutoProps';
+import { ApiOfertaProps } from './api/ApiOfertaProps';
 import { ApiServicoAssinaturaProps } from './api/ApiServicoAssinaturaProps';
 import { ApiSexoProps } from './api/ApiSexoProps';
+
+import { UserCookieProps } from './UserCookie';
 
 export type {
   ApiAdesaoProps,
@@ -16,6 +19,8 @@ export type {
   ApiMarcaProps,
   ApiPedidoProps,
   ApiProdutoProps,
+  ApiOfertaProps,
   ApiServicoAssinaturaProps,
   ApiSexoProps,
+  UserCookieProps,
 };

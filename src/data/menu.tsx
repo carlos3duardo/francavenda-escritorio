@@ -68,7 +68,7 @@ export const primaryMenu: MenuItemProps[] = [
       {
         id: 5,
         label: 'Meus links',
-        href: '/ecommerce/meus-links',
+        href: '/ecommerce/links',
       },
     ],
   },

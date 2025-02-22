@@ -19,6 +19,7 @@ import { Loader } from './Loader';
 
 // Form Elements
 import Input from './FormElements/Input';
+import Select from './FormElements/Select';
 
 import { DataTable } from './DataTable';
 
@@ -43,4 +44,5 @@ export {
 
   // Form Elements
   Input,
+  Select,
 };
