@@ -1,5 +1,6 @@
 'use client';
 import {
+  ElementType,
   SyntheticEvent,
   useCallback,
   useEffect,
@@ -9,15 +10,34 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronUp, Dot } from 'lucide-react';
-import { MenuItemProps, SubmenuItemProps } from '@/data/menu';
+import { UserCookieProps } from '@/types';
+
+export type SubmenuItemProps = {
+  id: number;
+  label: string;
+  href: string;
+  free?: boolean;
+};
+
+export type MenuItemProps = {
+  id: number;
+  label: string;
+  href: string;
+  icon: ElementType;
+  isActive?: boolean;
+  free?: boolean;
+  submenu?: SubmenuItemProps[];
+};
+
+interface NavigationMenuItemProps {
+  menuItem: MenuItemProps;
+  user: UserCookieProps;
+}
 
 export function NavigationMenuItem({
-  id,
-  label,
-  href,
-  icon: Icon,
-  submenu,
-}: MenuItemProps) {
+  menuItem: { id, label, href, icon: Icon, submenu, free = false },
+  user: { admin: isUserAdmin },
+}: NavigationMenuItemProps) {
   const [isActive, setIsActive] = useState(false);
   const [submenuIsOpen, setSubmenuIsOpen] = useState(isActive);
   const [submenuItems, setSubmenuItems] = useState<
@@ -70,6 +90,10 @@ export function NavigationMenuItem({
     }
   }, []);
 
+  if (!isUserAdmin && !free) {
+    return;
+  }
+
   return (
     <div data-active={isActive} className="rounded">
       <Link
@@ -101,18 +125,22 @@ export function NavigationMenuItem({
           ref={menuContainer}
         >
           <ul className="flex flex-col gap-[0.125rem] mt-1 pb-2 pt-1">
-            {submenuItems.map((link) => (
-              <li key={`${id}.${link.id}`} className="text-sm">
-                <Link
-                  href={link.href}
-                  prefetch={false}
-                  className="flex items-center gap-3 font-medium text-white hover:text-primary-300"
-                >
-                  <Dot size={18} />
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {submenuItems
+              .filter((link) => {
+                return link.free || isUserAdmin;
+              })
+              .map((link) => (
+                <li key={`${id}.${link.id}`} className="text-sm">
+                  <Link
+                    href={link.href}
+                    prefetch={false}
+                    className="flex items-center gap-3 font-medium text-white hover:text-primary-300"
+                  >
+                    <Dot size={18} />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </div>
       )}
