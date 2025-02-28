@@ -169,7 +169,7 @@ export const secondaryMenu: MenuItemProps[] = [
     id: 4202,
     label: 'Configurações',
     href: '/config',
-    free: true,
+    free: false,
     icon: Settings2,
   },
   {
