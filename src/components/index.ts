@@ -20,6 +20,7 @@ import { Loader } from './Loader';
 // Form Elements
 import Input from './FormElements/Input';
 import Select from './FormElements/Select';
+import DateRangePicker from './FormElements/DateRangePicker';
 
 import { DataTable } from './DataTable';
 
@@ -45,4 +46,5 @@ export {
   // Form Elements
   Input,
   Select,
+  DateRangePicker,
 };
