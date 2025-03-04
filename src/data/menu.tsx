@@ -17,6 +17,7 @@ export type SubmenuItemProps = {
   href: string;
   permissions?: string;
   free?: boolean;
+  onlyAfiliates?: boolean;
 };
 
 export type MenuItemProps = {
@@ -68,12 +69,14 @@ export const primaryMenu: MenuItemProps[] = [
         label: 'Meus pedidos',
         href: '/ecommerce/meus-pedidos',
         free: true,
+        onlyAfiliates: true,
       },
       {
         id: 5,
         label: 'Meus links',
         href: '/ecommerce/links',
         free: true,
+        onlyAfiliates: true,
       },
     ],
   },
@@ -125,24 +128,30 @@ export const primaryMenu: MenuItemProps[] = [
     submenu: [
       {
         id: 4201,
+        label: 'Lançamentos',
+        href: '/financeiro/lancamento',
+        free: true,
+      },
+      {
+        id: 4202,
         label: 'Adesão',
         href: '/financeiro/adesao',
         free: true,
       },
       {
-        id: 4202,
+        id: 4203,
         label: 'Mensalidades',
         href: '/financeiro/mensalidade',
         free: true,
       },
       {
-        id: 4203,
+        id: 4204,
         label: 'Comissões',
         href: '/financeiro/comissao',
         free: true,
       },
       {
-        id: 4204,
+        id: 4205,
         label: 'Saques',
         href: '/financeiro/saque',
         free: true,

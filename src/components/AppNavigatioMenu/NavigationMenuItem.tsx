@@ -17,6 +17,7 @@ export type SubmenuItemProps = {
   label: string;
   href: string;
   free?: boolean;
+  onlyAfiliates?: boolean;
 };
 
 export type MenuItemProps = {
@@ -36,7 +37,7 @@ interface NavigationMenuItemProps {
 
 export function NavigationMenuItem({
   menuItem: { id, label, href, icon: Icon, submenu, free = false },
-  user: { admin: isUserAdmin },
+  user,
 }: NavigationMenuItemProps) {
   const [isActive, setIsActive] = useState(false);
   const [submenuIsOpen, setSubmenuIsOpen] = useState(isActive);
@@ -45,6 +46,9 @@ export function NavigationMenuItem({
   >([]);
   const pathname = usePathname();
   const menuContainer = useRef<HTMLDivElement>(null);
+
+  const isUserAdmin = user.admin;
+  const isUserAfiliate = !!user.afiliado;
 
   useEffect(() => {
     const active =
@@ -127,6 +131,9 @@ export function NavigationMenuItem({
           <ul className="flex flex-col gap-[0.125rem] mt-1 pb-2 pt-1">
             {submenuItems
               .filter((link) => {
+                if (!isUserAfiliate && link.onlyAfiliates) {
+                  return false;
+                }
                 return link.free || isUserAdmin;
               })
               .map((link) => (
