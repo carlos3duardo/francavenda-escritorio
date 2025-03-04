@@ -1,7 +1,9 @@
 import { ApiAdesaoProps } from './api/ApiAdesaoProps';
 import { ApiAfiliadoProps } from './api/ApiAfiliadoProps';
+import { ApiAfiliadoAdesaoProps } from './api/ApiAfiliadoAdesaoProps';
 import { ApiBancoProps } from './api/ApiBancoProps';
 import { ApiFornecedorProps } from './api/ApiFornecedorProps';
+import { ApiLancamentoProps } from './api/ApiLancamentoProps';
 import { ApiMarcaProps } from './api/ApiMarcaProps';
 import { ApiPedidoProps } from './api/ApiPedidoProps';
 import { ApiProdutoProps } from './api/ApiProdutoProps';
@@ -14,8 +16,10 @@ import { UserCookieProps } from './UserCookie';
 export type {
   ApiAdesaoProps,
   ApiAfiliadoProps,
+  ApiAfiliadoAdesaoProps,
   ApiBancoProps,
   ApiFornecedorProps,
+  ApiLancamentoProps,
   ApiMarcaProps,
   ApiPedidoProps,
   ApiProdutoProps,

@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import { type PluginAPI } from 'tailwindcss/types/config';
 
 const config: Config = {
   darkMode: ['class'],
@@ -45,7 +46,29 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase, theme }: PluginAPI) {
+      function extractColorVars(
+        colorObj: Record<string, string>,
+        colorGroup = '',
+      ) {
+        return Object.keys(colorObj).reduce((vars, colorKey) => {
+          const value = colorObj[colorKey];
+
+          const newVars: Record<string, string> =
+            typeof value === 'string'
+              ? { [`--tw-color${colorGroup}-${colorKey}`]: value }
+              : extractColorVars(value, `-${colorKey}`);
+
+          return { ...vars, ...newVars };
+        }, {});
+      }
+
+      addBase({
+        ':root': extractColorVars(theme('colors')),
+      });
+    },
+  ],
 };
 
 export default config;
