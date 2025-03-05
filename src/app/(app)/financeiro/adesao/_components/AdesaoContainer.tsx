@@ -1,7 +1,8 @@
 'use client';
-import { Alert, Button, Card, Loader } from '@/components';
+import { Alert, Button, Card, Loader, Modal } from '@/components';
 import { dateBr } from '@/helpers';
 import { useAfiliadoAdesao } from '@/hooks';
+import { AdesaoFormularioPagamento } from './AdesaoFormularioPagamento';
 
 export function AdesaoContainer() {
   const { data: adesao, error, isLoading } = useAfiliadoAdesao('234');
@@ -94,7 +95,14 @@ export function AdesaoContainer() {
           </Card.Body>
           <Card.Footer>
             <div className="w-full flex justify-end">
-              <Button>Pagar</Button>
+              <Modal.Root>
+                <Modal.Trigger id="afiliado-pagamento">
+                  <Button color="primary">Pagar</Button>
+                </Modal.Trigger>
+                <Modal.Container>
+                  <AdesaoFormularioPagamento adesaoId={adesao.id} />
+                </Modal.Container>
+              </Modal.Root>
             </div>
           </Card.Footer>
         </Card.Root>
