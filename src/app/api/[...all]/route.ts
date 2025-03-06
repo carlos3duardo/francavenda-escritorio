@@ -85,10 +85,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(response.data, { status: response.status });
     })
     .catch(function (error) {
-      return NextResponse.json(
-        { message: error.response.data.message },
-        { status: error.response.status },
-      );
+      return NextResponse.json(error.response.data, {
+        status: error.response.status,
+      });
     });
 }
 

@@ -1,15 +1,22 @@
-import { z } from 'zod';
-import { Dialog, Form, Modal } from '@/components';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+import { Dialog, Form, Modal } from '@/components';
+
+import { ModalContext } from '@/components/Modal/ModalContext';
 
 interface ComponentProps {
   adesaoId: string;
 }
 
 export function AdesaoFormularioPagamento({ adesaoId }: ComponentProps) {
+  const queryClient = useQueryClient();
+  const { closeModal } = useContext(ModalContext);
+
   const formSchema = z.object({
     numero: z.string().min(1, { message: 'O número do cartão é obrigatório.' }),
     portador: z
@@ -34,13 +41,29 @@ export function AdesaoFormularioPagamento({ adesaoId }: ComponentProps) {
     try {
       await axios({
         method: 'POST',
-        url: `/api/afiliado/adesao/${adesaoId}/pagamento`,
-        data,
-      }).then((response) => {
-        toast.success('Informações enviadas com sucesso!');
+        url: `/api/me/adesao/${adesaoId}/pagamento`,
+        data: {
+          cartao: data,
+        },
+      }).then(async () => {
+        toast.success('Pagamento realizado com sucesso!');
+        closeModal();
+
+        await queryClient.refetchQueries({
+          queryKey: ['adesao'],
+          exact: false,
+        });
       });
     } catch (error) {
-      console.error(error);
+      if (error instanceof AxiosError) {
+        Dialog.Error.fire({
+          title: error.response?.data.message,
+          text: error.response?.data.description,
+          confirmButtonText: 'Fechar',
+        });
+
+        return;
+      }
 
       Dialog.Error.fire({
         title: 'Erro ao enviar informações',
