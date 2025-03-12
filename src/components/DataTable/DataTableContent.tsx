@@ -33,9 +33,7 @@ type FilterProps = {
   options: { label: string; value: string }[];
 };
 
-type QueryParams = {
-  with?: string;
-};
+type QueryParams = Record<string, string | number | boolean>;
 
 export interface DataTableProps {
   queryId: string;
@@ -43,7 +41,7 @@ export interface DataTableProps {
   dataSrc: string;
   pageSize?: number;
   paginationSiblings?: number;
-  params?: QueryParams;
+  defaultParams?: QueryParams;
   filter?: FilterProps[];
   emptyTableMessage?: string;
   userCanChangePageSize?: boolean;
@@ -55,6 +53,7 @@ export function DataTableContent({
   dataSrc,
   pageSize = 10,
   emptyTableMessage,
+  defaultParams,
   userCanChangePageSize = true,
 }: DataTableProps) {
   const { setRowsCount, setPagesCount, currentPage, search } =
@@ -69,11 +68,17 @@ export function DataTableContent({
     url.searchParams.set('limit', pageSize.toString());
     url.searchParams.set('search', search || '');
 
+    if (defaultParams) {
+      Object.entries(defaultParams).forEach(([key, value]) => {
+        url.searchParams.set(key, String(value));
+      });
+    }
+
     return url.origin + url.pathname + url.search;
-  }, [dataSrc, offset, pageSize, search]);
+  }, [dataSrc, defaultParams, offset, pageSize, search]);
 
   const { isSuccess, data, isLoading, isError } = useQuery({
-    queryKey: [queryId, dataSrc, currentPage, pageSize, search],
+    queryKey: [queryId, dataSrc, currentPage, pageSize, defaultParams, search],
     queryFn: async () => {
       const response = await fetch(finalUrl);
 

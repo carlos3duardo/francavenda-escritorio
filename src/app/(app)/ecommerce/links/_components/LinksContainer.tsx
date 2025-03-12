@@ -7,15 +7,16 @@ import {
   useState,
 } from 'react';
 import Image, { StaticImageData } from 'next/image';
-import { ArrowSquareOut, Copy } from '@phosphor-icons/react/dist/ssr';
+import { ArrowSquareOut, Copy, Ruler } from '@phosphor-icons/react/dist/ssr';
 import { toast } from 'react-toastify';
-import { Button, Card, Select } from '@/components';
+import { Button, Card, Dialog, Select } from '@/components';
 import { ApiMarcaProps, ApiOfertaProps } from '@/types';
 import { useAfiliadoCodigos, useMarcaList, useOfertaList } from '@/hooks';
 
 import ecommerceIcon from '@/assets/images/icons/online-shop.png';
 import embaixadorIcon from '@/assets/images/icons/followers.png';
 import defaultIcon from '@/assets/images/icons/http.png';
+import axios from 'axios';
 
 interface LinksContainerProps {
   afiliadoId: string;
@@ -38,6 +39,9 @@ function LinkContainer({
   url,
   bgColor,
 }: LinkContainerProps) {
+  const [isShortenerProcessing, setIsShortenerProcessing] = useState(false);
+  const [customUrl, setCustomUrl] = useState<string>(url || '');
+
   function copyUrlToClipboard(value: string) {
     navigator.clipboard.writeText(value || '');
 
@@ -50,6 +54,32 @@ function LinkContainer({
   function openUrl(value: string) {
     window.open(value, '_blank');
   }
+
+  const shortenUrl = useCallback(async (url: string) => {
+    setIsShortenerProcessing(true);
+
+    await axios
+      .post(
+        `https://api.tinyurl.com/create?api_token=${process.env.NEXT_PUBLIC_TINYURL_TOKEN}`,
+        {
+          url,
+        },
+      )
+      .then((res) => {
+        setCustomUrl(res.data.data.tiny_url);
+      })
+      .catch((err) => {
+        console.log({ err });
+
+        Dialog.Error.fire({
+          title: 'Erro ao gerar link curto',
+          text: 'Verifique o console do navegador para mais detalhes.',
+        });
+      })
+      .finally(() => {
+        setIsShortenerProcessing(false);
+      });
+  }, []);
 
   return (
     <div className="flex items-start gap-2 xl:gap-4 p-4">
@@ -78,19 +108,27 @@ function LinkContainer({
           </h3>
           <input
             type="text"
-            value={url || process.env.NEXT_PUBLIC_ECOMMERCE_URL}
+            value={customUrl || process.env.NEXT_PUBLIC_ECOMMERCE_URL}
             className="w-full text-sm h-8 px-2 rounded-sm bg-transparent ring-1 ring-slate-300 flex items-center focus:outline-none focus:ring-slate-400"
             readOnly
           />
         </div>
         <footer className="flex gap-2">
-          <Button size="sm" onClick={() => copyUrlToClipboard(url || '')}>
+          <Button size="sm" onClick={() => copyUrlToClipboard(customUrl)}>
             <Copy size={16} />
             Copiar
           </Button>
-          <Button size="sm" onClick={() => openUrl(url || '')}>
+          <Button size="sm" onClick={() => openUrl(customUrl)}>
             <ArrowSquareOut size={16} />
             Abrir
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => shortenUrl(url || '')}
+            isLoading={isShortenerProcessing}
+          >
+            <Ruler size={16} />
+            Encurtar
           </Button>
         </footer>
       </div>

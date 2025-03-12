@@ -1,3 +1,4 @@
+'use client';
 import React, {
   ElementType,
   InputHTMLAttributes,
@@ -10,6 +11,7 @@ import locale from 'antd/locale/pt_BR';
 import dayjs from 'dayjs';
 
 import styles from './Input.module.css';
+import { InputContainer } from './InputContainer';
 
 dayjs.locale('pt_BR');
 
@@ -23,6 +25,7 @@ export interface InputProps
   size?: 'xs' | 'sm' | 'md' | 'lg';
   defaultValue?: string;
   onChange?: DatePickerProps['onChange'];
+  allowEmpty?: boolean;
 }
 
 const DateInput: React.ForwardRefRenderFunction<
@@ -41,6 +44,7 @@ const DateInput: React.ForwardRefRenderFunction<
     required,
     defaultValue,
     onChange,
+    allowEmpty = true,
     ...rest
   },
   ref,
@@ -63,14 +67,12 @@ const DateInput: React.ForwardRefRenderFunction<
         components: { DatePicker: { paddingInline: 0 } },
       }}
     >
-      <div
-        data-error={!!error}
-        data-required={required}
-        aria-required={required}
-        data-disabled={disabled}
-        aria-disabled={disabled}
-        data-size={size}
-        className={styles.inputContainer}
+      <InputContainer
+        required={required}
+        error={error}
+        disabled={disabled}
+        size={size}
+        className="px-2"
       >
         {Icon && (
           <Icon
@@ -97,6 +99,7 @@ const DateInput: React.ForwardRefRenderFunction<
             color: 'var(--tw-color-slate-600)',
             fontFamily: 'inherit',
             fontWeight: 500,
+            width: '100%',
           }}
         />
         <input
@@ -113,7 +116,7 @@ const DateInput: React.ForwardRefRenderFunction<
           required={required}
           value={dateValue || ''}
         />
-      </div>
+      </InputContainer>
     </ConfigProvider>
   );
 };
