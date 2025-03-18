@@ -1,5 +1,12 @@
 'use client';
-import { HelpCircle, History, Lock, LogOut, User } from 'lucide-react';
+import {
+  HelpCircle,
+  KeyRound,
+  Landmark,
+  LogOut,
+  MapPinned,
+  User,
+} from 'lucide-react';
 import { DropdownMenu } from '@/components/DropdownMenu';
 import { ReactNode } from 'react';
 
@@ -14,20 +21,21 @@ export function UserMenu({ children }: UserMenuProps) {
         <button>{children}</button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content hasArrow>
+        <DropdownMenu.Item label="Meus dados" icon={User} href="/meus-dados" />
         <DropdownMenu.Item
-          label="Meus dados"
-          icon={User}
-          href="/config?tab-config=usuario"
+          label="Segurança"
+          icon={MapPinned}
+          href="/meus-dados?tab-profile=endereco"
+        />
+        <DropdownMenu.Item
+          label="Financeiro"
+          icon={Landmark}
+          href="/meus-dados?tab-profile=financeiro"
         />
         <DropdownMenu.Item
           label="Segurança"
-          icon={Lock}
-          href="/config?tab-config=seguranca"
-        />
-        <DropdownMenu.Item
-          label="Histórico"
-          icon={History}
-          href="/config?tab-config=historico"
+          icon={KeyRound}
+          href="/meus-dados?tab-profile=seguranca"
         />
         <DropdownMenu.Separator />
         <DropdownMenu.Item label="Ajuda" icon={HelpCircle} href="/ajuda" />

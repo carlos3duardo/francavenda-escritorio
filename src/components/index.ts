@@ -19,8 +19,12 @@ import { Loader } from './Loader';
 
 // Form Elements
 import Input from './FormElements/Input';
+import Select from './FormElements/Select';
+import DateInput from './FormElements/DateInput';
+import DateRangePicker from './FormElements/DateRangePicker';
 
 import { DataTable } from './DataTable';
+import { Modal } from './Modal';
 
 export {
   AppLayout,
@@ -40,7 +44,11 @@ export {
   Dialog,
   UnderConstruction,
   Loader,
+  Modal,
 
   // Form Elements
   Input,
+  Select,
+  DateInput,
+  DateRangePicker,
 };

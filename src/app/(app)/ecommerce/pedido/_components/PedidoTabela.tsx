@@ -3,7 +3,13 @@ import Link from 'next/link';
 import { ColumnProps, DataTable } from '@/components/DataTable';
 import { ApiPedidoProps } from '@/types';
 import { currency, dateTimeBr } from '@/helpers';
-import { Badge } from '@/components';
+import { Badge, Button, DateInput, Input, Select } from '@/components';
+import { useAfiliadoList } from '@/hooks';
+import { usePedidoSituacaoList } from '@/hooks/usePedidoSituacaoList';
+import { useCallback, useState } from 'react';
+import dayjs from 'dayjs';
+import { useSearchParams } from 'next/navigation';
+import { MicrosoftExcelLogo } from '@phosphor-icons/react/dist/ssr';
 
 const columns = [
   {
@@ -49,7 +55,14 @@ const columns = [
     label: 'Situação',
     thClassName: 'text-left',
     content: ({ situacao }: ApiPedidoProps) => {
-      return <Badge label={situacao.nome} color={situacao.cor} withBorder />;
+      return (
+        <Badge
+          label={situacao.nome}
+          color={situacao.cor}
+          withBorder
+          tooltip={situacao.descricao}
+        />
+      );
     },
   },
   {
@@ -73,15 +86,146 @@ const columns = [
 ] as ColumnProps[];
 
 export function PedidoTabela() {
+  const searchParams = useSearchParams();
+
+  const { data: afiliados } = useAfiliadoList();
+  const { data: situacoes } = usePedidoSituacaoList();
+
+  const [inicio, setInicio] = useState(
+    searchParams.get('inicio') ||
+      dayjs().subtract(30, 'days').format('YYYY-MM-DD'),
+  );
+
+  const [fim, setFim] = useState(
+    searchParams.get('fim') || dayjs().format('YYYY-MM-DD'),
+  );
+
+  const [afiliadoId, setAfiliadoId] = useState(
+    searchParams.get('afiliado_id') || '',
+  );
+
+  const [situacaoId, setSituacaoId] = useState(
+    searchParams.get('situacao_id') || '',
+  );
+
+  const [search, setSearch] = useState(searchParams.get('search') || '');
+
+  const [filters, setFilters] = useState({
+    inicio,
+    fim,
+    afiliadoId,
+    situacaoId,
+    search,
+  });
+
+  const handleFilter = useCallback(() => {
+    setFilters({ ...filters, inicio, fim, afiliadoId, situacaoId, search });
+  }, [filters, inicio, fim, afiliadoId, situacaoId, search]);
+
   return (
     <DataTable.Root>
       <DataTable.Header>
-        <DataTable.Label title="Pedidos" />
+        <DataTable.HeaderSection className="w-full grid grid-cols-12">
+          <div className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-2">
+            <label
+              htmlFor="inicio"
+              className="text-sm text-slate-400 font-medium"
+            >
+              Início:
+            </label>
+            <DateInput
+              id="inicio"
+              label="Inicio"
+              allowEmpty={false}
+              defaultValue={dayjs().subtract(30, 'days').format('YYYY-MM-DD')}
+              onChange={(date) => setInicio(date?.format('YYYY-MM-DD'))}
+            />
+          </div>
+          <div className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-2">
+            <label htmlFor="fim" className="text-sm text-slate-400 font-medium">
+              Fim:
+            </label>
+            <DateInput
+              id="fim"
+              label="Fim"
+              defaultValue={dayjs().format('YYYY-MM-DD')}
+              onChange={(date) => setFim(date?.format('YYYY-MM-DD'))}
+            />
+          </div>
+          <div className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-2">
+            <label
+              htmlFor="inicio"
+              className="text-sm text-slate-400 font-medium"
+            >
+              Afiliado:
+            </label>
+            <Select
+              id="afiliado_id"
+              label="Afiliado"
+              placeholder="Todos"
+              options={
+                afiliados
+                  ? afiliados.map((afiliado) => ({
+                      label: afiliado.usuario.apelido,
+                      value: afiliado.id,
+                    }))
+                  : []
+              }
+              onChange={(e) => setAfiliadoId(e.target.value)}
+            />
+          </div>
+          <div className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-2">
+            <label
+              htmlFor="inicio"
+              className="text-sm text-slate-400 font-medium"
+            >
+              Situação:
+            </label>
+            <Select
+              id="situacao_id"
+              placeholder="Todas"
+              options={
+                situacoes
+                  ? situacoes.map((situacao) => ({
+                      label: situacao.nome,
+                      value: situacao.id.toString(),
+                    }))
+                  : []
+              }
+              onChange={(e) => setSituacaoId(e.target.value)}
+            />
+          </div>
+          <div className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-2">
+            <label
+              htmlFor="search"
+              className="text-sm text-slate-400 font-medium"
+            >
+              Busca:
+            </label>
+            <Input id="search" onChange={(e) => setSearch(e.target.value)} />
+          </div>
+          <div className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-2 self-end">
+            <div className="flex gap-2">
+              <Button color="primary" fullWidth onClick={handleFilter}>
+                Filtrar
+              </Button>
+
+              <Button
+                color="primary"
+                variant="outline"
+                title="Exportar para Excel"
+              >
+                <MicrosoftExcelLogo size={20} />
+              </Button>
+            </div>
+          </div>
+        </DataTable.HeaderSection>
       </DataTable.Header>
       <DataTable.Content
         queryId={`pedidos`}
         columns={columns}
-        dataSrc="/api/pedido"
+        dataSrc={`/api/pedido`}
+        defaultParams={filters}
       />
       <DataTable.Footer>
         <DataTable.FooterSection>

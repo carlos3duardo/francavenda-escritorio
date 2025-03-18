@@ -1,9 +1,19 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import imageBackground from '@/assets/images/login-image-background2.jpg';
-import frame from '@/assets/images/login-frame.png';
-
-import logoFrancaVenda from '@/assets/images/logo-francavenda-lightmode.png';
 import { FormLogin } from '@/components';
+
+import frame from '@/assets/images/login-frame.png';
+import logoFrancaVenda from '@/assets/images/logo-francavenda-lightmode.png';
+import imageBackground from '@/assets/images/login-image-background2.jpg';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'Escritório virtual',
+    openGraph: {
+      images: `${process.env.NEXT_PUBLIC_APP_PUBLIC_URL}/api/og.png`,
+    },
+  };
+}
 
 export default function Home() {
   return (

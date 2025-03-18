@@ -1,0 +1,26 @@
+/* HTML: <div class="loader"></div> */
+.comet {
+  width: 36px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side,var(--tw-color-primary-400) 94%,#0000) top/6px 6px no-repeat,
+    conic-gradient(#0000 30%,var(--tw-color-primary-400));
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 6px),#000 0);
+  animation: l13 1s infinite linear;
+}
+
+.comet[data-size=sm] {
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(farthest-side,var(--tw-color-primary-400) 94%,#0000) top/4px 4px no-repeat,
+    conic-gradient(#0000 30%,var(--tw-color-primary-400));
+  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 4px),#000 0);
+  animation: l13 0.8s infinite linear;
+}
+
+@keyframes l13{
+  100% {transform: rotate(1turn) }
+}

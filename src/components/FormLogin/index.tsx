@@ -13,10 +13,7 @@ export default function FormLogin() {
   const router = useRouter();
 
   const formSchema = z.object({
-    username: z
-      .string()
-      .min(1, { message: 'Campo obrigatório.' })
-      .email({ message: 'Endereço de e-mail inválido.' }),
+    username: z.string().min(1, { message: 'Campo obrigatório.' }),
     password: z.string().min(1, { message: 'Campo obrigatório.' }),
     remember: z.boolean(),
   });

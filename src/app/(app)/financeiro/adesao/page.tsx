@@ -1,5 +1,6 @@
-import { AppLayout, UnderConstruction } from '@/components';
+import { AppLayout } from '@/components';
 import { Metadata } from 'next';
+import { AdesaoContainer } from './_components/AdesaoContainer';
 
 export const metadata: Metadata = {
   title: 'Adesão',
@@ -15,13 +16,13 @@ export default function Page() {
             breadcrumbs={[
               { label: 'Início', href: '/dashboard' },
               { label: 'Financeiro', href: '/financeiro' },
-              { label: 'Adicionar' },
+              { label: 'Adesão' },
             ]}
           />
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
       <AppLayout.PageContent>
-        <UnderConstruction />
+        <AdesaoContainer />
       </AppLayout.PageContent>
     </>
   );

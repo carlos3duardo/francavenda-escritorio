@@ -1,7 +1,9 @@
 import { DataTableRoot } from './DataTableRoot';
 import { DataTableHeader } from './DataTableHeader';
+import { DataTableHeaderSection } from './DataTableHeaderSection';
 import { DataTableLabel } from './DataTableLabel';
 import { DataTableActions } from './DataTableActions';
+import { DataTableSearch } from './DataTableSearch';
 import { DataTableContent, ColumnProps } from './DataTableContent';
 import { DataTableFooter } from './DataTableFooter';
 import { DataTableRowsCount } from './DataTableRowsCount';
@@ -13,8 +15,10 @@ import { DataTableFooterSection } from './DataTableFooterSection';
 export const DataTable = {
   Root: DataTableRoot,
   Header: DataTableHeader,
+  HeaderSection: DataTableHeaderSection,
   Label: DataTableLabel,
   Actions: DataTableActions,
+  Search: DataTableSearch,
   Content: DataTableContent,
   Footer: DataTableFooter,
   FooterSection: DataTableFooterSection,

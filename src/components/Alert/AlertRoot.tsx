@@ -18,6 +18,7 @@ const alertStyle = tv({
       warning:
         'warning bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200/70',
       info: 'info bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200/70',
+      hint: 'success bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200/70',
       error:
         'error bg-red-100/60 dark:bg-red-800/60 text-red-800 dark:text-red-100',
     },
@@ -25,7 +26,7 @@ const alertStyle = tv({
 });
 
 interface AlertRootProps extends HTMLAttributes<HTMLDivElement> {
-  type?: 'default' | 'success' | 'warning' | 'info' | 'error';
+  type?: 'default' | 'success' | 'warning' | 'info' | 'error' | 'hint';
   hasIcon?: boolean;
 }
 

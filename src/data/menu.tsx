@@ -17,6 +17,7 @@ export type SubmenuItemProps = {
   href: string;
   permissions?: string;
   free?: boolean;
+  onlyAfiliates?: boolean;
 };
 
 export type MenuItemProps = {
@@ -49,26 +50,33 @@ export const primaryMenu: MenuItemProps[] = [
         id: 1,
         label: 'Destaques',
         href: '/ecommerce/destaques',
+        free: false,
       },
       {
         id: 2,
         label: 'Ofertas',
         href: '/ecommerce/ofertas',
+        free: false,
       },
       {
         id: 3,
         label: 'Pedidos',
         href: '/ecommerce/pedido',
+        free: false,
       },
       {
         id: 4,
         label: 'Meus pedidos',
         href: '/ecommerce/meus-pedidos',
+        free: true,
+        onlyAfiliates: true,
       },
       {
         id: 5,
         label: 'Meus links',
-        href: '/ecommerce/meus-links',
+        href: '/ecommerce/links',
+        free: true,
+        onlyAfiliates: true,
       },
     ],
   },
@@ -83,26 +91,31 @@ export const primaryMenu: MenuItemProps[] = [
         id: 1,
         label: 'Fornecedores',
         href: '/cadastro/fornecedor',
+        free: false,
       },
       {
         id: 2,
         label: 'Marcas',
         href: '/cadastro/marca',
+        free: false,
       },
       {
         id: 3,
         label: 'Produtos',
         href: '/cadastro/produto',
+        free: false,
       },
       {
         id: 5,
         label: 'Afiliados',
         href: '/cadastro/afiliado',
+        free: false,
       },
       {
         id: 6,
         label: 'Clientes',
         href: '/cadastro/cliente',
+        free: false,
       },
     ],
   },
@@ -115,23 +128,33 @@ export const primaryMenu: MenuItemProps[] = [
     submenu: [
       {
         id: 4201,
-        label: 'Adesão',
-        href: '/financeiro/adesao',
+        label: 'Lançamentos',
+        href: '/financeiro/lancamento',
+        free: true,
       },
       {
         id: 4202,
-        label: 'Mensalidades',
-        href: '/financeiro/mensalidade',
+        label: 'Adesão',
+        href: '/financeiro/adesao',
+        free: true,
       },
       {
         id: 4203,
-        label: 'Comissões',
-        href: '/financeiro/comissao',
+        label: 'Mensalidades',
+        href: '/financeiro/mensalidade',
+        free: true,
       },
       {
         id: 4204,
+        label: 'Comissões',
+        href: '/financeiro/comissao',
+        free: true,
+      },
+      {
+        id: 4205,
         label: 'Saques',
         href: '/financeiro/saque',
+        free: true,
       },
     ],
   },
@@ -155,7 +178,7 @@ export const secondaryMenu: MenuItemProps[] = [
     id: 4202,
     label: 'Configurações',
     href: '/config',
-    free: true,
+    free: false,
     icon: Settings2,
   },
   {

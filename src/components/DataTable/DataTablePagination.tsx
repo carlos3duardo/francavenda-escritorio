@@ -28,14 +28,14 @@ function Button({ children, disabled = false, onClick }: ButtonProps) {
 }
 
 export function DataTablePagination() {
-  const { currentPage, setCurrentPage, pagesCount } =
+  const { currentPage, handleSetCurrentPage, pagesCount } =
     useContext(DataTableContext);
 
   const handleChangeCurrentPage = useCallback(
     (page: number) => {
-      setCurrentPage(page);
+      handleSetCurrentPage(page);
     },
-    [setCurrentPage],
+    [handleSetCurrentPage],
   );
 
   return (
