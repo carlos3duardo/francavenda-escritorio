@@ -137,12 +137,14 @@ export const primaryMenu: MenuItemProps[] = [
         label: 'Adesão',
         href: '/financeiro/adesao',
         free: true,
+        onlyAfiliates: true,
       },
       {
         id: 4203,
         label: 'Mensalidades',
         href: '/financeiro/mensalidade',
         free: true,
+        onlyAfiliates: true,
       },
       {
         id: 4204,

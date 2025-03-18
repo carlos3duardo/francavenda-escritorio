@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ColumnProps, DataTable } from '@/components/DataTable';
 import { ApiPedidoProps } from '@/types';
 import { currency, dateTimeBr } from '@/helpers';
-import { Badge, Button, DateInput, Input, Select } from '@/components';
+import { Badge, Button, DateInput, Dialog, Input, Select } from '@/components';
 import { useAfiliadoList } from '@/hooks';
 import { usePedidoSituacaoList } from '@/hooks/usePedidoSituacaoList';
 import { useCallback, useState } from 'react';
@@ -86,6 +86,8 @@ const columns = [
 ] as ColumnProps[];
 
 export function PedidoTabela() {
+  const [isProcessingExport, setIsProcessingExport] = useState(false);
+
   const searchParams = useSearchParams();
 
   const { data: afiliados } = useAfiliadoList();
@@ -121,6 +123,31 @@ export function PedidoTabela() {
   const handleFilter = useCallback(() => {
     setFilters({ ...filters, inicio, fim, afiliadoId, situacaoId, search });
   }, [filters, inicio, fim, afiliadoId, situacaoId, search]);
+
+  const handleExport = useCallback(async () => {
+    setIsProcessingExport(true);
+
+    try {
+      const response = await fetch('/api/pedido/export', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(filters),
+      });
+
+      if (!response.ok) throw new Error('Erro ao gerar o relatório');
+
+      const data = await response.json();
+
+      if (data.url) window.open(data.url, '_blank');
+    } catch (error) {
+      Dialog.Error.fire({
+        title: 'Erro ao gerar o relatório',
+        text: (error as Error).message,
+      });
+    } finally {
+      setIsProcessingExport(false);
+    }
+  }, [filters]);
 
   return (
     <DataTable.Root>
@@ -176,7 +203,7 @@ export function PedidoTabela() {
           </div>
           <div className="col-span-12 md:col-span-6 xl:col-span-4 2xl:col-span-2">
             <label
-              htmlFor="inicio"
+              htmlFor="situacao_id"
               className="text-sm text-slate-400 font-medium"
             >
               Situação:
@@ -214,6 +241,8 @@ export function PedidoTabela() {
                 color="primary"
                 variant="outline"
                 title="Exportar para Excel"
+                onClick={handleExport}
+                isLoading={isProcessingExport}
               >
                 <MicrosoftExcelLogo size={20} />
               </Button>
