@@ -19,6 +19,8 @@ import { Loader } from './Loader';
 
 // Form Elements
 import Input from './FormElements/Input';
+import InputMask from './FormElements/InputMask';
+import InputMoney from './FormElements/InputMoney';
 import Select from './FormElements/Select';
 import DateInput from './FormElements/DateInput';
 import DateRangePicker from './FormElements/DateRangePicker';
@@ -48,6 +50,8 @@ export {
 
   // Form Elements
   Input,
+  InputMask,
+  InputMoney,
   Select,
   DateInput,
   DateRangePicker,
