@@ -43,6 +43,7 @@ const InputMoney: React.ForwardRefRenderFunction<
     isLoading = false,
     isSuccess = false,
     className,
+    autoComplete = 'on',
     ...rest
   },
   ref,
@@ -87,6 +88,7 @@ const InputMoney: React.ForwardRefRenderFunction<
           }
         }}
         defaultValue={defaultValue}
+        autoComplete={autoComplete}
       />
       {isLoading && (
         <Image src={spinner} width={20} height={20} alt="Carregando..." />
