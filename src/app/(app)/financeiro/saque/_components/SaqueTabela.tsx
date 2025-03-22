@@ -6,15 +6,25 @@ import { useSearchParams } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { ApiSaqueProps } from '@/types';
 import { currency, dateTimeBr } from '@/helpers';
+import { CircleCheck, Timer } from 'lucide-react';
 
 const columns = [
   {
     field: 'gerado',
     label: 'Data',
-    thClassName: 'text-left',
-    tdClassName: 'text-left whitespace-nowrap',
+    thClassName: 'text-center',
+    tdClassName: 'text-center whitespace-nowrap',
     content: ({ gerado }: ApiSaqueProps) => {
       return dateTimeBr(gerado);
+    },
+  },
+  {
+    field: 'afiliado.nome',
+    label: 'Embaixador',
+    thClassName: 'text-left',
+    tdClassName: 'text-left',
+    content: ({ afiliado }: ApiSaqueProps) => {
+      return afiliado.nome;
     },
   },
   {
@@ -32,23 +42,26 @@ const columns = [
     thClassName: 'text-left',
     tdClassName: 'text-left',
     content: ({ efetivado }: ApiSaqueProps) => {
-      return efetivado
-        ? `Finalizado em ${dateTimeBr(efetivado)}`
-        : 'Solicitado';
+      return efetivado ? (
+        <span className="flex items-center gap-2">
+          <CircleCheck size={18} className="text-emerald-400" /> Finalizado em
+          {` ${dateTimeBr(efetivado)}`}
+        </span>
+      ) : (
+        <span className="flex items-center gap-2">
+          <Timer size={18} className="text-orange-400" /> Pendente
+        </span>
+      );
     },
   },
 ] as ColumnProps[];
 
-interface SaqueTabelaProps {
-  afiliadoId: string;
-}
-
-export function SaqueTabela({ afiliadoId }: SaqueTabelaProps) {
+export function SaqueTabela() {
   const searchParams = useSearchParams();
 
   const [inicio, setInicio] = useState(
     searchParams.get('inicio') ||
-      dayjs().subtract(90, 'days').format('YYYY-MM-DD'),
+      dayjs().subtract(30, 'days').format('YYYY-MM-DD'),
   );
 
   const [fim, setFim] = useState(
@@ -57,7 +70,6 @@ export function SaqueTabela({ afiliadoId }: SaqueTabelaProps) {
   const [filters, setFilters] = useState({
     inicio,
     fim,
-    afiliadoId,
   });
 
   const handleFilter = useCallback(() => {

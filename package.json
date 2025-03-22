@@ -21,6 +21,7 @@
     "cookies-next": "^4.3.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
+    "filesize": "^10.1.6",
     "jwt-decode": "^4.0.0",
     "lodash.debounce": "^4.0.8",
     "lottie-react": "^2.4.0",
