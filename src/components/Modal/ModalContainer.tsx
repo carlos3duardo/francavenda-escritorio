@@ -30,7 +30,7 @@ export function ModalContainer({ children, className }: ModalContainerProps) {
   if (!element) return null;
 
   return createPortal(
-    <div className="fixed inset-0 bg-slate-800 bg-opacity-40 z-40 flex justify-center items-center">
+    <div className="fixed inset-0 bg-slate-800 bg-opacity-60 z-40 flex justify-center items-center">
       <div
         className={twMerge(
           'relative bg-white p-3 shadow-modal rounded-md min-w-[600px] max-w-[80%]',

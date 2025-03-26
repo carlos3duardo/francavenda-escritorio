@@ -19,10 +19,13 @@ import { Loader } from './Loader';
 
 // Form Elements
 import Input from './FormElements/Input';
+import InputMask from './FormElements/InputMask';
+import InputMoney from './FormElements/InputMoney';
 import Select from './FormElements/Select';
 import DateInput from './FormElements/DateInput';
 import DateRangePicker from './FormElements/DateRangePicker';
 
+import { Table } from './Table';
 import { DataTable } from './DataTable';
 import { Modal } from './Modal';
 
@@ -40,6 +43,7 @@ export {
   FormLogin,
   Button,
   Form,
+  Table,
   DataTable,
   Dialog,
   UnderConstruction,
@@ -48,6 +52,8 @@ export {
 
   // Form Elements
   Input,
+  InputMask,
+  InputMoney,
   Select,
   DateInput,
   DateRangePicker,

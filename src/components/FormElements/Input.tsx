@@ -30,6 +30,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
     icon: Icon,
     size = 'md',
     required,
+    className,
     ...rest
   },
   ref,
@@ -40,6 +41,7 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
       error={error}
       disabled={disabled}
       size={size}
+      className={className}
     >
       {Icon && (
         <Icon

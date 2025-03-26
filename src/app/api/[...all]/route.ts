@@ -84,10 +84,15 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json(response.data, { status: response.status });
     })
-    .catch(function (error) {
-      return NextResponse.json(error.response.data, {
-        status: error.response.status,
-      });
+    .catch(function (err) {
+      if (isAxiosError(err)) {
+        return NextResponse.json(err.response?.data, {
+          status: err.response?.status,
+        });
+      }
+
+      // console.error({ erro: err });
+      return NextResponse.json(err.response.data, { status: 500 });
     });
 }
 
@@ -139,7 +144,7 @@ export async function PATCH(request: NextRequest) {
   return axios({
     url: endpoint,
     method: 'PATCH',
-    data,
+    data: data || {},
     headers: {
       Authorization: `Bearer ${accessToken?.value}`,
       Accept: 'application/json',
@@ -148,9 +153,14 @@ export async function PATCH(request: NextRequest) {
     .then((response) => {
       return NextResponse.json(response.data, { status: response.status });
     })
-    .catch(function (error) {
-      console.error(error);
-      return NextResponse.json({ message: 'Eita...' }, { status: 500 });
+    .catch(function (err) {
+      if (isAxiosError(err)) {
+        return NextResponse.json(err.response?.data, {
+          status: err.response?.status,
+        });
+      }
+
+      return NextResponse.json(err.response.data, { status: 500 });
     });
 }
 
@@ -173,7 +183,14 @@ export async function DELETE(request: NextRequest) {
     .then((response) => {
       return NextResponse.json(response.data, { status: 200 });
     })
-    .catch(function () {
-      return NextResponse.json({ message: 'Eita...' }, { status: 500 });
+    .catch(function (err) {
+      if (isAxiosError(err)) {
+        return NextResponse.json(err.response?.data, {
+          status: err.response?.status,
+        });
+      }
+
+      // console.error({ erro: err });
+      return NextResponse.json(err.response.data, { status: 500 });
     });
 }

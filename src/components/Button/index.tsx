@@ -8,6 +8,7 @@ const buttonStyle = tv({
     color: {
       default: 'text-white bg-slate-500',
       primary: 'text-white bg-primary-500',
+      success: 'text-white bg-emerald-600',
       danger:
         'text-white bg-red-600 hover:bg-red-800 active:bg-red-900 disabled:bg-red-100 disabled:text-red-400',
       white: 'text-primary-600 bg-white',
@@ -57,6 +58,21 @@ const buttonStyle = tv({
         'hover:bg-primary-200 active:bg-primary-300 border-primary-500 hover:border-primary-700 text-primary-500 hover:text-primary-700 disabled:text-primary-600/40 disabled:border-primary-600/20',
     },
 
+    /* success variants */
+
+    {
+      color: 'success',
+      variant: 'solid',
+      className:
+        'hover:bg-emerald-700 active:bg-emerald-900 disabled:bg-emerald-200 disabled:text-emerald-400',
+    },
+    {
+      color: 'success',
+      variant: 'outline',
+      className:
+        'hover:bg-emerald-200 active:bg-emerald-300 border-emerald-500 hover:border-emerald-700 text-emerald-500 hover:text-emerald-700 disabled:text-emerald-600/40 disabled:border-emerald-600/20',
+    },
+
     /* white */
 
     {
@@ -86,6 +102,7 @@ const buttonLoading = tv({
     color: {
       default: 'bg-slate-500',
       primary: 'bg-primary-500',
+      success: 'bg-emerald-600',
       danger: 'bg-red-500',
       white: 'bg-slate-500',
     },
@@ -101,6 +118,7 @@ const buttonSpin = tv({
     color: {
       default: 'border-slate-200 border-b-transparent',
       primary: 'border-primary-200 border-b-transparent',
+      success: 'border-emerald-200 border-b-transparent',
       danger: 'border-red-200 border-b-transparent',
       white: 'border-slate-200 border-b-transparent',
     },
