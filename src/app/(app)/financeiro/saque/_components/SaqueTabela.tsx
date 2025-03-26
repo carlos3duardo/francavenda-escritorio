@@ -38,26 +38,29 @@ export function SaqueTabela() {
     afiliadoNome: string;
   };
 
-  const handleAprovarSaque = useCallback((props: ConfirmProps) => {
-    Dialog.Confirm.fire({
-      title: 'Aprovar lançamento?',
-      html: `Você confirma a aprovação do saque de R$ ${currency(props.valor)} do afiliado ${props.afiliadoNome}?`,
-      confirmButtonText: 'Aprovar',
-      cancelButtonText: 'Cancelar',
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        console.log('...');
-        axios
-          .patch(`/api/financeiro/saque/${props.saqueId}/aprovar`, {})
-          .then(async () => {
-            await queryClient.refetchQueries({
-              queryKey: ['historico-saques'],
-              exact: false,
+  const handleAprovarSaque = useCallback(
+    (props: ConfirmProps) => {
+      Dialog.Confirm.fire({
+        title: 'Aprovar lançamento?',
+        html: `Você confirma a aprovação do saque de R$ ${currency(props.valor)} do afiliado ${props.afiliadoNome}?`,
+        confirmButtonText: 'Aprovar',
+        cancelButtonText: 'Cancelar',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          console.log('...');
+          axios
+            .patch(`/api/financeiro/saque/${props.saqueId}/aprovar`, {})
+            .then(async () => {
+              await queryClient.refetchQueries({
+                queryKey: ['historico-saques'],
+                exact: false,
+              });
             });
-          });
-      }
-    });
-  }, []);
+        }
+      });
+    },
+    [queryClient],
+  );
 
   const columns = [
     {
