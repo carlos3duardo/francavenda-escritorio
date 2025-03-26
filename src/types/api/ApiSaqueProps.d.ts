@@ -11,7 +11,7 @@ type AnexoProps = {
   size: number;
   filetype: string;
   tipo: {
-    id: string;
+    id: number;
     nome: string;
   };
 };

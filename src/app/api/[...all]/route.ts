@@ -144,7 +144,7 @@ export async function PATCH(request: NextRequest) {
   return axios({
     url: endpoint,
     method: 'PATCH',
-    data,
+    data: data || {},
     headers: {
       Authorization: `Bearer ${accessToken?.value}`,
       Accept: 'application/json',
@@ -153,9 +153,14 @@ export async function PATCH(request: NextRequest) {
     .then((response) => {
       return NextResponse.json(response.data, { status: response.status });
     })
-    .catch(function (error) {
-      console.error(error);
-      return NextResponse.json({ message: 'Eita...' }, { status: 500 });
+    .catch(function (err) {
+      if (isAxiosError(err)) {
+        return NextResponse.json(err.response?.data, {
+          status: err.response?.status,
+        });
+      }
+
+      return NextResponse.json(err.response.data, { status: 500 });
     });
 }
 
