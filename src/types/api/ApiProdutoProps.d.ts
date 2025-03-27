@@ -39,6 +39,7 @@ export interface ApiProdutoProps {
   slug?: string | null;
   referencia?: string | null;
   registro?: string | null;
+  empresarial?: boolean;
   coletivo?: boolean;
   ativo: boolean;
   contrato?: ContratoProps | null;
