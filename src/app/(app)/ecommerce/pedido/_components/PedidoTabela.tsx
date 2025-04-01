@@ -26,7 +26,17 @@ const columns = [
     label: 'Cliente',
     thClassName: 'text-left',
     content: ({ id, cliente }: ApiPedidoProps) => {
-      return <Link href={`/ecommerce/pedido/${id}`}>{cliente.nome}</Link>;
+      return (
+        <Link href={`/ecommerce/pedido/${id}`}>
+          {cliente.usuario ? (
+            cliente.usuario.nome
+          ) : cliente.empresa ? (
+            cliente.empresa.nome_fantasia
+          ) : (
+            <>...</>
+          )}
+        </Link>
+      );
     },
   },
   {
