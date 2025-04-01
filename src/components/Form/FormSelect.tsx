@@ -14,7 +14,12 @@ export function FormSelect({
   valueAsNumber = false,
   ...rest
 }: FormSelectProps) {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  const error = errors[name]?.message as string;
 
   return (
     <>
@@ -22,6 +27,7 @@ export function FormSelect({
         {...register(name, { valueAsNumber })}
         id={id || name}
         options={options}
+        error={error}
         {...rest}
       />
     </>

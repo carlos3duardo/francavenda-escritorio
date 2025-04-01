@@ -1,8 +1,50 @@
+type UsuarioProps = {
+  id: string;
+  nome: string;
+  email?: string | null;
+  celular?: string | null;
+  cpf?: string | null;
+  rg?: string | null;
+  rg_emissor?: string | null;
+  nascimento?: string | null;
+  apelido?: string | null;
+  nascimento?: string | null;
+  sexo?: {
+    id: number;
+    nome: string;
+  } | null;
+  naturalidade?: {
+    id: number;
+    municipio: string;
+    uf: string;
+  } | null;
+};
+
+type EmpresaProps = {
+  id: string;
+  nome_fantasia: string;
+  razao_social: string;
+  cnpj: string;
+  ins_estadual?: string | null;
+  ins_municipal?: string | null;
+  tipo?: {
+    id: number;
+    nome: string;
+  } | null;
+  contato?: string | null;
+  telefone?: string | null;
+  email?: string | null;
+  responsavel?: string | null;
+  responsavel_cpf?: string | null;
+  comenrario?: string | null;
+};
+
 type ClienteProps = {
   id: string;
   nome: string;
-  email: string;
-  documento: string;
+  natureza: string;
+  usuario?: UsuarioProps;
+  empresa?: EmpresaProps;
 };
 
 type FornecedorProps = {
@@ -14,7 +56,7 @@ type FornecedorProps = {
 type MarcaProps = {
   id: string;
   nome: string;
-  fornecedor: FornecedorProps;
+  fornecedor?: FornecedorProps;
 };
 
 type ProdutoProps = {
@@ -113,17 +155,16 @@ type ComentarioProps = {
 export interface ApiPedidoProps {
   id: string;
   numero: number;
-  valor: number;
   cliente: ClienteProps;
-  situacao: SituacaoProps;
   produto: ProdutoProps;
-  oferta: OfertaProps;
-  forma_pagamento: FormaPagamentoProps;
-  cartao?: CartaoProps | null;
-  afiliado: AfiliadoProps | null;
+  valor: number;
+  situacao: SituacaoProps;
   codigo_referencia: string | null;
-  ip: string | null;
+  forma_pagamento: FormaPagamentoProps;
+  afiliado: AfiliadoProps | null;
   created_at: string;
+  oferta?: OfertaProps;
+  cartao?: CartaoProps | null;
   endereco?: EnderecoProps;
   historico?: HistoricoProps[];
   composicao?: ComposicaoProps[];

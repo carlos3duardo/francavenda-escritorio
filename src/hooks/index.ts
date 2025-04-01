@@ -12,6 +12,7 @@ import { usePedido } from './usePedido';
 import { useProduto } from './useProduto';
 import { useProdutoList } from './useProdutoList';
 import { useSexoList } from './useSexoList';
+import { useUfList } from './useUfList';
 
 export {
   useAfiliado,
@@ -28,4 +29,5 @@ export {
   useProduto,
   useProdutoList,
   useSexoList,
+  useUfList,
 };
