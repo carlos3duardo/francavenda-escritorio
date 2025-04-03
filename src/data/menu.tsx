@@ -186,7 +186,7 @@ export const secondaryMenu: MenuItemProps[] = [
   {
     id: 4203,
     label: 'Sair',
-    href: '/signout',
+    href: '/sair',
     free: true,
     icon: LogOut,
   },
