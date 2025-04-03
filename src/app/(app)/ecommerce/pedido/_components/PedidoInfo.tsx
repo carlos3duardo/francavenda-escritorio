@@ -2,7 +2,15 @@
 import { ApiPedidoProps } from '@/types';
 import { Card } from '@/components';
 import { DropdownMenu } from '@/components/DropdownMenu';
-import { currency, dateTimeBr, maskCep, maskCpf } from '@/helpers';
+import {
+  currency,
+  dateBr,
+  dateTimeBr,
+  maskCep,
+  maskCnpj,
+  maskCpf,
+  maskTelefone,
+} from '@/helpers';
 import { Circle, DotsThreeVertical } from '@phosphor-icons/react/dist/ssr';
 import { Check, RotateCw, X } from 'lucide-react';
 import { useCallback } from 'react';
@@ -64,59 +72,138 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
             </DropdownMenu.Root>
           </Card.Toolbar>
         </Card.Header>
+
         <Card.Separator />
+
         <Card.Grid>
-          <Card.GridItem className="xl:col-span-6" label="Cliente">
-            {pedido.cliente.nome}
-          </Card.GridItem>
-          <Card.GridItem
-            className="md:col-span-6 xl:col-span-3"
-            label="Data da compra"
-          >
-            {dateTimeBr(pedido.created_at)}
-          </Card.GridItem>
+          {pedido.cliente.usuario ? (
+            <>
+              <Card.GridItem className="xl:col-span-6" label="Razão Social">
+                {pedido.cliente.usuario.nome}
+              </Card.GridItem>
+              <Card.GridItem
+                className="md:col-span-6 xl:col-span-3"
+                label="Data da compra"
+              >
+                {dateTimeBr(pedido.created_at)}
+              </Card.GridItem>
+              <Card.GridItem
+                className="md:col-span-6 xl:col-span-3"
+                label="Situação"
+              >
+                <div className="flex items-center gap-1">
+                  <Circle
+                    size={10}
+                    weight="fill"
+                    style={{ color: pedido.situacao.cor }}
+                  />
+                  {pedido.situacao.nome}
+                </div>
+              </Card.GridItem>
+              <Card.GridItem
+                className="md:col-span-6 xl:col-span-3"
+                label="CPF"
+              >
+                {pedido.cliente.usuario.cpf ? (
+                  maskCpf(pedido.cliente.usuario.cpf)
+                ) : (
+                  <>&nbsp;</>
+                )}
+              </Card.GridItem>
+              <Card.GridItem
+                className="md:col-span-6 xl:col-span-3"
+                label="Nascimento"
+              >
+                {pedido.cliente.usuario.nascimento ? (
+                  dateBr(pedido.cliente.usuario.nascimento)
+                ) : (
+                  <>&nbsp;</>
+                )}
+              </Card.GridItem>
 
-          <Card.GridItem
-            className="md:col-span-6 xl:col-span-3"
-            label="Situação"
-          >
-            <div className="flex items-center gap-1">
-              <Circle
-                size={10}
-                weight="fill"
-                style={{ color: pedido.situacao.cor }}
-              />
-              {pedido.situacao.nome}
-            </div>
-          </Card.GridItem>
+              <Card.GridItem className="md:col-span-6 xl:col-span-3" label="RG">
+                {pedido.cliente.usuario.rg ? (
+                  pedido.cliente.usuario.rg
+                ) : (
+                  <>&nbsp;</>
+                )}
+                {pedido.cliente.usuario.rg_emissor ? (
+                  ` / ${pedido.cliente.usuario.rg_emissor}`
+                ) : (
+                  <>&nbsp;</>
+                )}
+              </Card.GridItem>
 
-          {/*  */}
+              <Card.GridItem
+                className="md:col-span-6 xl:col-span-3"
+                label="Sexo"
+              >
+                {pedido.cliente.usuario.sexo ? (
+                  pedido.cliente.usuario.sexo.nome
+                ) : (
+                  <>&nbsp;</>
+                )}
+              </Card.GridItem>
+            </>
+          ) : pedido.cliente.empresa ? (
+            <>
+              <Card.GridItem className="xl:col-span-6" label="Razão Social">
+                {pedido.cliente.empresa.razao_social}
+              </Card.GridItem>
+              <Card.GridItem
+                className="md:col-span-6 xl:col-span-3"
+                label="Data da compra"
+              >
+                {dateTimeBr(pedido.created_at)}
+              </Card.GridItem>
 
-          <Card.GridItem className="md:col-span-6 xl:col-span-3" label="CPF">
-            {maskCpf(pedido.cliente.documento)}
-          </Card.GridItem>
-          <Card.GridItem
-            className="md:col-span-6 xl:col-span-3"
-            label="Código de Referência"
-          >
-            {pedido.codigo_referencia || <>&nbsp;</>}
-          </Card.GridItem>
-          <Card.GridItem
-            className="md:col-span-12 xl:col-span-6"
-            label="Afiliado"
-          >
-            {pedido.afiliado ? pedido.afiliado.nome : <>&nbsp;</>}
-          </Card.GridItem>
+              <Card.GridItem
+                className="md:col-span-6 xl:col-span-3"
+                label="Situação"
+              >
+                <div className="flex items-center gap-1">
+                  <Circle
+                    size={10}
+                    weight="fill"
+                    style={{ color: pedido.situacao.cor }}
+                  />
+                  {pedido.situacao.nome}
+                </div>
+              </Card.GridItem>
+              <Card.GridItem className="xl:col-span-6" label="Nome Fantasia">
+                {pedido.cliente.empresa.nome_fantasia}
+              </Card.GridItem>
+              <Card.GridItem className="xl:col-span-3" label="CNPJ">
+                {maskCnpj(pedido.cliente.empresa.cnpj)}
+              </Card.GridItem>
+              <Card.GridItem className="xl:col-span-3" label="Tipo">
+                {pedido.cliente.empresa.tipo?.nome || <>&nbsp;</>}
+              </Card.GridItem>
 
-          {/*  */}
-
+              <Card.GridItem className="xl:col-span-6" label="Contato">
+                {pedido.cliente.empresa.contato || <>&nbsp;</>}
+              </Card.GridItem>
+              <Card.GridItem className="xl:col-span-3" label="E-mail">
+                {pedido.cliente.empresa.email || <>&nbsp;</>}
+              </Card.GridItem>
+              <Card.GridItem className="xl:col-span-3" label="Telefone">
+                {pedido.cliente.empresa.telefone ? (
+                  maskTelefone(pedido.cliente.empresa.telefone)
+                ) : (
+                  <>&nbsp;</>
+                )}
+              </Card.GridItem>
+            </>
+          ) : (
+            <>Tipo de cliente desconhecido ({pedido.cliente.natureza})</>
+          )}
+          <Card.GridSeparator />
           <Card.GridItem
             className="md:col-span-12 xl:col-span-6"
             label="Produto / Serviço"
           >
-            {pedido.produto.marca.nome} - {pedido.oferta.nome}
+            {pedido.produto.marca.nome} - {pedido.oferta?.nome}
           </Card.GridItem>
-
           <Card.GridItem className="md:col-span-6 xl:col-span-3" label="Valor">
             R$ {currency(pedido.valor)}
           </Card.GridItem>
@@ -127,6 +214,18 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
           >
             {pedido.forma_pagamento.nome}
             {pedido.cartao && <>&nbsp;- Final {pedido.cartao.final}</>}
+          </Card.GridItem>
+          <Card.GridItem
+            className="md:col-span-12 xl:col-span-6"
+            label="Afiliado"
+          >
+            {pedido.afiliado ? pedido.afiliado.nome : <>&nbsp;</>}
+          </Card.GridItem>
+          <Card.GridItem
+            className="md:col-span-6 xl:col-span-6"
+            label="Código de Referência"
+          >
+            {pedido.codigo_referencia || <>&nbsp;</>}
           </Card.GridItem>
 
           <Card.GridSeparator />
@@ -155,13 +254,25 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
             )}
           </Card.GridItem>
           <Card.GridItem className="md:col-span-6 xl:col-span-4" label="E-mail">
-            {pedido.cliente.email}
+            {pedido.cliente.empresa ? (
+              pedido.cliente.empresa.email
+            ) : pedido.cliente.usuario ? (
+              pedido.cliente.usuario.email
+            ) : (
+              <>&nbsp;</>
+            )}
           </Card.GridItem>
           <Card.GridItem
             className="md:col-span-6 xl:col-span-4"
             label="Celular"
           >
-            &nbsp;
+            {pedido.cliente.empresa && pedido.cliente.empresa.telefone ? (
+              maskTelefone(pedido.cliente.empresa.telefone)
+            ) : pedido.cliente.usuario && pedido.cliente.usuario.celular ? (
+              maskTelefone(pedido.cliente.usuario.celular)
+            ) : (
+              <>&nbsp;</>
+            )}
           </Card.GridItem>
         </Card.Grid>
       </Card.Root>

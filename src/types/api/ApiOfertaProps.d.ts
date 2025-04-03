@@ -13,6 +13,9 @@ type ProdutoProps = {
   id: string;
   nome: string;
   marca: MarcaProps;
+  ativo: boolean;
+  empresarial: boolean;
+  coletivo: boolean;
 };
 
 export interface ApiOfertaProps {
@@ -24,6 +27,7 @@ export interface ApiOfertaProps {
   beneficiarios: number;
   valor: number;
   ativa: boolean;
+  coletivo: boolean;
   divulgar: boolean;
   homepage: boolean;
   imagem_url: string | null;

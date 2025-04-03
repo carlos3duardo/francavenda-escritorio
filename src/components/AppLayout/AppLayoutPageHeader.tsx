@@ -8,7 +8,7 @@ interface PageHeaderProps {
 }
 
 export function AppLayoutPageHeader({
-  isLoading = false,
+  isLoading = true,
   children,
 }: PageHeaderProps) {
   const [pageHeaderEl, setPageHeaderEl] = useState<HTMLElement | null>(null);

@@ -10,7 +10,7 @@ export function FormFooter({ children, className, ...rest }: FooterProps) {
   return (
     <div
       className={twMerge(
-        'flex items-center justify-between p-4 xl:p-6',
+        'flex items-center justify-between px-4 xl:px-6 py-4',
         className,
       )}
       {...rest}

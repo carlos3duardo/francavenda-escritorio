@@ -39,7 +39,7 @@ export function UserMenu({ children }: UserMenuProps) {
         />
         <DropdownMenu.Separator />
         <DropdownMenu.Item label="Ajuda" icon={HelpCircle} href="/ajuda" />
-        <DropdownMenu.Item label="Sair" icon={LogOut} href="/logout" />
+        <DropdownMenu.Item label="Sair" icon={LogOut} href="/sair" />
       </DropdownMenu.Content>
     </DropdownMenu.Root>
   );

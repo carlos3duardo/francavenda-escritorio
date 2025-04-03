@@ -15,6 +15,7 @@ import { FormDateInput } from './FormDateInput';
 import { FormCheckbox } from './FormCheckbox';
 import { FormSeparator } from './FormSeparator';
 import { FormSubmitButton } from './FormSubmitButton';
+import { FormTextarea } from './FormTextarea';
 
 export const Form = {
   Root: FormRoot,
@@ -34,6 +35,7 @@ export const Form = {
   DateInput: FormDateInput,
   TelefoneInput: FormInputTelefone,
   Checkbox: FormCheckbox,
+  Textarea: FormTextarea,
 
   Submit: FormSubmitButton,
 };

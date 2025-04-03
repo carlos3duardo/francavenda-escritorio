@@ -19,6 +19,7 @@ import { Loader } from './Loader';
 
 // Form Elements
 import Input from './FormElements/Input';
+import InputSkeleton from './FormElements/InputSkeleton';
 import InputMask from './FormElements/InputMask';
 import InputMoney from './FormElements/InputMoney';
 import Select from './FormElements/Select';
@@ -52,6 +53,7 @@ export {
 
   // Form Elements
   Input,
+  InputSkeleton,
   InputMask,
   InputMoney,
   Select,
