@@ -1,6 +1,12 @@
 'use client';
+
+import { useCallback } from 'react';
+import axios from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
+import { Check, FolderCheck, RotateCw, Send, X } from 'lucide-react';
+import { Circle, DotsThreeVertical } from '@phosphor-icons/react/dist/ssr';
 import { ApiPedidoProps } from '@/types';
-import { Card } from '@/components';
+import { Card, Dialog } from '@/components';
 import { DropdownMenu } from '@/components/DropdownMenu';
 import {
   currency,
@@ -11,9 +17,6 @@ import {
   maskCpf,
   maskTelefone,
 } from '@/helpers';
-import { Circle, DotsThreeVertical } from '@phosphor-icons/react/dist/ssr';
-import { Check, RotateCw, X } from 'lucide-react';
-import { useCallback } from 'react';
 
 interface PedidoInfoProps {
   isLoading: boolean;
@@ -22,6 +25,8 @@ interface PedidoInfoProps {
 }
 
 export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
+  const queryClient = useQueryClient();
+
   const handleAprovarPedido = useCallback((pedidoId: string) => {
     alert(`Aprovar pedido ${pedidoId}`);
   }, []);
@@ -29,6 +34,84 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
   const handleCancelarPedido = useCallback((pedidoId: string) => {
     alert(`Cancelar pedido ${pedidoId}`);
   }, []);
+
+  const handleChecarRestricoes = useCallback(
+    (pedidoId: string) => {
+      Dialog.Confirm.fire({
+        title: 'Verificar restrições',
+        text: 'Você deseja verificar se o pedido possui restrições com o fornecedor?',
+        confirmButtonText: 'Verificar',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          return axios
+            .post(`/api/pedido/${pedidoId}/checar-restricoes`, {})
+            .then(async () => {
+              await queryClient.refetchQueries({
+                queryKey: ['pedido'],
+                exact: false,
+              });
+            })
+            .catch((error) => {
+              Dialog.Confirm.showValidationMessage(`Erro: ${error.message}`);
+            });
+        },
+      });
+    },
+    [queryClient],
+  );
+
+  const handleReprocessarPagamento = useCallback(
+    (pedidoId: string) => {
+      Dialog.Confirm.fire({
+        title: 'Reprocessar pagamento',
+        text: 'Tem certeza que deseja reprocessar o pagamento deste pedido?',
+        confirmButtonText: 'Reprocessar',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          return axios
+            .post(`/api/pedido/${pedidoId}/reprocessar-pagamento`, {})
+            .then(async () => {
+              await queryClient.refetchQueries({
+                queryKey: ['pedido'],
+                exact: false,
+              });
+            })
+            .catch((error) => {
+              Dialog.Confirm.showValidationMessage(`Erro: ${error.message}`);
+            });
+        },
+      });
+    },
+    [queryClient],
+  );
+
+  const handleEnviarParaFornecedor = useCallback(
+    (pedidoId: string) => {
+      Dialog.Confirm.fire({
+        title: 'Enviar pedido para cadastro?',
+        text: 'Você confirma o envio do pedido para o cadastro no fornecedor?',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar',
+        showLoaderOnConfirm: true,
+        preConfirm: async () => {
+          return axios
+            .post(`/api/pedido/${pedidoId}/enviar-para-fornecedor`, {})
+            .then(async () => {
+              await queryClient.refetchQueries({
+                queryKey: ['pedido'],
+                exact: false,
+              });
+            })
+            .catch((error) => {
+              Dialog.Confirm.showValidationMessage(`Erro: ${error.message}`);
+            });
+        },
+      });
+    },
+    [queryClient],
+  );
 
   if (isLoading) {
     return (
@@ -65,8 +148,19 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
                   onClick={() => handleCancelarPedido(pedido.id)}
                 />
                 <DropdownMenu.Item
+                  label="Checar restrições"
+                  icon={FolderCheck}
+                  onClick={() => handleChecarRestricoes(pedido.id)}
+                />
+                <DropdownMenu.Item
                   label="Reprocessar pagamento"
                   icon={RotateCw}
+                  onClick={() => handleReprocessarPagamento(pedido.id)}
+                />
+                <DropdownMenu.Item
+                  label="Enviar para fornecedor"
+                  icon={Send}
+                  onClick={() => handleEnviarParaFornecedor(pedido.id)}
                 />
               </DropdownMenu.Content>
             </DropdownMenu.Root>
