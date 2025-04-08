@@ -1,6 +1,12 @@
 import { twMerge } from 'tailwind-merge';
 
 export default function ScreenSizeView() {
+  const env = process.env.APP_ENV;
+
+  if (env === 'production') {
+    return null;
+  }
+
   const defaultStyle =
     'hidden items-center rounded-md bg-slate-300 px-2 py-1 text-xs uppercase font-medium text-slate-700';
   return (

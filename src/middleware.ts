@@ -33,6 +33,10 @@ const publicRoutes = [
     whenAuthenticated: 'next',
   },
   {
+    path: '/order/:id/retry-payment',
+    whenAuthenticated: 'next',
+  },
+  {
     path: '/entrar',
     whenAuthenticated: 'redirect',
   },
@@ -42,7 +46,14 @@ const SIGNIN_ROUTE = '/entrar';
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const publicRoute = publicRoutes.find((route) => route.path === path);
+
+  const publicRoute = publicRoutes.find((route) => {
+    const routeRegex = new RegExp(
+      '^' + route.path.replace(/:[^/]+/g, '[^/]+') + '$',
+    );
+    return routeRegex.test(path);
+  });
+
   const accessToken = request.cookies.get('frv:token');
 
   if (!accessToken && publicRoute) {
