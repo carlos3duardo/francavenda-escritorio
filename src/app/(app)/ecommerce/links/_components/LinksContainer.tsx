@@ -53,7 +53,7 @@ export function LinksContainer({ afiliadoId, codigos }: LinksContainerProps) {
       <Card.Separator />
       <Card.Body>
         <div className="grid grid-cols-2 gap-4 xl:gap-6">
-          <div className="col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <SharedLink
               label="Link de divulgação do seu e-commerce"
               thumbnail={ecommerceIcon}
@@ -61,7 +61,7 @@ export function LinksContainer({ afiliadoId, codigos }: LinksContainerProps) {
               bgColor="#f8ce2b"
             />
           </div>
-          <div className="col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <SharedLink
               label="Indicação para novos embaixadores"
               thumbnail={embaixadorIcon}
@@ -72,47 +72,45 @@ export function LinksContainer({ afiliadoId, codigos }: LinksContainerProps) {
         </div>
       </Card.Body>
 
-      {marcas && marcas.length > 0 && (
+      {marca && (
         <>
           <Card.Separator />
           <Card.Body>
-            {marca && (
-              <div className="grid grid-cols-2 gap-4 xl:gap-6">
-                <div className="col-span-1">
-                  <SharedLink
-                    label="Link para visualizar todas as ofertas da marca"
-                    thumbnail={
-                      marca.logotipo_url ? marca.logotipo_url : ecommerceIcon
-                    }
-                    url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}/${marca.slug}?afiliadoId=${codigo}`}
-                    bgColor={marca.cor}
-                  />
-                </div>
-
-                {ofertasMarca.length > 0 &&
-                  ofertasMarca.map((oferta) => (
-                    <div key={oferta.id} className="col-span-1">
-                      <SharedLink
-                        label={`Link de divulgação da oferta ${oferta.nome}`}
-                        thumbnail={
-                          oferta.imagem_url
-                            ? oferta.imagem_url
-                            : marca.logotipo_url
-                              ? marca.logotipo_url
-                              : ecommerceIcon
-                        }
-                        thumbnailFill={true}
-                        thumbnailStyle={{
-                          objectFit: 'cover',
-                          borderRadius: '0.25rem',
-                        }}
-                        url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}/${marca.slug}/${oferta.slug}?afiliadoId=${codigo}`}
-                        bgColor={marca.cor}
-                      />
-                    </div>
-                  ))}
+            <div className="grid grid-cols-2 gap-4 xl:gap-6">
+              <div className="col-span-2 lg:col-span-1">
+                <SharedLink
+                  label="Link para visualizar todas as ofertas da marca"
+                  thumbnail={
+                    marca.logotipo_url ? marca.logotipo_url : ecommerceIcon
+                  }
+                  url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}/${marca.slug}?afiliadoId=${codigo}`}
+                  bgColor={marca.cor}
+                />
               </div>
-            )}
+
+              {ofertasMarca.length > 0 &&
+                ofertasMarca.map((oferta) => (
+                  <div key={oferta.id} className="col-span-2 lg:col-span-1">
+                    <SharedLink
+                      label={`Link de divulgação da oferta ${oferta.nome}`}
+                      thumbnail={
+                        oferta.imagem_url
+                          ? oferta.imagem_url
+                          : marca.logotipo_url
+                            ? marca.logotipo_url
+                            : ecommerceIcon
+                      }
+                      thumbnailFill={true}
+                      thumbnailStyle={{
+                        objectFit: 'cover',
+                        borderRadius: '0.25rem',
+                      }}
+                      url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}/${marca.slug}/${oferta.slug}?afiliadoId=${codigo}`}
+                      bgColor={marca.cor}
+                    />
+                  </div>
+                ))}
+            </div>
           </Card.Body>
         </>
       )}
