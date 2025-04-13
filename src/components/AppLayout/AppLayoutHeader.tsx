@@ -2,13 +2,13 @@ import { UserMenu } from './ext/UserMenu';
 import { ColorModeSwitch, ScreenSizeView } from '@/components';
 import UserAvatar from './ext/UserAvatar';
 import { Search } from 'lucide-react';
-// import { MobileMenu } from '../AppNavigatioMenu/MobileMenu';
+import { MobileSidebar } from '../AppNavigatioMenu/MobileSidebar';
 
 export function AppLayoutHeader() {
   return (
     <header className="h-16 px-8 flex justify-between gap-4 items-center bg-body-background dark:bg-body-background-dark">
       <div className="flex gap-4 items-center">
-        {/* <MobileMenu /> */}
+        <MobileSidebar />
 
         <div>
           <div className="w-[300px] flex items-center gap-2 bg-white h-9 pl-3 pr-1 rounded-md">

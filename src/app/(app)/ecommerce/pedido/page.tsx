@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { PedidoTabela } from './_components/PedidoTabela';
 import { PlusCircle } from 'lucide-react';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Pedidos',
@@ -31,7 +32,9 @@ export default function Page() {
           </AppLayout.PageActions>
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
-      <PedidoTabela />
+      <Suspense>
+        <PedidoTabela />
+      </Suspense>
     </AppLayout.PageContent>
   );
 }

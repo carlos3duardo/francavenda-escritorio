@@ -1,16 +1,29 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
-import { Alert, AppLayout } from '@/components';
-import { LinksContainer } from './_components/LinksContainer';
-import { UserCookieProps } from '@/types';
-import { getCodigosAfiliado } from '@/actions/getCodigosAfiliado';
+// import { cookies } from 'next/headers';
+import { AppLayout } from '@/components';
+// import { LinksContainer } from './_components/LinksContainer';
+// import { UserCookieProps } from '@/types';
+// import { getCodigosAfiliado } from '@/actions/getCodigosAfiliado';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Links de indicação',
 };
 
 export default async function Page() {
-  const cookieStore = cookies();
+  return (
+    <>
+      <AppLayout.PageHeader>
+        <AppLayout.PageTitle title={`Meus links de indicação`} />
+      </AppLayout.PageHeader>
+      <AppLayout.PageContent>blá.</AppLayout.PageContent>
+    </>
+  );
+
+  /*
+
+  const cookieStore = await cookies();
 
   const userCookie = cookieStore.has('frv:user')
     ? cookieStore.get('frv:user')?.value
@@ -79,4 +92,5 @@ export default async function Page() {
       </AppLayout.PageContent>
     </>
   );
+  */
 }
