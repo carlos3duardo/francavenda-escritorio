@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { Alert, AppLayout } from '@/components';
 import { LinksContainer } from './_components/LinksContainer';
 import { UserCookieProps } from '@/types';
+import { getCodigosAfiliado } from '@/actions/getCodigosAfiliado';
 
 export const metadata: Metadata = {
   title: 'Links de indicação',
@@ -41,6 +42,10 @@ export default async function Page() {
     );
   }
 
+  const codigos = user.afiliado
+    ? await getCodigosAfiliado(user.afiliado.id)
+    : [];
+
   return (
     <>
       <AppLayout.PageHeader>
@@ -68,7 +73,7 @@ export default async function Page() {
               </Alert.Description>
             </Alert.Root>
 
-            <LinksContainer afiliadoId={user.afiliado.id} />
+            <LinksContainer afiliadoId={user.afiliado.id} codigos={codigos} />
           </div>
         )}
       </AppLayout.PageContent>

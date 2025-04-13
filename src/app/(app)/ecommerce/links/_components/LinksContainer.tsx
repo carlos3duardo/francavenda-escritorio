@@ -11,7 +11,7 @@ import { ArrowSquareOut, Copy, Ruler } from '@phosphor-icons/react/dist/ssr';
 import { toast } from 'react-toastify';
 import { Button, Card, Dialog, Select } from '@/components';
 import { ApiMarcaProps, ApiOfertaProps } from '@/types';
-import { useAfiliadoCodigos, useMarcaList, useOfertaList } from '@/hooks';
+import { useMarcaList, useOfertaList } from '@/hooks';
 
 import ecommerceIcon from '@/assets/images/icons/online-shop.png';
 import embaixadorIcon from '@/assets/images/icons/followers.png';
@@ -20,6 +20,7 @@ import axios from 'axios';
 
 interface LinksContainerProps {
   afiliadoId: string;
+  codigos: string[];
 }
 
 type LinkContainerProps = {
@@ -40,7 +41,7 @@ function LinkContainer({
   bgColor,
 }: LinkContainerProps) {
   const [isShortenerProcessing, setIsShortenerProcessing] = useState(false);
-  const [customUrl, setCustomUrl] = useState<string>(url || '');
+  const [customUrl, setCustomUrl] = useState<string>('');
 
   function copyUrlToClipboard(value: string) {
     navigator.clipboard.writeText(value || '');
@@ -80,6 +81,8 @@ function LinkContainer({
         setIsShortenerProcessing(false);
       });
   }, []);
+
+  useEffect(() => setCustomUrl(url || ''), [url]);
 
   return (
     <div className="flex items-start gap-2 xl:gap-4 p-4">
@@ -124,7 +127,7 @@ function LinkContainer({
           </Button>
           <Button
             size="sm"
-            onClick={() => shortenUrl(url || '')}
+            onClick={() => shortenUrl(customUrl || '')}
             isLoading={isShortenerProcessing}
           >
             <Ruler size={16} />
@@ -136,11 +139,12 @@ function LinkContainer({
   );
 }
 
-export function LinksContainer({ afiliadoId }: LinksContainerProps) {
-  const [codigo, setCodigo] = useState<string>('');
+export function LinksContainer({ afiliadoId, codigos }: LinksContainerProps) {
+  const [codigo, setCodigo] = useState<string>(() =>
+    codigos.length ? codigos[0] : '',
+  );
   const [marca, setMarca] = useState<ApiMarcaProps | undefined>(undefined);
   const [ofertasMarca, setOfertasMarca] = useState<ApiOfertaProps[]>([]);
-  const { isLoading, data: codigos } = useAfiliadoCodigos(afiliadoId);
   const { data: marcas } = useMarcaList();
   const { data: ofertas } = useOfertaList({});
 
@@ -167,11 +171,11 @@ export function LinksContainer({ afiliadoId }: LinksContainerProps) {
     [marcas, ofertas],
   );
 
-  useEffect(() => {
-    if (codigos?.length) {
-      setCodigo(codigos[0]);
-    }
-  }, [codigos]);
+  // useEffect(() => {
+  //   if (codigos?.length) {
+  //     setCodigo(codigos[0]);
+  //   }
+  // }, [codigos]);
 
   return (
     <Card.Root>
@@ -194,28 +198,24 @@ export function LinksContainer({ afiliadoId }: LinksContainerProps) {
       </Card.Header>
       <Card.Separator />
       <Card.Body>
-        {isLoading ? (
-          'Carregando links...'
-        ) : (
-          <div className="grid grid-cols-2 gap-4 xl:gap-6">
-            <div className="col-span-1">
-              <LinkContainer
-                label="Link de divulgação do seu e-commerce"
-                thumbnail={ecommerceIcon}
-                url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}?afiliadoId=${codigo}`}
-                bgColor="#f8ce2b"
-              />
-            </div>
-            <div className="col-span-1">
-              <LinkContainer
-                label="Indicação para novos embaixadores"
-                thumbnail={embaixadorIcon}
-                url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}/seja-um-embaixador?afiliadoId=${codigo}`}
-                bgColor="#f8ce2b"
-              />
-            </div>
+        <div className="grid grid-cols-2 gap-4 xl:gap-6">
+          <div className="col-span-1">
+            <LinkContainer
+              label="Link de divulgação do seu e-commerce"
+              thumbnail={ecommerceIcon}
+              url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}?afiliadoId=${codigo}`}
+              bgColor="#f8ce2b"
+            />
           </div>
-        )}
+          <div className="col-span-1">
+            <LinkContainer
+              label="Indicação para novos embaixadores"
+              thumbnail={embaixadorIcon}
+              url={`${process.env.NEXT_PUBLIC_ECOMMERCE_URL}/seja-um-embaixador?afiliadoId=${codigo}`}
+              bgColor="#f8ce2b"
+            />
+          </div>
+        </div>
       </Card.Body>
 
       {marcas && marcas.length > 0 && (
