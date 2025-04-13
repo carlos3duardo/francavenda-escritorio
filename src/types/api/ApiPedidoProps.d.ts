@@ -85,8 +85,8 @@ type SituacaoProps = {
   descricao: string;
   cor: string;
   data: string;
-  dados: any;
-  comentario: string;
+  concluido: boolean;
+  cancelado: boolean;
 };
 
 type FormaPagamentoProps = {
@@ -158,6 +158,7 @@ export interface ApiPedidoProps {
   cliente: ClienteProps;
   produto: ProdutoProps;
   valor: number;
+  pagamento: string | null;
   situacao: SituacaoProps;
   codigo_referencia: string | null;
   forma_pagamento: FormaPagamentoProps;
