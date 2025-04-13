@@ -1,12 +1,13 @@
 import axios from 'axios';
-import { getCookie } from 'cookies-next';
+import { cookies } from 'next/headers';
 
-const accessToken = getCookie('frv:token');
+const cookieStore = cookies();
+const accessToken = cookieStore.get('frv:token');
 
 export const api = axios.create({
-  baseURL: process.env.APP_HOST,
+  baseURL: process.env.API_URL,
   headers: {
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${accessToken?.value}`,
     Accept: 'application/json',
   },
 });

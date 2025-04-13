@@ -1,39 +1,36 @@
 'use client';
-import { MenuItemProps } from '@/data/menu';
-import { NavigationMenuItem } from './NavigationMenuItem';
+import { useEffect, useState } from 'react';
+import { getCookie, hasCookie } from 'cookies-next';
 import { UserCookieProps } from '@/types';
-import { Alert } from '../Alert';
-import Link from 'next/link';
-import Button from '../Button';
+import { NavigationMenuItem } from './NavigationMenuItem';
+import { MenuItemProps } from '@/data/menu';
 
 interface NavigationMenuProps {
   menu: MenuItemProps[];
-  user: UserCookieProps | undefined;
 }
 
-export function NavigationMenu({ menu, user }: NavigationMenuProps) {
-  if (!user) {
-    return (
-      <div className="p-2">
-        <Alert.Root type="error" hasIcon={false}>
-          <Alert.Message message="Usuário não reconhecido" />
-          <Alert.Description>
-            <Link href="/signout">
-              <Button size="xs" color="primary">
-                Sair
-              </Button>
-            </Link>
-          </Alert.Description>
-        </Alert.Root>
-      </div>
-    );
+export function NavigationMenu({ menu }: NavigationMenuProps) {
+  const [usuario, setUsuario] = useState<UserCookieProps | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    const user = hasCookie('frv:user')
+      ? (JSON.parse(getCookie('frv:user') as string) as UserCookieProps)
+      : undefined;
+
+    setUsuario(user);
+  }, []);
+
+  if (!usuario) {
+    return <div className="p-2">Carregando...</div>;
   }
   return (
     <div className="px-2 py-1 lg:px-4 2xl:px-6">
       <ul role="menu" className="flex flex-col gap-1">
         {menu.map((item) => (
           <li key={item.id}>
-            <NavigationMenuItem menuItem={item} user={user} />
+            <NavigationMenuItem menuItem={item} user={usuario} />
           </li>
         ))}
       </ul>

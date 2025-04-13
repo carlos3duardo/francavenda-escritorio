@@ -1,6 +1,7 @@
 import { AppLayout } from '@/components';
 import { Metadata } from 'next';
 import { LancamentoTabela } from './_components/LancamentoTabela';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Lançamentos',
@@ -22,7 +23,9 @@ export default function Page() {
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
       <AppLayout.PageContent>
-        <LancamentoTabela />
+        <Suspense>
+          <LancamentoTabela />
+        </Suspense>
       </AppLayout.PageContent>
     </>
   );

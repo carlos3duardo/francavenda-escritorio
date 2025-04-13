@@ -3,7 +3,7 @@
 import { useCallback } from 'react';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import { Check, FolderCheck, RotateCw, Send, X } from 'lucide-react';
+import { FolderCheck, RotateCw, Send, X } from 'lucide-react';
 import { Circle, DotsThreeVertical } from '@phosphor-icons/react/dist/ssr';
 import { ApiPedidoProps } from '@/types';
 import { Card, Dialog } from '@/components';
@@ -26,10 +26,6 @@ interface PedidoInfoProps {
 
 export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
   const queryClient = useQueryClient();
-
-  const handleAprovarPedido = useCallback((pedidoId: string) => {
-    alert(`Aprovar pedido ${pedidoId}`);
-  }, []);
 
   const handleCancelarPedido = useCallback((pedidoId: string) => {
     alert(`Cancelar pedido ${pedidoId}`);
@@ -138,29 +134,38 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
               </DropdownMenu.Trigger>
               <DropdownMenu.Content hasArrow>
                 <DropdownMenu.Item
-                  label="Aprovar pedido"
-                  icon={Check}
-                  onClick={() => handleAprovarPedido(pedido.id)}
-                />
-                <DropdownMenu.Item
                   label="Cancelar pedido"
                   icon={X}
                   onClick={() => handleCancelarPedido(pedido.id)}
+                  disabled={
+                    pedido.pagamento !== null ||
+                    pedido.situacao.concluido ||
+                    pedido.situacao.cancelado
+                  }
                 />
                 <DropdownMenu.Item
                   label="Checar restrições"
                   icon={FolderCheck}
                   onClick={() => handleChecarRestricoes(pedido.id)}
+                  disabled={
+                    pedido.pagamento !== null ||
+                    pedido.situacao.concluido ||
+                    pedido.situacao.cancelado
+                  }
                 />
                 <DropdownMenu.Item
                   label="Reprocessar pagamento"
                   icon={RotateCw}
                   onClick={() => handleReprocessarPagamento(pedido.id)}
+                  disabled={pedido.pagamento !== null}
                 />
                 <DropdownMenu.Item
                   label="Enviar para fornecedor"
                   icon={Send}
                   onClick={() => handleEnviarParaFornecedor(pedido.id)}
+                  disabled={
+                    pedido.situacao.concluido || pedido.situacao.cancelado
+                  }
                 />
               </DropdownMenu.Content>
             </DropdownMenu.Root>
