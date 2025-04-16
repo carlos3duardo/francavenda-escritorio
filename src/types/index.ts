@@ -8,6 +8,7 @@ import { ApiEmpresaTipoProps } from './api/ApiEmpresaTipoProps';
 import { ApiFornecedorProps } from './api/ApiFornecedorProps';
 import { ApiLancamentoProps } from './api/ApiLancamentoProps';
 import { ApiMarcaProps } from './api/ApiMarcaProps';
+import { ApiOperadorProps } from './api/ApiOperadorProps';
 import { ApiPedidoProps } from './api/ApiPedidoProps';
 import { ApiPedidoSituacaoProps } from './api/ApiPedidoSituacao';
 import { ApiProdutoProps } from './api/ApiProdutoProps';
@@ -30,6 +31,7 @@ export type {
   ApiFornecedorProps,
   ApiLancamentoProps,
   ApiMarcaProps,
+  ApiOperadorProps,
   ApiPedidoProps,
   ApiPedidoSituacaoProps,
   ApiProdutoProps,

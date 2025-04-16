@@ -7,8 +7,7 @@ export async function GET(request: NextRequest) {
   const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
 
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get('frv:token');
+  const accessToken = request.cookies.get('frv:token');
 
   return await axios({
     url: endpoint,
@@ -28,7 +27,6 @@ export async function GET(request: NextRequest) {
         });
       }
 
-      // console.error({ erro: err });
       return NextResponse.json(err.response.data, { status: 500 });
     });
 }
