@@ -6,11 +6,11 @@ import { MobileSidebar } from '../AppNavigatioMenu/MobileSidebar';
 
 export function AppLayoutHeader() {
   return (
-    <header className="h-16 px-8 flex justify-between gap-4 items-center bg-body-background dark:bg-body-background-dark">
+    <header className="h-16 px-4 lg:px-8 flex justify-between gap-4 items-center bg-body-background dark:bg-body-background-dark">
       <div className="flex gap-4 items-center">
         <MobileSidebar />
 
-        <div>
+        <div className="hidden">
           <div className="w-[300px] flex items-center gap-2 bg-white h-9 pl-3 pr-1 rounded-md">
             <input
               type="text"

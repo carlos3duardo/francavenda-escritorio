@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { AppLayout } from '@/components';
 import { firstName } from '@/helpers';
+import { HomeAfiliado } from './components/HomeAfiliado';
+import { HomeAdmin } from './components/HomeAdmin';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -16,6 +18,8 @@ export default async function Dashboard() {
 
   const user = userCookie ? JSON.parse(userCookie) : null;
 
+  console.log({ user });
+
   return (
     <>
       <AppLayout.PageHeader>
@@ -23,7 +27,13 @@ export default async function Dashboard() {
           title={`Olá, ${firstName({ fullName: user?.nome, ucfirst: true })}. Seja bem vindo.`}
         />
       </AppLayout.PageHeader>
-      <AppLayout.PageContent>Conteúdo da página</AppLayout.PageContent>
+      <AppLayout.PageContent>
+        {user.afiliado ? (
+          <HomeAfiliado afiliadoId={user.afiliado.id} />
+        ) : (
+          <HomeAdmin />
+        )}
+      </AppLayout.PageContent>
     </>
   );
 }
