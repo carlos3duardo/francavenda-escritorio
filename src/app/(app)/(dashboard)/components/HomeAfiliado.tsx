@@ -22,7 +22,7 @@ type ResponseProps = {
 };
 
 export async function HomeAfiliado({ afiliadoId }: HomeAfiliadoProps) {
-  const response = await api
+  const response = await api()
     .get('/metricas/comercial/pedidos', {
       params: {
         frequencia: 'mes',

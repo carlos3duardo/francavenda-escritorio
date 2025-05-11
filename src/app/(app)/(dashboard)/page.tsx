@@ -1,24 +1,19 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { AppLayout } from '@/components';
 import { firstName } from '@/helpers';
 import { HomeAfiliado } from './components/HomeAfiliado';
 import { HomeAdmin } from './components/HomeAdmin';
+import { api } from '@/services';
+import { UserCookieProps } from '@/types';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
 };
 
 export default async function Dashboard() {
-  const cookieStore = cookies();
-
-  const userCookie = cookieStore.has('frv:user')
-    ? cookieStore.get('frv:user')?.value
-    : null;
-
-  const user = userCookie ? JSON.parse(userCookie) : null;
-
-  console.log({ user });
+  const user = (await api()
+    .get('/me')
+    .then((res) => res.data)) as unknown as UserCookieProps;
 
   return (
     <>

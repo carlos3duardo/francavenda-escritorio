@@ -11,7 +11,7 @@ export async function fetchPedidoUltimosMeses({
   fim,
   afiliadoId,
 }: ActionProps) {
-  const response = await api
+  const response = await api()
     .get(`/metricas/comercial/pedidos`, {
       params: {
         inicio,
