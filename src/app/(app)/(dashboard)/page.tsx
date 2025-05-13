@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { AppLayout } from '@/components';
 import { firstName } from '@/helpers';
-import { HomeAfiliado } from './components/HomeAfiliado';
-import { HomeAdmin } from './components/HomeAdmin';
+import { AfiliadoDashboard } from './components/AfiliadoDashboard';
+import { AdminDashboard } from './components/AdminDashboard';
 import { api } from '@/services';
 import { UserCookieProps } from '@/types';
 
@@ -24,9 +24,9 @@ export default async function Dashboard() {
       </AppLayout.PageHeader>
       <AppLayout.PageContent>
         {user.afiliado ? (
-          <HomeAfiliado afiliadoId={user.afiliado.id} />
+          <AfiliadoDashboard afiliadoId={user.afiliado.id} />
         ) : (
-          <HomeAdmin />
+          <AdminDashboard />
         )}
       </AppLayout.PageContent>
     </>

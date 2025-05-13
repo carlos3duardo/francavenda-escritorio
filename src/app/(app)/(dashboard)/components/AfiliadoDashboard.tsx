@@ -1,6 +1,13 @@
-import { api } from '@/services';
+import { MaterialDeApoio } from './afiliado/MaterialDeApoio';
+import { RedeEmbaixadores } from './afiliado/RedeEmbaixadores';
+import { SaldoDisponivel } from './afiliado/SaldoDisponivel';
+import { LinksAfiliado } from './afiliado/LinksAfiliado';
 import { GraficoVendasAfiliado } from './GraficoVendasAfiliado';
-import { RankingAfiliados } from './RankingAfiliados';
+import { api } from '@/services';
+
+interface HomeAfiliadoProps {
+  afiliadoId: string;
+}
 
 type ResponseProps = {
   relatorio: {
@@ -17,11 +24,12 @@ type ResponseProps = {
   }[];
 };
 
-export async function HomeAdmin() {
+export async function AfiliadoDashboard({ afiliadoId }: HomeAfiliadoProps) {
   const response = await api()
     .get('/metricas/comercial/pedidos', {
       params: {
         frequencia: 'mes',
+        afiliadoId,
       },
     })
     .then((res) => res.data as unknown as ResponseProps);
@@ -57,14 +65,31 @@ export async function HomeAdmin() {
   };
   return (
     <div className="grid grid-cols-12 gap-4 2xl:gap-6">
-      <div className="col-span-12 xl:col-span-7">
-        <GraficoVendasAfiliado
-          categories={data.categories}
-          series={data.series}
-        />
+      <div className="col-span-12 xl:col-span-6">
+        <div className="grid grid-cols-2 gap-4 2xl:gap-6">
+          <div className="col-span-2">
+            <GraficoVendasAfiliado
+              categories={data.categories}
+              series={data.series}
+            />
+          </div>
+          <div className="col-span-2">
+            <MaterialDeApoio />
+          </div>
+        </div>
       </div>
-      <div className="col-span-12 xl:col-span-5">
-        <RankingAfiliados />
+      <div className="col-span-12 xl:col-span-6">
+        <div className="grid grid-cols-2 gap-4 2xl:gap-6">
+          <div>
+            <SaldoDisponivel afiliadoId={afiliadoId} />
+          </div>
+          <div>
+            <RedeEmbaixadores afiliadoId={afiliadoId} />
+          </div>
+          <div className="col-span-2">
+            <LinksAfiliado />
+          </div>
+        </div>
       </div>
     </div>
   );

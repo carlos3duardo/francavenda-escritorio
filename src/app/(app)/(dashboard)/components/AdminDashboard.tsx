@@ -1,10 +1,7 @@
-import { GraficoVendasAfiliado } from './GraficoVendasAfiliado';
-import { LinksAfiliado } from './LinksAfiliado';
 import { api } from '@/services';
-
-interface HomeAfiliadoProps {
-  afiliadoId: string;
-}
+import { GraficoVendasAfiliado } from './GraficoVendasAfiliado';
+import { RankingAfiliados } from './administrador/RankingAfiliados';
+import { SaquesPendentes } from './administrador/SaquesPendentes';
 
 type ResponseProps = {
   relatorio: {
@@ -21,12 +18,11 @@ type ResponseProps = {
   }[];
 };
 
-export async function HomeAfiliado({ afiliadoId }: HomeAfiliadoProps) {
+export async function AdminDashboard() {
   const response = await api()
     .get('/metricas/comercial/pedidos', {
       params: {
         frequencia: 'mes',
-        afiliadoId,
       },
     })
     .then((res) => res.data as unknown as ResponseProps);
@@ -62,14 +58,17 @@ export async function HomeAfiliado({ afiliadoId }: HomeAfiliadoProps) {
   };
   return (
     <div className="grid grid-cols-12 gap-4 2xl:gap-6">
-      <div className="col-span-12 xl:col-span-6">
+      <div className="col-span-12 xl:col-span-7">
         <GraficoVendasAfiliado
           categories={data.categories}
           series={data.series}
         />
       </div>
-      <div className="col-span-12 xl:col-span-6">
-        <LinksAfiliado />
+      <div className="col-span-12 xl:col-span-5">
+        <div className="flex flex-col gap-4 2xl:gap-6">
+          <RankingAfiliados />
+          <SaquesPendentes />
+        </div>
       </div>
     </div>
   );
