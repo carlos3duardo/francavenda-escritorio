@@ -1,11 +1,18 @@
-import { AppLayout, UnderConstruction } from '@/components';
+import { AppLayout } from '@/components';
 import { Metadata } from 'next';
+import { RedeEmbaixadores } from './components/RedeEmbaixadores';
+import { api } from '@/services';
+import { UserCookieProps } from '@/types';
 
 export const metadata: Metadata = {
   title: 'Minha rede',
 };
 
-export default function Page() {
+export default async function Page() {
+  const user = (await api()
+    .get('/me')
+    .then((res) => res.data)) as unknown as UserCookieProps;
+
   return (
     <>
       <AppLayout.PageHeader>
@@ -20,7 +27,11 @@ export default function Page() {
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
       <AppLayout.PageContent>
-        <UnderConstruction />
+        {user.afiliado ? (
+          <RedeEmbaixadores afiliadoId={user.afiliado.id} />
+        ) : (
+          <>...</>
+        )}
       </AppLayout.PageContent>
     </>
   );

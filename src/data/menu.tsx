@@ -147,12 +147,6 @@ export const primaryMenu: MenuItemProps[] = [
         onlyAfiliates: true,
       },
       {
-        id: 4204,
-        label: 'Comissões',
-        href: '/financeiro/comissao',
-        free: true,
-      },
-      {
         id: 4205,
         label: 'Saques',
         href: '/financeiro/saque',
