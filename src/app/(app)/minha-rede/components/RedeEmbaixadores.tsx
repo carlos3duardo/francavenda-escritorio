@@ -2,12 +2,12 @@
 
 import Lottie from 'lottie-react';
 import { useAfiliadoRedeEmbaixadores } from '@/hooks';
-import tableLoading from '@/assets/lotties/table-loading.json';
+import loadingIcon from '@/assets/lotties/share.json';
 import avatarPlaceHolder from '@/assets/images/avatar-placeholder.jpg';
 import Image from 'next/image';
 import { Card } from '@/components';
 import { twMerge } from 'tailwind-merge';
-import { ArrowDown } from '@phosphor-icons/react/dist/ssr';
+import { ArrowDown, UserCircle } from '@phosphor-icons/react/dist/ssr';
 
 interface ComponentProps {
   afiliadoId: string;
@@ -26,6 +26,7 @@ type CardAfiliadoProps = {
   email: string;
   avatarUrl: string | null;
   className?: string;
+  embaixadores?: PatrocinadorProps[];
 };
 
 function CardAfiliado({
@@ -33,27 +34,43 @@ function CardAfiliado({
   email,
   avatarUrl,
   className,
+  embaixadores = [],
 }: CardAfiliadoProps) {
   return (
     <div
       className={twMerge(
-        'flex flex-col lg:flex-row gap-2 xl:gap-4 px-6 py-4 items-center bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white rounded-md',
+        'flex flex-col px-6 py-4 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white',
         className,
       )}
     >
-      <figure>
-        <Image
-          src={avatarUrl || avatarPlaceHolder}
-          alt=""
-          width={52}
-          height={52}
-          className="rounded-full"
-        />
-      </figure>
-      <div className="flex flex-col text-center lg:text-left">
-        <strong>{nome}</strong>
-        <p className="text-sm font-medium">{email}</p>
+      <div className="flex flex-col lg:flex-row gap-2 xl:gap-4 items-center">
+        <figure>
+          <Image
+            src={avatarUrl || avatarPlaceHolder}
+            alt=""
+            width={52}
+            height={52}
+            className="rounded-full"
+          />
+        </figure>
+        <div className="flex flex-col text-center lg:text-left">
+          <strong>{nome}</strong>
+          <p className="text-sm font-medium">{email}</p>
+        </div>
       </div>
+      {embaixadores.length > 0 && (
+        <ul className="mt-2 pt-2 mx-auto">
+          {embaixadores.map((embaixador) => (
+            <li
+              key={embaixador.id}
+              className="flex items-center gap-1 text-xs font-medium"
+            >
+              <UserCircle size={16} weight="bold" />
+              <p>{embaixador.nome}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -79,10 +96,11 @@ export function RedeEmbaixadores({ afiliadoId }: ComponentProps) {
     <Card.Root>
       {isLoading ? (
         <Card.Body>
-          <div>
+          <div className="p-8">
             <figure className="w-24 h-24 mx-auto">
-              <Lottie animationData={tableLoading} />
+              <Lottie animationData={loadingIcon} />
             </figure>
+            <h1 className="text-2xl font-bold text-center">Carregando...</h1>
           </div>
         </Card.Body>
       ) : data ? (
@@ -128,7 +146,7 @@ export function RedeEmbaixadores({ afiliadoId }: ComponentProps) {
                   <h2 className="flex rounded-md bg-orange-200 dark:bg-orange-800 px-2 py-1 text-xs font-medium uppercase">
                     Seus embaixadores
                   </h2>
-                  <div className="flex flex-wrap items-center justify-center gap-4">
+                  <div className="flex flex-wrap items-start justify-center gap-4">
                     {data.embaixadores.map((embaixador) => (
                       <CardAfiliado
                         key={embaixador.id}
@@ -136,6 +154,7 @@ export function RedeEmbaixadores({ afiliadoId }: ComponentProps) {
                         email={embaixador.email}
                         avatarUrl={embaixador.avatar_url}
                         className="bg-orange-200 dark:bg-orange-800"
+                        embaixadores={embaixador.embaixadores}
                       />
                     ))}
                   </div>
