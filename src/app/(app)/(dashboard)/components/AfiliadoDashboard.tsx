@@ -1,4 +1,4 @@
-import { MaterialDeApoio } from './afiliado/MaterialDeApoio';
+// import { MaterialDeApoio } from './afiliado/MaterialDeApoio';
 import { RedeEmbaixadores } from './afiliado/RedeEmbaixadores';
 import { SaldoDisponivel } from './afiliado/SaldoDisponivel';
 import { LinksAfiliado } from './afiliado/LinksAfiliado';
@@ -73,9 +73,9 @@ export async function AfiliadoDashboard({ afiliadoId }: HomeAfiliadoProps) {
               series={data.series}
             />
           </div>
-          <div className="col-span-2">
+          {/* <div className="col-span-2">
             <MaterialDeApoio />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="col-span-12 xl:col-span-6">
