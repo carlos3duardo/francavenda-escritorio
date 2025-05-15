@@ -85,6 +85,15 @@ export function middleware(request: NextRequest) {
 
     redirectUrl.pathname = '/';
 
+    if (request.nextUrl.searchParams.has('invalidToken')) {
+      const response = NextResponse.redirect(redirectUrl);
+
+      response.cookies.delete('frv:token');
+      response.cookies.delete('frv:refreshToken');
+
+      return response;
+    }
+
     return NextResponse.redirect(redirectUrl);
   }
 

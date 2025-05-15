@@ -2,6 +2,7 @@ import { useAfiliado } from './useAfiliado';
 import { useAfiliadoAdesao } from './useAfiliadoAdesao';
 import { useAfiliadoCodigos } from './useAfiliadoCodigos';
 import { useAfiliadoList } from './useAfiliadoList';
+import { useAfiliadoRedeEmbaixadores } from './useAfiliadoRedeEmbaixadores';
 import { useBancoList } from './useBancoList';
 import { useFornecedor } from './useFornecedor';
 import { useMarca } from './useMarca';
@@ -11,6 +12,7 @@ import { useOfertaList } from './useOfertaList';
 import { usePedido } from './usePedido';
 import { useProduto } from './useProduto';
 import { useProdutoList } from './useProdutoList';
+import { useSaquesPendentes } from './useSaquesPendentes';
 import { useSexoList } from './useSexoList';
 import { useUfList } from './useUfList';
 
@@ -19,6 +21,7 @@ export {
   useAfiliadoAdesao,
   useAfiliadoCodigos,
   useAfiliadoList,
+  useAfiliadoRedeEmbaixadores,
   useBancoList,
   useFornecedor,
   useMarca,
@@ -28,6 +31,7 @@ export {
   usePedido,
   useProduto,
   useProdutoList,
+  useSaquesPendentes,
   useSexoList,
   useUfList,
 };

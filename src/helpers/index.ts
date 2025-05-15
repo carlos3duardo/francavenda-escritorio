@@ -8,6 +8,7 @@ import {
 } from './masks';
 import { dateBr, dateTimeBr, dateBirthBr, currency } from './locale';
 import { capitalize, firstName, initials, shortName } from './string';
+import { isTokenExpired, isTokenActive } from './jwt';
 
 export {
   // masks
@@ -29,4 +30,8 @@ export {
   dateTimeBr,
   dateBirthBr,
   currency,
+
+  // jwt
+  isTokenExpired,
+  isTokenActive,
 };

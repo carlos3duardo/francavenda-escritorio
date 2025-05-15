@@ -5,11 +5,18 @@ import iconeBussola from '@/assets/images/by-bussola-da-gestao-icon.svg';
 
 export function AppLayoutFooter() {
   return (
-    <footer className="h-12 px-8 flex justify-between items-center text-sm text-slate-400 font-medium">
-      <div>{new Date().getFullYear()} &copy; Todos os direitos reservados</div>
+    <footer className="h-12 pb-4 px-4 lg:px-8 flex justify-between items-center gap-4 text-sm text-slate-400 font-medium">
+      <div className="w-full flex flex-col md:flex-row items-start md:items-cener md:justify-between">
+        <div>
+          {new Date().getFullYear()} &copy; Todos os direitos reservados
+        </div>
+        <div className="flex gap-4">
+          <Link href="/">Termos de uso</Link>
+          <Link href="/">Política de privacidade</Link>
+        </div>
+      </div>
+
       <div className="flex gap-4 items-center">
-        <Link href="/">Termos de uso</Link>
-        <Link href="/">Política de privacidade</Link>
         <Link href="https://bussoladagestao.com.br" target="_blank">
           <Image
             src={iconeBussola}

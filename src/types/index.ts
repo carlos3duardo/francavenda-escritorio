@@ -1,6 +1,7 @@
 import { ApiAdesaoProps } from './api/ApiAdesaoProps';
 import { ApiAfiliadoProps } from './api/ApiAfiliadoProps';
 import { ApiAfiliadoAdesaoProps } from './api/ApiAfiliadoAdesaoProps';
+import { ApiAfiliadoRedeEmbaixadores } from './api/ApiAfiliadoRedeEmbaixadores';
 import { ApiAfiliadoSaldoDisponivelProps } from './api/ApiAfiliadoSaldoDisponivelProps';
 import { ApiBancoProps } from './api/ApiBancoProps';
 import { ApiCategoriaFinanceiroProps } from './api/ApiCategoriaFinanceiroProps';
@@ -24,6 +25,7 @@ export type {
   ApiAdesaoProps,
   ApiAfiliadoProps,
   ApiAfiliadoAdesaoProps,
+  ApiAfiliadoRedeEmbaixadores,
   ApiAfiliadoSaldoDisponivelProps,
   ApiBancoProps,
   ApiCategoriaFinanceiroProps,

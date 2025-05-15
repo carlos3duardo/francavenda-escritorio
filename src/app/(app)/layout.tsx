@@ -2,6 +2,9 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { AppLayout, NavigationMenu } from '@/components';
 import { primaryMenu, secondaryMenu } from '@/data/menu';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { isTokenActive, isTokenExpired } from '@/helpers';
 
 export const metadata: Metadata = {
   title: {
@@ -15,6 +18,21 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get('frv:token')?.value;
+
+  if (!accessToken) {
+    redirect('/entrar?');
+  }
+
+  if (isTokenExpired(accessToken)) {
+    redirect('/entrar');
+  }
+
+  if (!(await isTokenActive(accessToken))) {
+    redirect('/entrar?invalidToken');
+  }
+
   return (
     <AppLayout.Root>
       <AppLayout.Sidebar>
