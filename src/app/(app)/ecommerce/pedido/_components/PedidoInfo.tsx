@@ -164,7 +164,7 @@ export function PedidoInfo({ isLoading, isSuccess, pedido }: PedidoInfoProps) {
                   icon={Send}
                   onClick={() => handleEnviarParaFornecedor(pedido.id)}
                   disabled={
-                    pedido.situacao.concluido || pedido.situacao.cancelado
+                    pedido.situacao.cancelado || !!pedido.codigo_referencia
                   }
                 />
               </DropdownMenu.Content>
