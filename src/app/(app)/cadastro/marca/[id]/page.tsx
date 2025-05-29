@@ -3,19 +3,18 @@ import { Metadata } from 'next';
 import { MarcaContainer } from '../_components/MarcaContainer';
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  id: string;
 }
 
 export const metadata: Metadata = {
   title: 'Visualizar marca',
 };
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: { params: Promise<PageProps> }) {
+  const { id } = await params;
   return (
     <AppLayout.PageContent>
-      <MarcaContainer id={params.id} />
+      <MarcaContainer id={id} />
     </AppLayout.PageContent>
   );
 }

@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 
 export async function signOut() {
-  cookies().delete('frv:token');
-  cookies().delete('frv:refreshToken');
-  cookies().delete('frv:user');
+  (await cookies()).delete('frv:token');
+  (await cookies()).delete('frv:refreshToken');
+  (await cookies()).delete('frv:user');
 }

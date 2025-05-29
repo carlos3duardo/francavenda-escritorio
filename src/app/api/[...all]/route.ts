@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     ? request.json()
     : request.formData());
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get('frv:token');
 
   return axios({
@@ -104,7 +104,7 @@ export async function PUT(request: NextRequest) {
     ? request.json()
     : request.formData());
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get('frv:token');
 
   return axios({
@@ -136,7 +136,7 @@ export async function PATCH(request: NextRequest) {
     ? request.json()
     : request.formData());
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get('frv:token');
 
   return axios({
@@ -167,7 +167,7 @@ export async function DELETE(request: NextRequest) {
   const local = host + '/api/';
   const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get('frv:token');
 
   return await axios({

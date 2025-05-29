@@ -14,7 +14,7 @@ type ResponseDataProps = {
 };
 
 export async function GET(request: NextRequest) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const accessToken = cookieStore.get('frv:token');
 
   const { searchParams } = new URL(request.url);

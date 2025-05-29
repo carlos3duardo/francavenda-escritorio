@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  const user = (await api()
+  const user = (await (await api())
     .get('/me')
     .then((res) => res.data)) as unknown as UserCookieProps;
 

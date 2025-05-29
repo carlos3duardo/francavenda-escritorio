@@ -3,8 +3,8 @@
 import { cookies } from 'next/headers';
 
 export async function getCookie(cookieName: string) {
-  if (cookies().has(cookieName)) {
-    return cookies().get(cookieName)?.value;
+  if ((await cookies()).has(cookieName)) {
+    return (await cookies()).get(cookieName)?.value;
   }
   return null;
 }

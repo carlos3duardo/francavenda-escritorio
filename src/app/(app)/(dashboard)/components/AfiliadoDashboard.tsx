@@ -25,7 +25,9 @@ type ResponseProps = {
 };
 
 export async function AfiliadoDashboard({ afiliadoId }: HomeAfiliadoProps) {
-  const response = await api()
+  const response = await (
+    await api()
+  )
     .get('/metricas/comercial/pedidos', {
       params: {
         frequencia: 'mes',

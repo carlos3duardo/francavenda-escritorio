@@ -19,7 +19,9 @@ type ResponseProps = {
 };
 
 export async function AdminDashboard() {
-  const response = await api()
+  const response = await (
+    await api()
+  )
     .get('/metricas/comercial/pedidos', {
       params: {
         frequencia: 'mes',

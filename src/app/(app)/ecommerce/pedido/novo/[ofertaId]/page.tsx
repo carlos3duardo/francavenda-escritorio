@@ -3,16 +3,16 @@ import { Metadata } from 'next';
 import { NovoPedidoFormularioCadastro } from '../../_components/NovoPedidoFormularioCadastro';
 
 interface PageProps {
-  params: {
-    ofertaId: string;
-  };
+  ofertaId: string;
 }
 
 export const metadata: Metadata = {
   title: 'Novo pedido',
 };
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: { params: Promise<PageProps> }) {
+  const { ofertaId } = await params;
+
   return (
     <>
       <AppLayout.PageHeader>
@@ -25,14 +25,14 @@ export default async function Page({ params }: PageProps) {
               { label: 'Novo', href: '/ecommerce/pedido/novo' },
               {
                 label: 'Adicionar',
-                href: `/ecommerce/pedido/novo/${params.ofertaId}`,
+                href: `/ecommerce/pedido/novo/${ofertaId}`,
               },
             ]}
           />
         </AppLayout.PageHeaderSection>
       </AppLayout.PageHeader>
       <AppLayout.PageContent>
-        <NovoPedidoFormularioCadastro ofertaId={params.ofertaId} />
+        <NovoPedidoFormularioCadastro ofertaId={ofertaId} />
       </AppLayout.PageContent>
     </>
   );

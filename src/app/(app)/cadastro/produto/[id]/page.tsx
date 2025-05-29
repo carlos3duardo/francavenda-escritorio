@@ -3,19 +3,18 @@ import { Metadata } from 'next';
 import { ProdutoContainer } from '../_components/ProdutoContainer';
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  id: string;
 }
 
 export const metadata: Metadata = {
   title: 'Visualizar produto',
 };
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: { params: Promise<PageProps> }) {
+  const { id } = await params;
   return (
     <AppLayout.PageContent>
-      <ProdutoContainer id={params.id} />
+      <ProdutoContainer id={id} />
     </AppLayout.PageContent>
   );
 }

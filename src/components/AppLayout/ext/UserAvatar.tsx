@@ -18,7 +18,7 @@ type UsuarioCookieProps = {
 };
 
 export default async function UserAvatar() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const usuario = cookieStore.get('frv:user')?.value
     ? (JSON.parse(
         cookieStore.get('frv:user')?.value as string,

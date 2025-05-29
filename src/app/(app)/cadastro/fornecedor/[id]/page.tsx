@@ -3,19 +3,19 @@ import { Metadata } from 'next';
 import { FornecedorContainer } from '../_components/FornecedorContainer';
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  id: string;
 }
 
 export const metadata: Metadata = {
   title: 'Visualizar fornecedor',
 };
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: { params: Promise<PageProps> }) {
+  const { id } = await params;
+
   return (
     <AppLayout.PageContent>
-      <FornecedorContainer id={params.id} />
+      <FornecedorContainer id={id} />
     </AppLayout.PageContent>
   );
 }

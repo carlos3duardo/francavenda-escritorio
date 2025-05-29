@@ -3,19 +3,19 @@ import { Metadata } from 'next';
 import { AfiliadoEditar } from '../../components/AfiliadoEditar';
 
 interface PageProps {
-  params: {
-    id: string;
-  };
+  id: string;
 }
 
 export const metadata: Metadata = {
   title: 'Editar afiliado',
 };
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: { params: Promise<PageProps> }) {
+  const { id } = await params;
+
   return (
     <AppLayout.PageContent>
-      <AfiliadoEditar id={params.id} />
+      <AfiliadoEditar id={id} />
     </AppLayout.PageContent>
   );
 }
