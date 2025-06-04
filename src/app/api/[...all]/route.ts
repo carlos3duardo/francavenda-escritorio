@@ -3,9 +3,14 @@ import { cookies } from 'next/headers';
 import axios, { isAxiosError } from 'axios';
 
 export async function GET(request: NextRequest) {
-  const host = process.env.APP_HOST;
-  const local = host + '/api/';
-  const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+  const { pathname, searchParams } = request.nextUrl;
+
+  const path = pathname.slice(4, pathname.length);
+
+  const endpoint =
+    process.env.API_URL +
+    path +
+    (searchParams.size > 0 ? `?${searchParams.toString()}` : '');
 
   const accessToken = request.cookies.get('frv:token');
 
@@ -32,11 +37,14 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const urlRequest = new URL(request.url);
+  const { pathname, searchParams } = request.nextUrl;
 
-  const host = process.env.APP_HOST;
-  const local = host + '/api/';
-  const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+  const path = pathname.slice(4, pathname.length);
+
+  const endpoint =
+    process.env.API_URL +
+    path +
+    (searchParams.size > 0 ? `?${searchParams.toString()}` : '');
 
   const contentType = request.headers.get('Content-Type');
 
@@ -57,7 +65,7 @@ export async function POST(request: NextRequest) {
     },
   })
     .then((response) => {
-      if (urlRequest.pathname === '/api/me/avatar') {
+      if (pathname === '/api/me/avatar') {
         const nextResponse = NextResponse.json(response.data);
 
         nextResponse.cookies.set({
@@ -95,9 +103,15 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  const host = process.env.APP_HOST;
-  const local = host + '/api/';
-  const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+  const { pathname, searchParams } = request.nextUrl;
+
+  const path = pathname.slice(4, pathname.length);
+
+  const endpoint =
+    process.env.API_URL +
+    path +
+    (searchParams.size > 0 ? `?${searchParams.toString()}` : '');
+
   const contentType = request.headers.get('Content-Type');
 
   const data = await (contentType === 'application/json'
@@ -126,9 +140,14 @@ export async function PUT(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  const host = process.env.APP_HOST;
-  const local = host + '/api/';
-  const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+  const { pathname, searchParams } = request.nextUrl;
+
+  const path = pathname.slice(4, pathname.length);
+
+  const endpoint =
+    process.env.API_URL +
+    path +
+    (searchParams.size > 0 ? `?${searchParams.toString()}` : '');
 
   const contentType = request.headers.get('Content-Type');
 
@@ -163,9 +182,14 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const host = process.env.APP_HOST;
-  const local = host + '/api/';
-  const endpoint = process.env.API_URL + '/' + request.url.slice(local.length);
+  const { pathname, searchParams } = request.nextUrl;
+
+  const path = pathname.slice(4, pathname.length);
+
+  const endpoint =
+    process.env.API_URL +
+    path +
+    (searchParams.size > 0 ? `?${searchParams.toString()}` : '');
 
   const cookieStore = cookies();
   const accessToken = cookieStore.get('frv:token');
