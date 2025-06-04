@@ -5,7 +5,7 @@ import frame from '@/assets/images/login-frame.png';
 
 import logoFrancaVenda from '@/assets/images/logo-francavenda-lightmode.png';
 import { Metadata } from 'next';
-import FormRedefinirSenha from './_components/FormRedefinirSenha';
+import FormRedefinirSenha from './components/FormRedefinirSenha';
 
 export const metadata: Metadata = {
   title: 'Redefinir senha',

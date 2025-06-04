@@ -4,7 +4,8 @@ import frame from '@/assets/images/login-frame.png';
 
 import logoFrancaVenda from '@/assets/images/logo-francavenda-lightmode.png';
 import { Metadata } from 'next';
-import FormEsqueciMinhaSenha from './_components/FormEsqueciMinhaSenha';
+import FormEsqueciMinhaSenha from './components/FormEsqueciMinhaSenha';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'Esqueci minha senha',
@@ -23,7 +24,9 @@ export default function Home() {
           Não se preocupe. Informe aqui o endereço de e-mail de sua conta que
           enviaremos para você um código de recuperação
         </p>
-        <FormEsqueciMinhaSenha />
+        <Suspense>
+          <FormEsqueciMinhaSenha />
+        </Suspense>
       </div>
       <aside className="flex-1">
         <figure className="relative w-full h-full">
