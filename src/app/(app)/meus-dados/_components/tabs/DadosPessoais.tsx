@@ -79,33 +79,31 @@ export function DadosPessoais() {
   const formMethods = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: async () => {
-      return fetch('/api/me')
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.naturalidade) {
-            setOptMunicipio([
-              {
-                value: data.naturalidade.id.toString(),
-                label: `${data.naturalidade.municipio} - ${data.naturalidade.uf}`,
-              },
-            ]);
-          }
-          return {
-            nome: data.nome,
-            apelido: data.apelido || '',
-            email: data.email,
-            celular: data.celular ? maskTelefone(data.celular) : '',
-            cpf: data.cpf ? maskCpf(data.cpf) : '',
-            rg: data.rg || '',
-            rg_emissor: data.rg_emissor || '',
-            naturalidade_id: data.naturalidade
-              ? data.naturalidade.id.toString()
-              : '',
-            mae: data.mae || '',
-            sexo_id: data.sexo?.id,
-            nascimento: data.nascimento ? dateBr(data.nascimento) : '',
-          };
-        });
+      return axios.get('/api/me').then((res) => {
+        if (res.data.naturalidade) {
+          setOptMunicipio([
+            {
+              value: res.data.naturalidade.id.toString(),
+              label: `${res.data.naturalidade.municipio} - ${res.data.naturalidade.uf}`,
+            },
+          ]);
+        }
+        return {
+          nome: res.data.nome,
+          apelido: res.data.apelido || '',
+          email: res.data.email,
+          celular: res.data.celular ? maskTelefone(res.data.celular) : '',
+          cpf: res.data.cpf ? maskCpf(res.data.cpf) : '',
+          rg: res.data.rg || '',
+          rg_emissor: res.data.rg_emissor || '',
+          naturalidade_id: res.data.naturalidade
+            ? res.data.naturalidade.id.toString()
+            : '',
+          mae: res.data.mae || '',
+          sexo_id: res.data.sexo?.id,
+          nascimento: res.data.nascimento ? dateBr(res.data.nascimento) : '',
+        };
+      });
     },
   });
 
